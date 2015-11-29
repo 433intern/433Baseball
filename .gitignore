@@ -28,6 +28,7 @@ proguard/
 
 # Visual C++ cache files
 ipch/
+433BaseballMainServer/Debug/
 *.aps
 *.ncb
 *.opensdf
