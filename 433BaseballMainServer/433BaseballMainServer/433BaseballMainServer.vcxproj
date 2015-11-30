@@ -85,9 +85,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
     <ClInclude Include="Act.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ClientAct.h" />
+    <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="Connector.h" />
     <ClInclude Include="DBAct.h" />
     <ClInclude Include="DBManager.h" />
@@ -101,9 +104,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="Act.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ClientAct.cpp" />
+    <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="Connector.cpp" />
     <ClCompile Include="DBAct.cpp" />
     <ClCompile Include="DBManager.cpp" />

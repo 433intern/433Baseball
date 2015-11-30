@@ -72,9 +72,6 @@
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="DBManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Proactor.h">
       <Filter>헤더 파일\Proactor</Filter>
     </ClInclude>
@@ -107,6 +104,18 @@
     </ClInclude>
     <ClInclude Include="GlobalManager.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientManager.h">
+      <Filter>헤더 파일\ClientManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>헤더 파일\DBManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSocket.h">
+      <Filter>헤더 파일\ClientManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Acceptor.h">
+      <Filter>헤더 파일\Proactor\ChildrenOfActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +157,15 @@
     </ClCompile>
     <ClCompile Include="GlobalManager.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientManager.cpp">
+      <Filter>소스 파일\ClientManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSocket.cpp">
+      <Filter>소스 파일\ClientManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Acceptor.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

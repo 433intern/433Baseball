@@ -1,8 +1,8 @@
 #pragma once
-class CDBAct
+
+typedef struct CDBAct : public CAct
 {
-public:
 	CDBAct();
 	~CDBAct();
-};
+}CDBAct;
 

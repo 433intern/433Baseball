@@ -4,7 +4,6 @@ CActor::CActor()
 {
 }
 
-
 CActor::~CActor()
 {
 }

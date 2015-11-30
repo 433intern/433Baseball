@@ -10,6 +10,8 @@
 #include <WinSock2.h>
 #include <Windows.h>
 
+#include <MSWSock.h>
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -17,11 +19,19 @@
 
 #include <mysql.h>
 
+//----------------------------------------------------
+
+#define SERVERPORT		9000
+#define BUFSIZE			5012
+
+//----------------------------------------------------
+
 struct CGlobalManager;
 
 class CLogWriter;
 
 class CDBManager;
+class CClientManager;
 
 class CActor;
 
@@ -29,13 +39,16 @@ class CConnector;
 class CDisconnector;
 class CReceiver;
 class CSender;
+class CAcceptor;
 
 struct CProactor;
 
-class CAct;
+struct CClientSocket;
 
-class CClientAct;
-class CDBAct;
+struct CAct;
+
+struct CClientAct;
+struct CDBAct;
 
 extern CGlobalManager *globalManager;
 
@@ -45,15 +58,21 @@ extern CGlobalManager *globalManager;
 
 #include "GlobalManager.h"
 
+#include "ClientSocket.h"
+
 #include "Act.h"
 #include "ClientAct.h"
 #include "DBAct.h"
 
 #include "Actor.h"
+
 #include "Connector.h"
 #include "Disconnector.h"
 #include "Sender.h"
 #include "Receiver.h"
+#include "Acceptor.h"
+
 #include "Proactor.h"
 
 #include "DBManager.h"
+#include "ClientManager.h"
