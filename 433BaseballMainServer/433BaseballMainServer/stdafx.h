@@ -3,6 +3,7 @@
 #include "targetver.h"
 
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "Mswsock.lib")
 
 #include <stdio.h>
 #include <tchar.h>
@@ -21,8 +22,10 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT		9000
-#define BUFSIZE			5012
+#define SERVERPORT			9000
+#define BUFSIZE				5012
+#define SOCKET_POOL_SIZE	3000
+#define HEADER_SIZE			2
 
 //----------------------------------------------------
 
@@ -43,6 +46,7 @@ class CAcceptor;
 
 struct CProactor;
 
+struct CSockInfo;
 struct CClientSocket;
 
 struct CAct;
@@ -58,11 +62,13 @@ extern CGlobalManager *globalManager;
 
 #include "GlobalManager.h"
 
-#include "ClientSocket.h"
-
 #include "Act.h"
 #include "ClientAct.h"
 #include "DBAct.h"
+
+#include "SockInfo.h"
+#include "ClientSocket.h"
+#include "ListenSocket.h"
 
 #include "Actor.h"
 

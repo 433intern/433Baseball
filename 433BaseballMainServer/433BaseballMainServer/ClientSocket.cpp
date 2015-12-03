@@ -17,6 +17,7 @@ bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorP
 	wsaSendBuf.buf = sendBuf;
 	wsaSendBuf.len = BUFSIZE;
 
+	memset(acceptBuf, 0, BUFSIZE);
 	memset(recvBuf, 0, BUFSIZE);
 	memset(sendBuf, 0, BUFSIZE);
 
@@ -28,29 +29,51 @@ bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorP
 	sender = senderParam;
 	acceptor = acceptorParam;
 
-	acts[CONNECT].Initializer(connector);
-	acts[DISCONNECT].Initializer(disconnector);
-	acts[RECEIVE].Initializer(receiver);
-	acts[SEND].Initializer(sender);
-	acts[ACCEPT].Initializer(acceptor);
+	if (!acts[CONNECT].Initializer(connector, this))
+	{
+		MYPRINTF("error on acts[CONNECT].Initializer in Initializer of CClientSocket : %d\n", WSAGetLastError());
+		return false;
+	}
+	if (!acts[DISCONNECT].Initializer(disconnector, this))
+	{
+		MYPRINTF("error on acts[DISCONNECT].Initializer in Initializer of CClientSocket : %d\n", WSAGetLastError());
+		return false;
+	}
+	if (!acts[RECEIVE].Initializer(receiver, this))
+	{
+		MYPRINTF("error on acts[RECEIVE].Initializer in Initializer of CClientSocket : %d\n", WSAGetLastError());
+		return false;
+	}
+	if (!acts[SEND].Initializer(sender, this))
+	{
+		MYPRINTF("error on acts[SEND].Initializer in Initializer of CClientSocket : %d\n", WSAGetLastError());
+		return false;
+	}
+	if(!acts[ACCEPT].Initializer(acceptor, this))
+	{
+		MYPRINTF("error on acts[ACCEPT].Initializer in Initializer of CClientSocket : %d\n", WSAGetLastError());
+		return false;
+	}
+
+	return true;
 }
 
-bool Recv(TCHAR *buf, int bufSize)
+bool CClientSocket::Recv(CHAR *buf, int bufSize)
 {
 	return true;
 }
 
-bool Send(TCHAR *buf, int bufSize)
+bool CClientSocket::Send(CHAR *buf, int bufSize)
 {
 	return true;
 }
 
-bool Connect()
+bool CClientSocket::Connect()
 {
 	return true;
 }
 
-bool Disconnect()
+bool CClientSocket::Disconnect()
 {
 	return true;
 }

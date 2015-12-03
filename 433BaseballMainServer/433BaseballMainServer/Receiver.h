@@ -1,13 +1,12 @@
 #pragma once
-class CReceiver : public CActor
+typedef struct CReceiver : public CActor
 {
-public:
 	CReceiver();
 	~CReceiver();
 
-	bool EventProc(DWORD receivedBytes);
-	bool ErrorProc(DWORD error);
+	bool EventProc(CAct *act, DWORD receivedBytes);
+	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer();
-};
+	bool Initializer(CProactor *proactor);
+}CReceiver;
 

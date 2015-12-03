@@ -1,14 +1,16 @@
 #pragma once
 
-class CAcceptor : public CActor
+typedef struct CAcceptor : public CActor
 {
+	CListenSocket listenSocket;
 public:
 	CAcceptor();
 	~CAcceptor();
 
-	bool EventProc(DWORD receivedBytes);
-	bool ErrorProc(DWORD error);
+	bool EventProc(CAct *act, DWORD receivedBytes);
+	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer();
-};
+	bool Initializer(CProactor *proactor);
 
+	bool Register(CClientSocket &clientSocket, int size);
+}CAcceptor;

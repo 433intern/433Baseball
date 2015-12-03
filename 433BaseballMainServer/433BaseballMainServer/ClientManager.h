@@ -1,22 +1,25 @@
 #pragma once
 class CClientManager
 {
-	HANDLE					iocp;
-	std::vector<HANDLE>		threads;
+	HANDLE							iocp;
+	std::vector<HANDLE>				threads;
 
-	CClientSocket			socket;
-	CProactor				proactor;
+	CListenSocket					listenSocket;
+	CProactor						proactor;
 
-	CConnector				connector;
-	CDisconnector			disconnector;
-	CReceiver				receiver;
-	CSender					sender;
-	CAcceptor				acceptor;
+	CConnector						connector;
+	CDisconnector					disconnector;
+	CReceiver						receiver;
+	CSender							sender;
+	CAcceptor						acceptor;
+
+	int								socketPoolSize;
+	std::vector<CClientSocket*>		sockets;
 public:
 	CClientManager();
 	~CClientManager();
 
-	bool Initializer(const int &threadNum);
-	bool Bind(bool reuse);
+	bool Initializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
+	bool CreateAndBind(CClientSocket &socket, bool reuse);
 };
 

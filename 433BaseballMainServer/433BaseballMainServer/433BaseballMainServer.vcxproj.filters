@@ -61,6 +61,24 @@
     <Filter Include="헤더 파일\Utilities">
       <UniqueIdentifier>{25f3b68e-b8c1-46be-9595-81aebcc78103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Proactor\SockInfo">
+      <UniqueIdentifier>{79e48a96-6341-4715-87d5-ba1ed5f25cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Proactor\SockInfo">
+      <UniqueIdentifier>{def7a236-d36a-4d46-93e0-636f571a0aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\SockInfo\Client">
+      <UniqueIdentifier>{910632b9-1f53-49a9-acf8-ccf98a0b3149}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\SockInfo\DB">
+      <UniqueIdentifier>{196d0d3d-534b-4070-8394-5b6f81b1c0a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Proactor\SockInfo\Client">
+      <UniqueIdentifier>{28c31ddc-dd50-465b-b8b4-783d930178de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Proactor\SockInfo\DB">
+      <UniqueIdentifier>{e56c35e9-37d4-4d68-b9bf-9488faef2c94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -111,11 +129,17 @@
     <ClInclude Include="DBManager.h">
       <Filter>헤더 파일\DBManager</Filter>
     </ClInclude>
-    <ClInclude Include="ClientSocket.h">
-      <Filter>헤더 파일\ClientManager</Filter>
-    </ClInclude>
     <ClInclude Include="Acceptor.h">
       <Filter>헤더 파일\Proactor\ChildrenOfActor</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSocket.h">
+      <Filter>헤더 파일\Proactor\SockInfo\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="SockInfo.h">
+      <Filter>헤더 파일\Proactor\SockInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>헤더 파일\Proactor\SockInfo\Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +185,17 @@
     <ClCompile Include="ClientManager.cpp">
       <Filter>소스 파일\ClientManager</Filter>
     </ClCompile>
-    <ClCompile Include="ClientSocket.cpp">
-      <Filter>소스 파일\ClientManager</Filter>
-    </ClCompile>
     <ClCompile Include="Acceptor.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSocket.cpp">
+      <Filter>소스 파일\Proactor\SockInfo\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="SockInfo.cpp">
+      <Filter>소스 파일\Proactor\SockInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenSocket.cpp">
+      <Filter>소스 파일\Proactor\SockInfo\Client</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

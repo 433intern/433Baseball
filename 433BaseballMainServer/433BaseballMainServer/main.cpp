@@ -20,13 +20,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	GetSystemInfo(&systemInfo);
 
-	if (!dbManager.Initializer(systemInfo.dwNumberOfProcessors << 1))
+	/*if (!dbManager.Initializer(systemInfo.dwNumberOfProcessors << 1))
 	{
 		MYPRINTF("error in Initializer : %d\n", GetLastError());
 		return 0;
-	}
+	}*/
 
-	if (!clientManager.Initializer(systemInfo.dwNumberOfProcessors << 1))
+	if (!clientManager.Initializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
 	{
 		MYPRINTF("error in Initializer : %d\n", GetLastError());
 		return 0;

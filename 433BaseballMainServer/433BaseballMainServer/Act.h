@@ -7,7 +7,7 @@ typedef struct CAct : public OVERLAPPED
 	CAct();
 	~CAct();
 
-	bool Initializer(CActor *actor);
+	bool Initializer(CActor *actors);
 
 	virtual bool Complete(DWORD bytes_transferred) = 0;
 	virtual bool Error(DWORD error) = 0;

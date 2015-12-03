@@ -1,13 +1,12 @@
 #pragma once
-class CDisconnector : public CActor
+typedef struct CDisconnector : public CActor
 {
-public:
 	CDisconnector();
 	~CDisconnector();
 
-	bool EventProc(DWORD receivedBytes);
-	bool ErrorProc(DWORD error);
+	bool EventProc(CAct *act, DWORD receivedBytes);
+	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer();
-};
+	bool Initializer(CProactor *proactor);
+}CDisconnector;
 

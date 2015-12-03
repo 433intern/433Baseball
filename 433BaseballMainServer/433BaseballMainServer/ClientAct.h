@@ -2,20 +2,14 @@
 
 typedef struct CClientAct : public CAct
 {
-	CClientSocket clientSocket;
+	CClientSocket *clientSocket;
 
 	CClientAct();
 	~CClientAct();
 
-	bool Initializer(CActor *actor);
+	bool Initializer(CActor *actorParam, CClientSocket *sock);
 
-	bool Complete(DWORD bytes_transferred)
-	{
-		actor->EventProc(bytes_transferred);
-	}
+	bool Complete(DWORD bytes_transferred);
 
-	bool Error(DWORD error)
-	{
-		actor->ErrorProc(error);
-	}
+	bool Error(DWORD error);
 }CClientAct;

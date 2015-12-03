@@ -1,12 +1,11 @@
 #pragma once
-class CSender : public CActor
+typedef struct CSender : public CActor
 {
-public:
 	CSender();
 	~CSender();
 
-	bool EventProc(DWORD receivedBytes);
-	bool ErrorProc(DWORD error);
+	bool EventProc(CAct *act, DWORD receivedBytes);
+	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer();
-};
+	bool Initializer(CProactor *proactor);
+}CSender;

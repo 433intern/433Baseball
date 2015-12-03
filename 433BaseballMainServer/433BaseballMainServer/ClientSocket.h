@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CClientSocket
+typedef struct CClientSocket : public CSockInfo
 {
 	enum ACT_TYPE
 	{
@@ -16,10 +16,7 @@ typedef struct CClientSocket
 		LPFN_CONNECTEX ConnectEx;
 	} mswsock;
 
-	SOCKET			socket;
-	SOCKADDR_IN		addr;
-
-	CClientAct		acts[TYPE_CNT];
+	CClientAct		acts[ACT_TYPE::TYPE_CNT];
 
 	CProactor		*proactor;
 
@@ -29,6 +26,7 @@ typedef struct CClientSocket
 	CSender			*sender;
 	CAcceptor		*acceptor;
 
+	CHAR			acceptBuf[BUFSIZE];
 	CHAR			recvBuf[BUFSIZE];
 	CHAR			sendBuf[BUFSIZE];
 

@@ -8,6 +8,8 @@ typedef struct CProactor
 	CProactor();
 	~CProactor();
 
-	bool Initializer(const HANDLE &deviceHandle, const int &threadNum);
+	bool Initializer(const int &threadNum);
+	bool Register(const HANDLE &deviceHandle);
+	bool ProcEvents();
 }CProactor;
 

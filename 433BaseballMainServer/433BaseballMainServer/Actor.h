@@ -5,6 +5,8 @@ public:
 	CActor();
 	~CActor();
 
-	virtual bool EventProc(DWORD receivedBytes) = 0;
-	virtual bool ErrorProc(DWORD error) = 0;
+	CProactor		*proactor;
+
+	virtual bool EventProc(CAct *act, DWORD receivedBytes) = 0;
+	virtual bool ErrorProc(CAct *act, DWORD error) = 0;
 };

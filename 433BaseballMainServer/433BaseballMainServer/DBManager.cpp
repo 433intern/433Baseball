@@ -48,7 +48,7 @@ bool CDBManager::Initializer(const int &threadNum)
 	}
 	mysql_free_result(sqlResult);*/
 
-	if (!proactor.Initializer(dbHandle, threadNum))
+	if (!proactor.Initializer(threadNum))
 		return false;
 
 	return true;

@@ -1,13 +1,13 @@
 #pragma once
-class CConnector : public CActor
+typedef struct CConnector : public CActor
 {
 public:
 	CConnector();
 	~CConnector();
 
-	bool EventProc(DWORD receivedBytes);
-	bool ErrorProc(DWORD error);
+	bool EventProc(CAct *act, DWORD receivedBytes);
+	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer();
-};
+	bool Initializer(CProactor *proactor);
+}CConnector;
 
