@@ -9,9 +9,10 @@
 #include <tchar.h>
 
 #include <WinSock2.h>
-#include <Windows.h>
-
+#include <WS2tcpip.h>
 #include <MSWSock.h>
+
+#include <Windows.h>
 
 #include <iostream>
 #include <vector>
@@ -23,7 +24,7 @@
 //----------------------------------------------------
 
 #define SERVERPORT			9000
-#define BUFSIZE				5012
+#define BUFSIZE				1024
 #define SOCKET_POOL_SIZE	3000
 #define HEADER_SIZE			2
 

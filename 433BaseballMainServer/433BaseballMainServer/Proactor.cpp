@@ -57,7 +57,7 @@ bool CProactor::Initializer(const int &threadNum)
 		return false;
 	}
 
-	HANDLE iocp = (HANDLE)CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, threadNum);
+	iocp = (HANDLE)CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, threadNum);
 
 	if (NULL == iocp)
 	{
@@ -70,7 +70,7 @@ bool CProactor::Initializer(const int &threadNum)
 	iocpThreads.resize(threadNum);
 	for (int k = 0; k < threadNum; ++k)
 	{
-		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, WorkerThread, NULL, NULL, NULL);
+		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, WorkerThread, (void*)this, NULL, NULL);
 
 		if (NULL == threadHandle)
 		{
@@ -83,7 +83,7 @@ bool CProactor::Initializer(const int &threadNum)
 	return true;
 }
 
-bool CProactor::Register(const HANDLE &deviceHandle)
+bool CProactor::Register(HANDLE deviceHandle)
 {
 	HANDLE result = (HANDLE)CreateIoCompletionPort(deviceHandle, iocp, NULL, NULL);
 	if (NULL == result)

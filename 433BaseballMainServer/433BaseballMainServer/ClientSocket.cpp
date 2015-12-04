@@ -11,16 +11,6 @@ CClientSocket::~CClientSocket()
 bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorParam, CDisconnector *disconnectorParam
 	, CReceiver *receiverParam, CSender *senderParam, CAcceptor *acceptorParam)
 {
-	wsaRecvBuf.buf = recvBuf;
-	wsaRecvBuf.len = BUFSIZE;
-
-	wsaSendBuf.buf = sendBuf;
-	wsaSendBuf.len = BUFSIZE;
-
-	memset(acceptBuf, 0, BUFSIZE);
-	memset(recvBuf, 0, BUFSIZE);
-	memset(sendBuf, 0, BUFSIZE);
-
 	proactor = proactorParam;
 
 	connector = connectorParam;
@@ -75,5 +65,20 @@ bool CClientSocket::Connect()
 
 bool CClientSocket::Disconnect()
 {
+	return true;
+}
+
+bool CClientSocket::InitBuf()
+{
+	wsaRecvBuf.buf = recvBuf;
+	wsaRecvBuf.len = BUFSIZE;
+
+	wsaSendBuf.buf = sendBuf;
+	wsaSendBuf.len = BUFSIZE;
+
+	memset(acceptBuf, 0, BUFSIZE);
+	memset(recvBuf, 0, BUFSIZE);
+	memset(sendBuf, 0, BUFSIZE);
+
 	return true;
 }

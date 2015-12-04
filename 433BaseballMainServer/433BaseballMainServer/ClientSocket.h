@@ -42,5 +42,6 @@ typedef struct CClientSocket : public CSockInfo
 	bool Send(CHAR *buf, int bufSize);
 	bool Connect();
 	bool Disconnect();
+	bool InitBuf();
 }CClientSocket;
 

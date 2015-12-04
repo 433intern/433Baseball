@@ -2,7 +2,7 @@
 
 typedef struct CSockInfo
 {
-	SOCKET			socket;
+	SOCKET			sock;
 	SOCKADDR_IN		addr;
 
 	CSockInfo();

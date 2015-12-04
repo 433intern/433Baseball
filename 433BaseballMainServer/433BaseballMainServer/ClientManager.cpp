@@ -10,19 +10,21 @@ CClientManager::~CClientManager()
 {
 }
 
-bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize, const WORD &port)
+bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsizeParam, const WORD &port)
 {
-	connector.Initializer(&proactor);
-	disconnector.Initializer(&proactor);
-	receiver.Initializer(&proactor);
-	sender.Initializer(&proactor);
-	acceptor.Initializer(&proactor);
+	socketPoolSize = socketPoolsizeParam;
 
-	if (!listenSocket.Init(port))
+	if (!listenSocket.Init(port, 100))
 	{
 		MYPRINTF("Error on Init of ListenSocket in Initializer of CClientManager : %d\n", WSAGetLastError());
 		return false;
 	}
+
+	connector.Initializer(&proactor);
+	disconnector.Initializer(&proactor);
+	receiver.Initializer(&proactor);
+	sender.Initializer(&proactor);
+	acceptor.Initializer(listenSocket, &proactor);
 
 	if (!proactor.Initializer(threadNum))
 	{
@@ -30,7 +32,7 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 		return false;
 	}
 
-	if (!proactor.Register((HANDLE)listenSocket.socket))
+	if (!proactor.Register((HANDLE)listenSocket.sock))
 	{
 		MYPRINTF("Error on Register functino of proactor in CClientManager : %d\n", WSAGetLastError());
 		return false;
@@ -38,55 +40,46 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 
 	listenSocket.Listen();
 
-	CClientSocket *socket;
+	socketPoolSize = 1;
 
 	sockets.resize(socketPoolSize);
 
 	for (int k = 0; k < socketPoolSize; ++k)
 	{
-		socket = new CClientSocket();
+		CClientSocket *socket = new CClientSocket();
+
+		if (!SocketCreate(*socket))
+		{
+			MYPRINTF("Error on SocketCreate functino of CClientManager : %d\n", WSAGetLastError());
+			return false;
+		}
+
+		socket->InitBuf();
 
 		socket->Initializer(&proactor, &connector, &disconnector, &receiver, &sender, &acceptor);
-
-		if (!CreateAndBind(*socket, false))
-		{
-			MYPRINTF("Error on CreateAndBind functino of CClientManager : %d\n", WSAGetLastError());
-			return false;
-		} 
 		
 		acceptor.Register(*socket, 0);
 		
-		sockets.push_back(socket);
+		//sockets.push_back(socket);
 	}
 
 	return true;
 }
 
-bool CClientManager::CreateAndBind(CClientSocket &socket, bool reuse)
+bool CClientManager::SocketCreate(CClientSocket &socket)
 {
 	int result;
 
-	if (!reuse)
+	//if (!reuse)
 	{
-		socket.socket = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
-		if (INVALID_SOCKET == socket.socket)
+		socket.sock = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+		//socket.sock = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+		if (INVALID_SOCKET == socket.sock)
 		{
 			MYPRINTF("Error on WSASocket in Bind function of CClientManager : %d\n", WSAGetLastError());
 			return false;
 		}
-	}
-	
-	struct sockaddr_in addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	addr.sin_port = htons(SERVERPORT);
-
-	result = bind(socket.socket, (SOCKADDR*)&addr, sizeof(addr));
-	if (SOCKET_ERROR == result)
-	{
-		MYPRINTF("Error on bind in Bind function of CClientManager : %d\n", WSAGetLastError());
-		return false;
 	}
 
 	return true;

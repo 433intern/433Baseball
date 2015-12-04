@@ -15,7 +15,7 @@ bool CListenSocket::Listen()
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(SERVERPORT);
 
-	int result = bind(socket, (SOCKADDR*)&addr, sizeof(addr));
+	int result = bind(sock, (SOCKADDR*)&addr, sizeof(addr));
 
 	if (SOCKET_ERROR == result)
 	{
@@ -23,7 +23,7 @@ bool CListenSocket::Listen()
 		return false;
 	}
 
-	result = listen(socket, backlogSize);
+	result = listen(sock, backlogSize);
 	
 	if (SOCKET_ERROR == result)
 	{
@@ -37,8 +37,9 @@ bool CListenSocket::Listen()
 bool CListenSocket::Init(WORD port, int backlogSizeParam)
 {
 	this->backlogSize = backlogSizeParam;
-	socket = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
-	if (INVALID_SOCKET == socket)
+	sock = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+
+	if (INVALID_SOCKET == sock)
 	{
 		MYPRINTF("Error on WSASocket in Init function of CListenSocket : %d\n", WSAGetLastError());
 		return false;

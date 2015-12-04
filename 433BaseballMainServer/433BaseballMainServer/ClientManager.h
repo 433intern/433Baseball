@@ -20,6 +20,6 @@ public:
 	~CClientManager();
 
 	bool Initializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
-	bool CreateAndBind(CClientSocket &socket, bool reuse);
+	bool SocketCreate(CClientSocket &socket);
 };
 
