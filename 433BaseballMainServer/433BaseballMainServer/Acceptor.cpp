@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+WSAOVERLAPPED olOverlap;
+
 CAcceptor::CAcceptor()
 {
 }
@@ -56,26 +58,7 @@ bool CAcceptor::Register(CClientSocket &clientSocket, int size)
 {
 	DWORD byteTransferred;
 
-	/*int error_code;
-	int error_code_size = sizeof(error_code);
-	getsockopt(clientSocket.socket, SOL_SOCKET, SO_CONNECT_TIME, (char*)&error_code, &error_code_size);
-
-	int error = WSAGetLastError();
-
-	int addrSize = sizeof(listenSocket->addr);*/
-
-	//SOCKET socket = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
-
-	/*BOOL result = AcceptEx(
-		listenSocket->socket,
-		clientSocket.socket,
-		clientSocket.acceptBuf,
-		size,
-		sizeof(SOCKADDR_IN)+16,
-		sizeof(SOCKADDR_IN)+16,
-		&byteTransferred,
-		static_cast<OVERLAPPED*>(&clientSocket.acts[CClientSocket::ACT_TYPE::ACCEPT])
-		);*/
+	memset(&olOverlap, 0, sizeof (olOverlap));
 
 	BOOL result = lpfnAcceptEx(listenSocket->sock, clientSocket.sock, clientSocket.acceptBuf,
 		BUFSIZE - ((sizeof (sockaddr_in)+16) << 1),

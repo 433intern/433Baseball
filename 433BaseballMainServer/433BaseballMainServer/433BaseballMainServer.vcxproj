@@ -53,6 +53,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\Connector.C++ 1.1\include;%(AdditionalIncludeDirectories);C:\Program Files (x86)\MySQL\Connector.C++ 1.1\include;$(BOOST_ROOT);$BOOST_ROOT;C:\boost_1_59_0</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <ProgramDataBaseFileName>$(IntDir)vc$(ProjectName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

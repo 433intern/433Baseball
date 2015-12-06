@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 	
-	globalManager = new CGlobalManager();
+	//globalManager = new CGlobalManager();
 
 	GetSystemInfo(&systemInfo);
 

@@ -14,9 +14,15 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 {
 	socketPoolSize = socketPoolsizeParam;
 
+	if (!proactor.Initializer(threadNum))
+	{
+		MYPRINTF("Error on Initializer functino of proactor in CClientManager : %d\n", WSAGetLastError());
+		return false;
+	}
+
 	if (!listenSocket.Init(port, 100))
 	{
-		MYPRINTF("Error on Init of ListenSocket in Initializer of CClientManager : %d\n", WSAGetLastError());
+		MYPRINTF("Error on Init of listenSocket.sock in Initializer of CClientManager : %d\n", WSAGetLastError());
 		return false;
 	}
 
@@ -25,12 +31,6 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 	receiver.Initializer(&proactor);
 	sender.Initializer(&proactor);
 	acceptor.Initializer(listenSocket, &proactor);
-
-	if (!proactor.Initializer(threadNum))
-	{
-		MYPRINTF("Error on Initializer functino of proactor in CClientManager : %d\n", WSAGetLastError());
-		return false;
-	}
 
 	if (!proactor.Register((HANDLE)listenSocket.sock))
 	{
@@ -60,7 +60,7 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 		
 		acceptor.Register(*socket, 0);
 		
-		//sockets.push_back(socket);
+		sockets.push_back(socket);
 	}
 
 	return true;

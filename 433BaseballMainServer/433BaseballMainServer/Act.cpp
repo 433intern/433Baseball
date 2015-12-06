@@ -2,6 +2,13 @@
 
 CAct::CAct()
 {
+	hEvent = NULL;
+	Internal = 0;
+	InternalHigh = 0;
+	Offset = 0;
+	OffsetHigh = 0;
+
+	actor = NULL;
 }
 
 CAct::~CAct()
