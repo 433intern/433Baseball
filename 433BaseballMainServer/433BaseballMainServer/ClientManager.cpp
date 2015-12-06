@@ -42,7 +42,7 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 
 	socketPoolSize = 1;
 
-	sockets.resize(socketPoolSize);
+	sockets.reserve(socketPoolSize);
 
 	for (int k = 0; k < socketPoolSize; ++k)
 	{

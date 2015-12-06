@@ -93,9 +93,15 @@
     <ClInclude Include="ClientAct.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="ClientSocket.h" />
+    <ClInclude Include="ClientSocketStates.h" />
     <ClInclude Include="Connector.h" />
     <ClInclude Include="DBAct.h" />
+    <ClInclude Include="DBConnector.h" />
+    <ClInclude Include="DBDisconnector.h" />
+    <ClInclude Include="DBHandle.h" />
+    <ClInclude Include="DBHarvester.h" />
     <ClInclude Include="DBManager.h" />
+    <ClInclude Include="DBQuerier.h" />
     <ClInclude Include="Disconnector.h" />
     <ClInclude Include="GlobalManager.h" />
     <ClInclude Include="ListenSocket.h" />
@@ -104,6 +110,8 @@
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="Sender.h" />
     <ClInclude Include="SockInfo.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -114,9 +122,15 @@
     <ClCompile Include="ClientAct.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
+    <ClCompile Include="ClientSocketStates.cpp" />
     <ClCompile Include="Connector.cpp" />
     <ClCompile Include="DBAct.cpp" />
+    <ClCompile Include="DBConnector.cpp" />
+    <ClCompile Include="DBDisconnector.cpp" />
+    <ClCompile Include="DBHandle.cpp" />
+    <ClCompile Include="DBHarvester.cpp" />
     <ClCompile Include="DBManager.cpp" />
+    <ClCompile Include="DBQuerier.cpp" />
     <ClCompile Include="Disconnector.cpp" />
     <ClCompile Include="GlobalManager.cpp" />
     <ClCompile Include="ListenSocket.cpp" />

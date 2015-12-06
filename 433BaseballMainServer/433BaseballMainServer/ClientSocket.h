@@ -16,21 +16,23 @@ typedef struct CClientSocket : public CSockInfo
 		LPFN_CONNECTEX ConnectEx;
 	} mswsock;
 
-	CClientAct		acts[ACT_TYPE::TYPE_CNT];
+	CClientAct						acts[ACT_TYPE::TYPE_CNT];
 
-	CProactor		*proactor;
+	CProactor						*proactor;
 
-	CConnector		*connector;
-	CDisconnector	*disconnector;
-	CReceiver		*receiver;
-	CSender			*sender;
-	CAcceptor		*acceptor;
+	CConnector						*connector;
+	CDisconnector					*disconnector;
+	CReceiver						*receiver;
+	CSender							*sender;
+	CAcceptor						*acceptor;
 
-	CHAR			acceptBuf[BUFSIZE];
-	CHAR			recvBuf[BUFSIZE];
-	CHAR			sendBuf[BUFSIZE];
+	CHAR							acceptBuf[BUFSIZE];
+	CHAR							recvBuf[BUFSIZE];
+	CHAR							sendBuf[BUFSIZE];
 
-	WSABUF			wsaRecvBuf, wsaSendBuf;
+	WSABUF							wsaRecvBuf, wsaSendBuf;
+
+	StateMachine<CClientSocket>		stateMachine;
 
 	CClientSocket();
 	~CClientSocket();

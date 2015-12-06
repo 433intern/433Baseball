@@ -2,20 +2,27 @@
 
 class CDBManager
 {
-	HANDLE		deviceHandle;
-	CProactor	proactor;
+	HANDLE					deviceHandle;
+	CProactor				proactor;
 
-	MYSQL *dbConnection, connTmp;
-	MYSQL_RES *sqlResult;
+	MYSQL					connTmp;
+	MYSQL_RES				*sqlResult;
 
-	const std::string dbHost;
-	const std::string dbUser;
-	const std::string dbPasswd;
-	const std::string dbSchema;
+	const std::string		dbHost;
+	const std::string		dbUser;
+	const std::string		dbPasswd;
+	const std::string		dbSchema;
+
+	int						threadPoolSize, handlePoolSize;
+	
+	HANDLE					dbHandleSemaphore;
+	std::vector<CDBHandle*>	dbHandles;
 public:
-	CDBManager();
+	CDBManager(const std::string &hostAddress, const std::string &userName,
+		const std::string &userPassword, const std::string &schemaName);
 	~CDBManager();
 
-	bool Initializer(const int &threadNum);
-};
+	MYSQL GetAvailableHandle();
 
+	bool Initializer(const int &threadNum, const int &handleNumParam);
+};

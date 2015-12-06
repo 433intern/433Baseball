@@ -1,44 +1,78 @@
 #include "stdafx.h"
 
-CDBManager::CDBManager()
-:dbHost("127.0.0.1"), dbUser("root"), dbPasswd("570104"), dbSchema("player_statics")
+CDBManager::CDBManager(const std::string &hostAddress, const std::string &userName, 
+	const std::string &userPassword, const std::string &schemaName)
+:dbHost(hostAddress), dbUser(userName), dbPasswd(userPassword), dbSchema(schemaName)
 {
+	
+	sqlResult = NULL;
+
+	threadPoolSize = 0;
+	handlePoolSize = 0;
+
+	dbHandleSemaphore = NULL;
 }
 
 CDBManager::~CDBManager()
 {
-	// DB Closing
-	mysql_close(dbConnection);
+	dbHandles.clear();
+
+	mysql_library_end();
 }
 
-bool CDBManager::Initializer(const int &threadNum)
+bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumParam)
 {
-	HANDLE dbHandle = NULL;
 	MYSQL_ROW sqlRow;
 	int queryStat;
 
-	dbConnection = NULL;
+	threadPoolSize = threadNumParam;
+	handlePoolSize = handleNumParam;
+
+	//----------------------------------------------------------
+
+	if (!proactor.Initializer(threadPoolSize))
+	{
+		MYPRINTF("Error on Initializer functino of proactor in Initializer of CDBManager : %d\n", WSAGetLastError());
+		return false;
+	}
+
+	//----------------------------------------------------------
+
+	if (mysql_library_init(0, NULL, NULL))
+	{
+		MYPRINTF("Error on mysql_library_init in Initializer of CDBManager : %s\n", mysql_error());
+		return false;
+	}
 
 	// DB initializing
 	mysql_init(&connTmp);
 
-	// DB connecting
-	dbConnection = mysql_real_connect(&connTmp, dbHost.c_str(), dbUser.c_str()
-		, dbPasswd.c_str(), dbSchema.c_str(), 3306, (char *)NULL, 0);
-	if (NULL == dbConnection)
+	dbHandleSemaphore = CreateSemaphore(NULL, handleNumParam, handleNumParam, L"433Baseball_DBSemaphore");
+	if (NULL == dbHandleSemaphore)
 	{
-		MYPRINTF("error on mysql_real_connect in CDBManager Constructor : %d\n", GetLastError());
+		MYPRINTF("error on CreateSemaphore in initializer of DBManager : %d", GetLastError());
 		return false;
 	}
 
-	// For using Korean
-	mysql_query(dbConnection, "set session character_set_connection=euckr;");
-	mysql_query(dbConnection, "set session character_set_results=euckr;");
-	mysql_query(dbConnection, "set session character_set_client=euckr;");
+	CDBHandle *tmpDbHandle;
+	dbHandles.reserve(handleNumParam);
+	for (int k = 0; k < handleNumParam; ++k)
+	{
+		tmpDbHandle = new CDBHandle(&dbHandleSemaphore);
 
-	// Quering !!
-	//char *query = "CREATE TABLE test(id INT, label CHAR(1))";
-	//queryStat = mysql_query(dbConnection, query);
+		if (!tmpDbHandle->Initializer(connTmp, dbHost, dbUser, dbPasswd, dbSchema))
+		{
+			MYPRINTF("%dth DB Handle Initializing has been canceled by an error : %s\n", mysql_error());
+			return false;
+		}
+
+		dbHandles.push_back(tmpDbHandle);
+	}
+
+	// For using Korean
+	/*Query("set session character_set_connection=euckr;");
+	Query("set session character_set_results=euckr;");
+	Query("set session character_set_client=euckr;");*/
 
 	// Printing the result
 	/*sqlResult = mysql_store_result(connection);
@@ -48,8 +82,6 @@ bool CDBManager::Initializer(const int &threadNum)
 	}
 	mysql_free_result(sqlResult);*/
 
-	if (!proactor.Initializer(threadNum))
-		return false;
-
 	return true;
 }
+

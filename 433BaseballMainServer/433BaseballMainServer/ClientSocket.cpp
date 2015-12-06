@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 CClientSocket::CClientSocket()
+:stateMachine(this)
 {
 }
 
@@ -11,6 +12,8 @@ CClientSocket::~CClientSocket()
 bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorParam, CDisconnector *disconnectorParam
 	, CReceiver *receiverParam, CSender *senderParam, CAcceptor *acceptorParam)
 {
+	stateMachine.SetCurrentState(CWaitMessage::Instance());
+
 	proactor = proactorParam;
 
 	connector = connectorParam;

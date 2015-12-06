@@ -1,9 +1,14 @@
 #pragma once
 typedef struct CGlobalManager
 {
-	CLogWriter logWriter;
+	CLogWriter			logWriter;
 
-	CGlobalManager();
+	CDBManager			*dbManager;
+	CClientManager		*clientManager;
+
+	static CGlobalManager &GetInstance();
 	~CGlobalManager();
+private:
+	CGlobalManager();
 }CGlobalManager;
 

@@ -1,12 +1,16 @@
 #include "stdafx.h"
 
-CGlobalManager *globalManager;
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	SYSTEM_INFO			systemInfo;
-	CDBManager			dbManager;
-	CClientManager		clientManager;
+
+	CDBManager			*dbManager		= new CDBManager("127.0.0.1", "root", "1234", "433Baseball");
+	CClientManager		*clientManager	= new CClientManager();
+
+	CGlobalManager &global = CGlobalManager::GetInstance();
+	
+	global.clientManager = clientManager;
+	global.dbManager = dbManager;
 
 	WSADATA				wsa;
 
@@ -15,21 +19,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		MYPRINTF("Error on WSAStartup in _tmain : %d\n", WSAGetLastError());
 		return 0;
 	}
-	
-	//globalManager = new CGlobalManager();
 
 	GetSystemInfo(&systemInfo);
 
-	/*if (!dbManager.Initializer(systemInfo.dwNumberOfProcessors << 1))
+	if (!clientManager->Initializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
 	{
 		MYPRINTF("error in Initializer : %d\n", GetLastError());
 		return 0;
-	}*/
+	}
 
-	if (!clientManager.Initializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
+	if (!dbManager->Initializer(4, 8))			// thread pool size for DB, DB handle pool size
 	{
-		MYPRINTF("error in Initializer : %d\n", GetLastError());
-		return 0;
+	MYPRINTF("error in Initializer : %d\n", GetLastError());
+	return 0;
 	}
 
 	//------------------------------------
@@ -37,8 +39,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	//------------------------------------
 
 	Sleep(INFINITE);
-
-	delete globalManager;
 
 	WSACleanup();
 

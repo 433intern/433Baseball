@@ -67,7 +67,7 @@ bool CProactor::Initializer(const int &threadNum)
 
 	HANDLE threadHandle;
 
-	iocpThreads.resize(threadNum);
+	iocpThreads.reserve(threadNum);
 	for (int k = 0; k < threadNum; ++k)
 	{
 		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, WorkerThread, (void*)this, NULL, NULL);
