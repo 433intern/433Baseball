@@ -1,5 +1,5 @@
 #pragma once
-typedef struct CReceiver : public CActor
+struct CReceiver : public CActor
 {
 	CReceiver();
 	~CReceiver();
@@ -8,5 +8,5 @@ typedef struct CReceiver : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CReceiver;
+};
 

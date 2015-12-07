@@ -16,32 +16,8 @@
     <Filter Include="소스 파일\Proactor">
       <UniqueIdentifier>{7aba13e1-38c1-46b8-ab85-abc391399299}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ClientManager">
-      <UniqueIdentifier>{985f6820-cc44-4157-811f-79ab1f33306b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\DBManager">
-      <UniqueIdentifier>{75b7b60d-c797-4e69-b4e5-a47d1c40250e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\ClientManager">
-      <UniqueIdentifier>{82206c46-329d-44b9-bfcd-6f07a3edc144}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\DBManager">
-      <UniqueIdentifier>{7911c244-4b98-4b25-b4fc-36b21b0f5b00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\State">
-      <UniqueIdentifier>{5fc7bc10-f13e-4849-b5bd-e072b58b94ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor">
-      <UniqueIdentifier>{89fd0ce9-6608-4daa-be8a-aca67490378b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Proactor\ChildrenOfActor">
       <UniqueIdentifier>{3125f763-e4d9-44a4-9b60-e52ff86aa531}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor\ChildrenOfActor">
-      <UniqueIdentifier>{e1ac7813-5ed9-41fa-bf9a-09a0503315f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor\Acts">
-      <UniqueIdentifier>{e41524b2-866c-4ba2-b391-4ca71d94cf01}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Proactor\Acts">
       <UniqueIdentifier>{e6e57c79-f8d1-4188-acc2-bd049f1c6daf}</UniqueIdentifier>
@@ -49,14 +25,8 @@
     <Filter Include="소스 파일\Proactor\Acts\ChildrenOfAct">
       <UniqueIdentifier>{b5b9a924-011c-48c0-96dc-82ce9c96770d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Proactor\Acts\ChildrenOfAct">
-      <UniqueIdentifier>{f3c9fa1f-e7e1-4d7e-9499-1678c66b60bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Utilities">
       <UniqueIdentifier>{831d027a-88af-4371-90d1-df0ae9a08365}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Utilities">
-      <UniqueIdentifier>{25f3b68e-b8c1-46be-9595-81aebcc78103}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Proactor\HandlesOfIO">
       <UniqueIdentifier>{45cec25d-033c-43e9-94b9-ea0330c2c3ee}</UniqueIdentifier>
@@ -70,123 +40,117 @@
     <Filter Include="소스 파일\Proactor\HandlesOfIO\DBHandle">
       <UniqueIdentifier>{f29922e7-f9e5-41ca-95d0-7efbfd0e70d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Proactor\HandlesOfIO">
-      <UniqueIdentifier>{44d1c3b7-a1b3-487f-ab45-fb4cebc22dd6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor\HandlesOfIO\SockInfo">
-      <UniqueIdentifier>{def7a236-d36a-4d46-93e0-636f571a0aa2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor\HandlesOfIO\SockInfo\Client">
-      <UniqueIdentifier>{28c31ddc-dd50-465b-b8b4-783d930178de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Proactor\HandlesOfIO\DBHandle">
-      <UniqueIdentifier>{5867260b-7813-44a1-b90c-e98c3f37e8a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Proactor\ChildrenOfActor\ClientActors">
       <UniqueIdentifier>{3c4792d4-7da5-4e2e-b199-384b124e4f4f}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Proactor\ChildrenOfActor\DBActors">
       <UniqueIdentifier>{254c9ca8-bc1f-4040-b7ee-4b1c47d687f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Proactor\ChildrenOfActor\ClientActors">
-      <UniqueIdentifier>{2f887e77-f26c-4ea9-a9e5-209af5c7a3ec}</UniqueIdentifier>
+    <Filter Include="소스 파일\State">
+      <UniqueIdentifier>{5fc7bc10-f13e-4849-b5bd-e072b58b94ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Proactor\ChildrenOfActor\DBActors">
-      <UniqueIdentifier>{2057d67e-8fd3-4b7b-8b53-369b5aec7415}</UniqueIdentifier>
+    <Filter Include="소스 파일\Manager">
+      <UniqueIdentifier>{68d2fbf7-6da0-4a95-8592-2277b2c62972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\DBManager">
+      <UniqueIdentifier>{75b7b60d-c797-4e69-b4e5-a47d1c40250e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\ClientManager">
+      <UniqueIdentifier>{985f6820-cc44-4157-811f-79ab1f33306b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\GlobalManager">
+      <UniqueIdentifier>{7d255809-185c-4988-b327-9e874af125cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Proactor.h">
-      <Filter>헤더 파일\Proactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>헤더 파일\Proactor</Filter>
-    </ClInclude>
-    <ClInclude Include="Act.h">
-      <Filter>헤더 파일\Proactor\Acts</Filter>
-    </ClInclude>
-    <ClInclude Include="DBAct.h">
-      <Filter>헤더 파일\Proactor\Acts\ChildrenOfAct</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientAct.h">
-      <Filter>헤더 파일\Proactor\Acts\ChildrenOfAct</Filter>
-    </ClInclude>
-    <ClInclude Include="LogWriter.h">
-      <Filter>헤더 파일\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientManager.h">
-      <Filter>헤더 파일\ClientManager</Filter>
-    </ClInclude>
-    <ClInclude Include="DBManager.h">
-      <Filter>헤더 파일\DBManager</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientSocket.h">
-      <Filter>헤더 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="SockInfo.h">
-      <Filter>헤더 파일\Proactor\HandlesOfIO\SockInfo</Filter>
-    </ClInclude>
-    <ClInclude Include="ListenSocket.h">
-      <Filter>헤더 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>헤더 파일\State</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>헤더 파일\State</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientSocketStates.h">
-      <Filter>헤더 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="DBHandle.h">
-      <Filter>헤더 파일\Proactor\HandlesOfIO\DBHandle</Filter>
-    </ClInclude>
-    <ClInclude Include="Acceptor.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
-    </ClInclude>
-    <ClInclude Include="Connector.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
-    </ClInclude>
-    <ClInclude Include="Disconnector.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
-    </ClInclude>
-    <ClInclude Include="Receiver.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
-    </ClInclude>
-    <ClInclude Include="Sender.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
-    </ClInclude>
     <ClInclude Include="DBConnector.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBDisconnector.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBHarvester.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBQuerier.h">
-      <Filter>헤더 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientManager.h">
+      <Filter>소스 파일\Manager\ClientManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>소스 파일\Manager\DBManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBAct.h">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientAct.h">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClInclude>
+    <ClInclude Include="Act.h">
+      <Filter>소스 파일\Proactor\Acts</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHandle.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSocket.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSocketStates.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>소스 파일\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>소스 파일\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SockInfo.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Proactor.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="LogWriter.h">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalManager.h">
+      <Filter>소스 파일\Manager\GlobalManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Acceptor.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Connector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Receiver.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Sender.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Disconnector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DBManager.cpp">
-      <Filter>소스 파일\DBManager</Filter>
+      <Filter>소스 파일\Manager\DBManager</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>소스 파일\Proactor</Filter>
@@ -206,11 +170,8 @@
     <ClCompile Include="LogWriter.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ClientManager.cpp">
-      <Filter>소스 파일\ClientManager</Filter>
+      <Filter>소스 파일\Manager\ClientManager</Filter>
     </ClCompile>
     <ClCompile Include="ClientSocket.cpp">
       <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client</Filter>
@@ -253,6 +214,12 @@
     </ClCompile>
     <ClCompile Include="DBQuerier.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalManager.cpp">
+      <Filter>소스 파일\Manager\GlobalManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

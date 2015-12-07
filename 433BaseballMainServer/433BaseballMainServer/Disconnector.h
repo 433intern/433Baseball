@@ -1,5 +1,5 @@
 #pragma once
-typedef struct CDisconnector : public CActor
+struct CDisconnector : public CActor
 {
 	CDisconnector();
 	~CDisconnector();
@@ -8,5 +8,5 @@ typedef struct CDisconnector : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CDisconnector;
+};
 

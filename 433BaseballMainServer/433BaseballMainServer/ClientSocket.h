@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CClientSocket : public CSockInfo
+struct CClientSocket : public CSockInfo
 {
 	enum ACT_TYPE
 	{
@@ -45,5 +45,5 @@ typedef struct CClientSocket : public CSockInfo
 	bool Connect();
 	bool Disconnect();
 	bool InitBuf();
-}CClientSocket;
+};
 

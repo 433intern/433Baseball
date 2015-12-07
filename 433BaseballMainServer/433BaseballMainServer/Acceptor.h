@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CAcceptor : public CActor
+struct CAcceptor : public CActor
 {
 	CListenSocket *listenSocket;
 	LPFN_ACCEPTEX lpfnAcceptEx;
@@ -14,4 +14,4 @@ typedef struct CAcceptor : public CActor
 	bool Initializer(CListenSocket &listenSockParam, CProactor *proactor);
 
 	bool Register(CClientSocket &clientSocket, int size);
-}CAcceptor;
+};

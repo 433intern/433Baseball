@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CDBConnector : public CActor
+struct CDBConnector : public CActor
 {
 	CDBConnector();
 	~CDBConnector();
@@ -9,5 +9,5 @@ typedef struct CDBConnector : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CDBConnector;
+};
 

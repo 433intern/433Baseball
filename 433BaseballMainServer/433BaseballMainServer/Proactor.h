@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CProactor
+struct CProactor
 {
 	HANDLE iocp;
 	std::vector<HANDLE> iocpThreads;
@@ -13,5 +13,5 @@ typedef struct CProactor
 	bool ProcEvents();
 
 	static unsigned int __stdcall WorkerThread(void *param);
-}CProactor;
+};
 

@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CDBHandle
+struct CDBHandle
 {
 	MYSQL					*dbConnection;
 	HANDLE					*dbSema;
@@ -45,5 +45,5 @@ private:
 							CDBQuerier *querierParam, CDBHarvester *harvesterParam);
 
 	
-}CDBHandle;
+};
 

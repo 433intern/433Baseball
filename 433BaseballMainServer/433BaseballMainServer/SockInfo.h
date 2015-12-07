@@ -1,11 +1,11 @@
 #pragma once
 
-typedef struct CSockInfo
+struct CSockInfo
 {
 	SOCKET			sock;
 	SOCKADDR_IN		addr;
 
 	CSockInfo();
 	~CSockInfo();
-}CSockInfo;
+};
 

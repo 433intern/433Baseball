@@ -1,5 +1,6 @@
 #pragma once
-typedef struct CListenSocket : public CSockInfo
+
+struct CListenSocket : public CSockInfo
 {
 	int backlogSize;
 	
@@ -8,4 +9,4 @@ typedef struct CListenSocket : public CSockInfo
 
 	bool Init(WORD port, int backlogSizeParam = 0);
 	bool Listen();
-}CListenSocket;
+};

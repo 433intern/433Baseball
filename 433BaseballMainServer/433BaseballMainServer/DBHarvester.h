@@ -1,5 +1,5 @@
 #pragma once
-typedef struct CDBHarvester : public CActor
+struct CDBHarvester : public CActor
 {
 	CDBHarvester();
 	~CDBHarvester();
@@ -8,5 +8,5 @@ typedef struct CDBHarvester : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CDBHarvester;
+};
 

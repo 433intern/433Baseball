@@ -1,5 +1,5 @@
 #pragma once
-typedef struct CSender : public CActor
+struct CSender : public CActor
 {
 	CSender();
 	~CSender();
@@ -8,4 +8,4 @@ typedef struct CSender : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CSender;
+};

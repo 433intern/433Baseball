@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CDBAct : public CAct
+struct CDBAct : public CAct
 {
 	CDBHandle		*dbHandle;
 
@@ -11,4 +11,4 @@ typedef struct CDBAct : public CAct
 
 	bool Complete(DWORD bytes_transferred);
 	bool Error(DWORD error);
-}CDBAct;
+};

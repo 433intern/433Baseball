@@ -1,5 +1,6 @@
 #pragma once
-typedef struct CGlobalManager
+
+struct CGlobalManager
 {
 	CLogWriter			logWriter;
 
@@ -8,7 +9,9 @@ typedef struct CGlobalManager
 
 	static CGlobalManager &GetInstance();
 	~CGlobalManager();
+
 private:
 	CGlobalManager();
-}CGlobalManager;
+
+};
 

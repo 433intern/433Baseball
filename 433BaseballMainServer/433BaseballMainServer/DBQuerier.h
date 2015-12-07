@@ -1,5 +1,5 @@
 #pragma once
-typedef struct CDBQuerier : public CActor
+struct CDBQuerier : public CActor
 {
 	CDBQuerier();
 	~CDBQuerier();
@@ -8,5 +8,5 @@ typedef struct CDBQuerier : public CActor
 	bool ErrorProc(CAct *act, DWORD error);
 
 	bool Initializer(CProactor *proactor);
-}CDBQuerier;
+};
 

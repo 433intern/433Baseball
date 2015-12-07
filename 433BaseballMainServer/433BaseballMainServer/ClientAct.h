@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CClientAct : public CAct
+struct CClientAct : public CAct
 {
 	CClientSocket *clientSocket;
 
@@ -12,4 +12,4 @@ typedef struct CClientAct : public CAct
 	bool Complete(DWORD bytes_transferred);
 
 	bool Error(DWORD error);
-}CClientAct;
+};
