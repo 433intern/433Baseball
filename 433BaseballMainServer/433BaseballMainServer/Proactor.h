@@ -11,5 +11,7 @@ typedef struct CProactor
 	bool Initializer(const int &threadNum);
 	bool Register(HANDLE deviceHandle);
 	bool ProcEvents();
+
+	static unsigned int __stdcall WorkerThread(void *param);
 }CProactor;
 

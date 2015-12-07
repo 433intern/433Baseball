@@ -63,11 +63,13 @@ bool CClientSocket::Send(CHAR *buf, int bufSize)
 
 bool CClientSocket::Connect()
 {
+	// Useless function
 	return true;
 }
 
 bool CClientSocket::Disconnect()
 {
+	// Useless function
 	return true;
 }
 

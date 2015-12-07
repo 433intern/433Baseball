@@ -1,10 +1,20 @@
 #include "stdafx.h"
 
-CDBHandle::CDBHandle(HANDLE *dbSemaParam)
+CDBHandle::CDBHandle()
 :isAvailable(true)
 {
-	dbSema = dbSemaParam;
 	dbConnection = NULL;
+
+	proactor = NULL;
+
+	connector = NULL;
+	disconnector = NULL;
+	querier = NULL;
+	harvester = NULL;
+
+	sqlResult = NULL;
+
+	dbQuery = "";
 }
 
 CDBHandle::~CDBHandle()
@@ -42,4 +52,48 @@ bool CDBHandle::Initializer(MYSQL &connTmp, const std::string &dbHost, const std
 	}
 
 	return true;
+}
+
+bool CDBHandle::InitActs(CProactor *proactorParam, CDBConnector *connectorParam, CDBDisconnector *disconnectorParam,
+	CDBQuerier *querierParam, CDBHarvester *harvesterParam)
+{
+	proactor = proactorParam;
+	
+	connector = connectorParam;
+	disconnector = disconnectorParam;
+	querier = querierParam;
+	harvester = harvesterParam;
+
+	if (!acts[CONNECT].Initializer(connector, this))
+	{
+		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[CONNECT]\n");
+		return false;
+	}
+
+	if (!acts[DISCONNECT].Initializer(disconnector, this))
+	{
+		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[DISCONNECT]\n");
+		return false;
+	}
+
+	if (!acts[QUERY].Initializer(querier, this))
+	{
+		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[QUERY]\n");
+		return false;
+	}
+
+	if (!acts[HARVEST].Initializer(harvester, this))
+	{
+		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[HARVEST]\n");
+		return false;
+	}
+
+	return true;
+}
+
+MYSQL_RES *CDBHandle::Harvest()
+{
+	MYSQL_RES *tmpResult = NULL;
+
+	return tmpResult;
 }

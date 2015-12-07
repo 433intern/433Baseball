@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <fstream>
 #include <process.h>
 

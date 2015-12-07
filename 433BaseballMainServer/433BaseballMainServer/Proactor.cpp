@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-unsigned int __stdcall WorkerThread(void *param)
+unsigned int __stdcall CProactor::WorkerThread(void *param)
 {
 	static_cast<CProactor*>(param)->ProcEvents();
 	return 1;
@@ -70,7 +70,7 @@ bool CProactor::Initializer(const int &threadNum)
 	iocpThreads.reserve(threadNum);
 	for (int k = 0; k < threadNum; ++k)
 	{
-		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, WorkerThread, (void*)this, NULL, NULL);
+		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, CProactor::WorkerThread, (void*)this, NULL, NULL);
 
 		if (NULL == threadHandle)
 		{
