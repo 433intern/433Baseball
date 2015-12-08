@@ -5,8 +5,6 @@ class CDBManager
 	HANDLE					deviceHandle;
 	CProactor				proactor;
 
-	MYSQL					connTmp;
-
 	const std::string		dbHost;
 	const std::string		dbUser;
 	const std::string		dbPasswd;
@@ -19,12 +17,14 @@ class CDBManager
 
 	int						threadPoolSize, handlePoolSize;
 	
-	int						availableDBHandles;
+	//int						availableDBHandles;
+	HANDLE					dbHandleSema;
 	std::queue<CDBHandle*>	dbHandles;
-
-	bool					ConnectEx(CDBHandle *handle, CDBAct *act);
-	bool					DisconnectEx(CDBHandle *handle, CDBAct *act);
 public:
+	MYSQL					connTmp;
+
+	//-----------------------------------------------
+
 	CDBManager(const std::string &hostAddress, const std::string &userName,
 		const std::string &userPassword, const std::string &schemaName);
 	~CDBManager();
@@ -32,8 +32,11 @@ public:
 	CDBHandle				*GetAvailableHandle();
 	bool					ReleaseHandle(CDBHandle *param);
 
-	bool Initializer(const int &threadNum, const int &handleNumParam);
+	bool					Initializer(const int &threadNum, const int &handleNumParam);
 
-	bool					QueryEx(const char *str, CDBAct *act);
-	bool					HarvestEx(CDBAct *act);
+	bool					QueryEx(const char *str);
+	bool					HarvestEx(CDBHandle *param);
+
+	bool					ConnectEx(CDBHandle *param);
+	bool					DisconnectEx(CDBHandle *param);
 };

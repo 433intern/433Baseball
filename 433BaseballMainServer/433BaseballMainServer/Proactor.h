@@ -14,4 +14,3 @@ struct CProactor
 
 	static unsigned int __stdcall WorkerThread(void *param);
 };
-

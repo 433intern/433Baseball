@@ -10,6 +10,27 @@ CDBConnector::~CDBConnector()
 
 bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 {
+	CDBAct *dbAct = (CDBAct*)act;
+
+	CDBHandle &dbHandle = *(CDBHandle*)dbAct->dbHandle;
+
+	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
+
+	//--------------------------------------
+	
+	// DB connecting
+	dbHandle.dbConnection = mysql_real_connect(&dbManager.connTmp, dbHandle.dbHost.c_str(), dbHandle.dbUser.c_str()
+		, dbHandle.dbPasswd.c_str(), dbHandle.dbSchema.c_str(), DB_PORT, (char *)NULL, 0);
+
+	if (NULL == dbHandle.dbConnection)
+	{
+		MYPRINTF("error on mysql_real_connect in CDBManager Constructor : %s\n", mysql_error());
+		return false;
+	}
+
+	//--------------------------------------
+
+	dbHandle.stateMachine.ChangeState(CDBIdle::Instance());
 
 	return true;
 }

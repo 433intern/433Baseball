@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma warning(disable : 4002)
+
 #include "targetver.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -24,11 +26,12 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT			9000
-#define DB_PORT				3306
-#define BUFSIZE				1024
-#define SOCKET_POOL_SIZE	3000
-#define HEADER_SIZE			2
+#define SERVERPORT					9000
+#define DB_PORT						3306
+#define BUFSIZE						1024
+#define SOCKET_POOL_SIZE			3000
+#define HEADER_SIZE					2
+#define WAIT_AVAILABLE_HANDLE_TIME	100
 
 //----------------------------------------------------
 
@@ -44,16 +47,20 @@ class StateMachine;
 class CWaitResponse;
 class CWaitMessage;
 
+class CDBClosed;
+class CDBIdle;
+class CDBWaitResult;
+
 class CDBManager;
 class CClientManager;
 
 class CActor;
 
-class CConnector;
-class CDisconnector;
-class CReceiver;
-class CSender;
-class CAcceptor;
+struct CConnector;
+struct CDisconnector;
+struct CReceiver;
+struct CSender;
+struct CAcceptor;
 
 struct CDBConnector;
 struct CDBDisconnector;
@@ -110,3 +117,4 @@ struct CDBAct;
 #include "ClientManager.h"
 
 #include "ClientSocketStates.h"
+#include "DBHandleStates.h"

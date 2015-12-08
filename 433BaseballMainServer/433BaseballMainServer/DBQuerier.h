@@ -9,4 +9,3 @@ struct CDBQuerier : public CActor
 
 	bool Initializer(CProactor *proactor);
 };
-

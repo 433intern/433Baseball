@@ -1,4 +1,5 @@
 #pragma once
+
 struct CDisconnector : public CActor
 {
 	CDisconnector();

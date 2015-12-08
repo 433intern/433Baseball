@@ -10,6 +10,19 @@ CDBDisconnector::~CDBDisconnector()
 
 bool CDBDisconnector::EventProc(CAct *act, DWORD receivedBytes)
 {
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
+	CDBAct *dbAct = (CDBAct*)act;
+
+	CDBManager &dbManager = *globalManager.dbManager;
+
+	CDBHandle *dbHandle = dbAct->dbHandle;
+
+	//--------------------------------------
+
+	//--------------------------------------
+
+	dbHandle->stateMachine.ChangeState(CDBClosed::Instance());
 
 	return true;
 }

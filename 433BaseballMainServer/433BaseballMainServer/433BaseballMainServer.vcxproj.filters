@@ -147,6 +147,9 @@
     <ClInclude Include="Disconnector.h">
       <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
     </ClInclude>
+    <ClInclude Include="DBHandleStates.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBManager.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="GlobalManager.cpp">
       <Filter>소스 파일\Manager\GlobalManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHandleStates.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

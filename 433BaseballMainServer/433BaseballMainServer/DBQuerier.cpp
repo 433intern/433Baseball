@@ -14,7 +14,31 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBAct *dbAct = (CDBAct*)act;
 
-	globalManager.dbManager->HarvestEx(&dbAct->dbHandle->acts[CDBHandle::DB_ACK_TYPE::HARVEST]);
+	CDBManager &dbManager = *globalManager.dbManager;
+
+	CDBHandle *dbHandle = dbAct->dbHandle;
+
+	MYSQL *realDBHandle = dbHandle->dbConnection;
+
+	//--------------------------------------
+
+	if (NULL == realDBHandle)
+	{
+		MYPRINTF("Error on Query of CDBManager : Not connected to DB.\n");
+		return false;
+	}
+
+	if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
+	{
+		MYPRINTF("DB Query \"%s\"error : %s\n", str, mysql_error());
+		return false;
+	}
+
+	//--------------------------------------
+
+	dbManager.HarvestEx(dbHandle);
+
+	dbHandle->stateMachine.ChangeState(CDBWaitResult::Instance());
 
 	return true;
 }

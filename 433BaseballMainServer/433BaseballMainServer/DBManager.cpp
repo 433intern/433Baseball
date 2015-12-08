@@ -7,7 +7,7 @@ CDBManager::CDBManager(const std::string &hostAddress, const std::string &userNa
 	threadPoolSize = 0;
 	handlePoolSize = 0;
 
-	availableDBHandles = 0;
+	dbHandleSema = NULL;
 }
 
 CDBManager::~CDBManager()
@@ -16,6 +16,8 @@ CDBManager::~CDBManager()
 		dbHandles.pop();
 
 	mysql_library_end();
+
+	CloseHandle(dbHandleSema);
 }
 
 bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumParam)
@@ -24,7 +26,6 @@ bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumPara
 	int queryStat;
 
 	threadPoolSize = threadNumParam;
-	availableDBHandles = handlePoolSize = handleNumParam;
 
 	//----------------------------------------------------------
 
@@ -52,19 +53,26 @@ bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumPara
 
 	CDBHandle *tmpDbHandle;
 
+	dbHandleSema = CreateSemaphore(NULL, handleNumParam, handleNumParam, L"433_DB_Sema");
+	if (NULL == dbHandleSema)
+	{
+		MYPRINTF("Error on CreateSemaphore in Initializer of CDBManager : %u\n", GetLastError());
+		return false;
+	}
+
 	for (int k = 0; k < handleNumParam; ++k)
 	{
 		tmpDbHandle = new CDBHandle();
 
-		if (!tmpDbHandle->Initializer(connTmp, dbHost, dbUser, dbPasswd, dbSchema))
-		{
-			MYPRINTF("%dth DB Handle Initializing has been canceled by an error : %s\n", mysql_error());
-			return false;
-		}
-
 		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier, &harvester))
 		{
 			MYPRINTF("Error on InitActs of CDBHandle in Initializer of CDBManager : %s\n", mysql_error());
+			return false;
+		}
+
+		if (!tmpDbHandle->Initializer(connTmp, dbHost, dbUser, dbPasswd, dbSchema))
+		{
+			MYPRINTF("%dth DB Handle Initializing has been canceled by an error : %s\n", mysql_error());
 			return false;
 		}
 
@@ -92,33 +100,37 @@ CDBHandle *CDBManager::GetAvailableHandle()
 {
 	CDBHandle *choosedDBHandle = NULL;
 
-	if (0 < availableDBHandles)
+	DWORD result = WaitForSingleObject(dbHandleSema, WAIT_AVAILABLE_HANDLE_TIME);
+
+	if (WAIT_FAILED == result)
+	{
+		MYPRINTF("Error on WaitForSingleObject in GetAvailableHandle of CDBManager : %u\n", GetLastError());
+		return false;
+	}
+	else if (WAIT_TIMEOUT == result)
+	{
+		MYPRINTF("There is no available DB handle !\n");
+		return NULL;
+	}
+	else if (WAIT_OBJECT_0 == result)
 	{
 		if (NULL != choosedDBHandle)
 		{
 			choosedDBHandle = dbHandles.front();
 			dbHandles.pop();
 
-			if (choosedDBHandle->isAvailable)
+			if (CDBIdle::Instance() == choosedDBHandle->stateMachine.CurrentState())
 			{
-				--availableDBHandles;
-
-				if (0 > availableDBHandles)
-				{
-					MYPRINTF("Error on GetAvailableHandle : availableDBHandles is smaller than zero !\n");
-					return NULL;
-				}
-
-				choosedDBHandle->isAvailable = false;
 				return choosedDBHandle;
 			}
 
-			MYPRINTF("Between the number of availableHandles and the front handle's isAvailable are not matching !\n");
+			MYPRINTF("The available handle's state is not the idle state !\n");
 			return NULL;
 		}
 		MYPRINTF("Temporary pointer is not NULL in GetAvailableHandle !\n");
 		return NULL;
 	}
+
 	MYPRINTF("There isn't any DBHandle !\n");
 	return NULL;
 }
@@ -131,35 +143,31 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 		return false;
 	}
 
-	if (param->isAvailable)
+	if (CDBIdle::Instance() == param->stateMachine.CurrentState())
 	{
 		MYPRINTF("Error : The DB Handle is already available !\n");
 		return false;
 	}
+	else if (CDBClosed::Instance() == param->stateMachine.CurrentState())
+	{
+		MYPRINTF("Error : The DB Handle has been closed !\n");
+		return false;
+	}
 
-	param->isAvailable = true;
+	param->stateMachine.ChangeState(CDBIdle::Instance());
 
-	++availableDBHandles;
+	if (!ReleaseSemaphore(dbHandleSema, 1, NULL))
+	{
+		MYPRINTF("Error on ReleaseSemaphore in Enter function of CDBIdle : %u\n", GetLastError());
+		return false;
+	}
 
 	dbHandles.push(param);
-
-	if (availableDBHandles != dbHandles.size())
-	{
-		MYPRINTF("Error on ReleaseHandle : availableDBHandles is not equal to the size of dbHandles.\n");
-		return false;
-	}
-	
-	if (availableDBHandles > handlePoolSize)
-	{
-		MYPRINTF("Error : The number of available DB Handles are exceeded over the DB handle pool size.\n");
-		availableDBHandles = handlePoolSize;
-		return false;
-	}
 
 	return true;
 }
 
-bool CDBManager::QueryEx(const char *str, CDBAct *act)
+bool CDBManager::QueryEx(const char *str)
 {
 	if (NULL == str)
 	{
@@ -167,76 +175,102 @@ bool CDBManager::QueryEx(const char *str, CDBAct *act)
 		return false;
 	}
 
-	if (NULL == act)
+	CDBHandle *dbHandle = GetAvailableHandle();
+
+	if (NULL == dbHandle)
 	{
-		MYPRINTF("The act of parameter in QueryEx of CDBManager is NULL!\n");
+		MYPRINTF("There isn't even a handle which can deal with your query !!!\n");
 		return false;
 	}
 
-	if (typeid(act) != typeid(CDBQuerier))
+	CDBAct *tmpAct = &dbHandle->acts[CDBHandle::DB_ACK_TYPE::QUERY];
+
+	if (NULL == tmpAct)
+	{
+		MYPRINTF("The act of handle in QueryEx of CDBManager is NULL!\n");
+		return false;
+	}
+
+	if (typeid(*tmpAct) != typeid(CDBQuerier))
 	{
 		MYPRINTF("The act is not CDBQuerier's act !\n");
 		return false;
 	}
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(act));
+
+	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 }
 
-bool CDBManager::HarvestEx(CDBAct *act)
+bool CDBManager::HarvestEx(CDBHandle *param)
 {
-	if (NULL == act)
+	if (NULL == param)
 	{
-		MYPRINTF("The act of parameter in QueryEx of CDBManager is NULL!\n");
+		MYPRINTF("The DBHandle of parameter in HarvestEx of CDBManager is NULL!\n");
 		return false;
 	}
 
-	if (typeid(act) != typeid(CDBQuerier))
+	if (CDBWaitResult::Instance() != param->stateMachine.CurrentState())
 	{
-		MYPRINTF("The act is not CDBHarvester's act !\n");
+		MYPRINTF("If you wish to use this HarvestEx function, this DB handle must be in the WaitResult state\n");
 		return false;
 	}
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(act));
+
+	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::HARVEST];
+
+	if (NULL == tmpAct)
+	{
+		MYPRINTF("The act of parameter in HarvestEx of CDBManager is NULL!\n");
+		return false;
+	}
+
+	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 }
 
-bool CDBManager::ConnectEx(CDBHandle *handle, CDBAct *act)
+bool CDBManager::ConnectEx(CDBHandle *param)
 {
-	if (NULL == handle)
+	if (NULL == param)
+	{
+		MYPRINTF("The DBHandle of parameter in ConnectEx of CDBManager is NULL!\n");
+		return false;
+	}
+
+	if (CDBClosed::Instance() != param->stateMachine.CurrentState())
+	{
+		MYPRINTF("If you wish to use this ConnectEx function, this DB handle must be in the closed state\n");
+		return false;
+	}
+
+	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::CONNECT];
+
+	if (NULL == tmpAct)
+	{
+		MYPRINTF("The act of parameter in ConnectEx of CDBManager is NULL!\n");
+		return false;
+	}
+
+	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
+}
+
+bool CDBManager::DisconnectEx(CDBHandle *param)
+{
+	if (NULL == param)
 	{
 		MYPRINTF("The DBHandle of parameter in QueryEx of CDBManager is NULL!\n");
 		return false;
 	}
 
-	if (NULL == act)
+	if (CDBIdle::Instance() != param->stateMachine.CurrentState())
 	{
-		MYPRINTF("The act of parameter in QueryEx of CDBManager is NULL!\n");
+		MYPRINTF("If you wish to use this DisconnectEx function, this DB handle must be in the idle state\n");
 		return false;
 	}
 
-	if (typeid(act) != typeid(CDBQuerier))
-	{
-		MYPRINTF("The act is not CDBConnector's act !\n");
-		return false;
-	}
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(act));
-}
+	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::DISCONNECT];
 
-bool CDBManager::DisconnectEx(CDBHandle *handle, CDBAct *act)
-{
-	if (NULL == handle)
+	if (NULL == tmpAct)
 	{
-		MYPRINTF("The DBHandle of parameter in QueryEx of CDBManager is NULL!\n");
+		MYPRINTF("The act of parameter in DisconnectEx of CDBManager is NULL!\n");
 		return false;
 	}
 
-	if (NULL == act)
-	{
-		MYPRINTF("The act of parameter in QueryEx of CDBManager is NULL!\n");
-		return false;
-	}
-
-	if (typeid(act) != typeid(CDBQuerier))
-	{
-		MYPRINTF("The act is not CDisconnector's act !\n");
-		return false;
-	}
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(act));
+	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 }
