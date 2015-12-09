@@ -48,9 +48,6 @@ bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumPara
 		return false;
 	}
 
-	// DB initializing
-	mysql_init(&connTmp);
-
 	CDBHandle *tmpDbHandle;
 
 	dbHandleSema = CreateSemaphore(NULL, handleNumParam, handleNumParam, L"433_DB_Sema");
@@ -70,7 +67,7 @@ bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumPara
 			return false;
 		}
 
-		if (!tmpDbHandle->Initializer(connTmp, dbHost, dbUser, dbPasswd, dbSchema))
+		if (!tmpDbHandle->Initializer(dbHost, dbUser, dbPasswd, dbSchema))
 		{
 			MYPRINTF("%dth DB Handle Initializing has been canceled by an error : %s\n", mysql_error());
 			return false;
@@ -114,20 +111,21 @@ CDBHandle *CDBManager::GetAvailableHandle()
 	}
 	else if (WAIT_OBJECT_0 == result)
 	{
-		if (NULL != choosedDBHandle)
+		choosedDBHandle = dbHandles.front();
+		dbHandles.pop();
+
+		if (NULL == choosedDBHandle)
 		{
-			choosedDBHandle = dbHandles.front();
-			dbHandles.pop();
-
-			if (CDBIdle::Instance() == choosedDBHandle->stateMachine.CurrentState())
-			{
-				return choosedDBHandle;
-			}
-
-			MYPRINTF("The available handle's state is not the idle state !\n");
+			MYPRINTF("The DB handles' queue is empty !\n");
 			return NULL;
 		}
-		MYPRINTF("Temporary pointer is not NULL in GetAvailableHandle !\n");
+
+		if (CDBIdle::Instance() == choosedDBHandle->stateMachine.CurrentState())
+		{
+			return choosedDBHandle;
+		}
+
+		MYPRINTF("The available handle's state is not the idle state !\n");
 		return NULL;
 	}
 
@@ -183,17 +181,12 @@ bool CDBManager::QueryEx(const char *str)
 		return false;
 	}
 
+	dbHandle->queryStr = str;
 	CDBAct *tmpAct = &dbHandle->acts[CDBHandle::DB_ACK_TYPE::QUERY];
 
 	if (NULL == tmpAct)
 	{
 		MYPRINTF("The act of handle in QueryEx of CDBManager is NULL!\n");
-		return false;
-	}
-
-	if (typeid(*tmpAct) != typeid(CDBQuerier))
-	{
-		MYPRINTF("The act is not CDBQuerier's act !\n");
 		return false;
 	}
 

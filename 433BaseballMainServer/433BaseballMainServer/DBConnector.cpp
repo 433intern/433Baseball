@@ -17,9 +17,12 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
 
 	//--------------------------------------
+
+	// DB initializing
+	mysql_init(&dbHandle.connTmp);
 	
 	// DB connecting
-	dbHandle.dbConnection = mysql_real_connect(&dbManager.connTmp, dbHandle.dbHost.c_str(), dbHandle.dbUser.c_str()
+	dbHandle.dbConnection = mysql_real_connect(&dbHandle.connTmp, dbHandle.dbHost.c_str(), dbHandle.dbUser.c_str()
 		, dbHandle.dbPasswd.c_str(), dbHandle.dbSchema.c_str(), DB_PORT, (char *)NULL, 0);
 
 	if (NULL == dbHandle.dbConnection)

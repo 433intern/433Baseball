@@ -30,15 +30,15 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 	if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
 	{
-		MYPRINTF("DB Query \"%s\"error : %s\n", str, mysql_error());
+		MYPRINTF("DB Query error : %s\n", mysql_error());
 		return false;
 	}
 
 	//--------------------------------------
 
-	dbManager.HarvestEx(dbHandle);
+	dbHandle->stateMachine.ChangeState(CDBIdle::Instance());
 
-	dbHandle->stateMachine.ChangeState(CDBWaitResult::Instance());
+	//dbManager.HarvestEx(dbHandle);
 
 	return true;
 }

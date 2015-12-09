@@ -2,7 +2,6 @@
 
 class CDBManager
 {
-	HANDLE					deviceHandle;
 	CProactor				proactor;
 
 	const std::string		dbHost;
@@ -21,10 +20,6 @@ class CDBManager
 	HANDLE					dbHandleSema;
 	std::queue<CDBHandle*>	dbHandles;
 public:
-	MYSQL					connTmp;
-
-	//-----------------------------------------------
-
 	CDBManager(const std::string &hostAddress, const std::string &userName,
 		const std::string &userPassword, const std::string &schemaName);
 	~CDBManager();

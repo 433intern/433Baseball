@@ -3,6 +3,7 @@
 struct CDBHandle
 {
 	MYSQL					*dbConnection;
+	MYSQL					connTmp;
 
 	std::string				dbQuery;
 	MYSQL_RES				*sqlResult;
@@ -38,7 +39,7 @@ struct CDBHandle
 private:
 	friend class CDBManager;
 
-	bool			Initializer(MYSQL &connTmp, const std::string &hostAddress, const std::string &userName,
+	bool			Initializer(const std::string &hostAddress, const std::string &userName,
 							const std::string &userPassword, const std::string &schemaName);
 
 	bool			InitActs(CProactor *proactorParam, CDBConnector *connectorParam, CDBDisconnector *disconnectorParam,

@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <string>
 
 #include <WinSock2.h>
 #include <WS2tcpip.h>

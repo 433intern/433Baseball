@@ -25,9 +25,14 @@ CDBHandle::~CDBHandle()
 	mysql_close(dbConnection);
 }
 
-bool CDBHandle::Initializer(MYSQL &connTmp, const std::string &dbHost, const std::string &dbUser,
-	const std::string &dbPasswd, const std::string &dbSchema)
+bool CDBHandle::Initializer(const std::string &dbHostParam, const std::string &dbUserParam,
+	const std::string &dbPasswdParam, const std::string &dbSchemaParam)
 {
+	dbHost = dbHostParam;
+	dbUser = dbUserParam;
+	dbPasswd = dbPasswdParam;
+	dbSchema = dbSchemaParam;
+
 	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
 
 	if (!dbManager.ConnectEx(this))

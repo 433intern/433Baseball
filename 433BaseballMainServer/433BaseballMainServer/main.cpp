@@ -28,14 +28,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 
-	if (!dbManager->Initializer(4, 8))			// thread pool size for DB, DB handle pool size
+	// thread pool size for DB, DB handle pool size
+	// These handles must be dynamically resized by the number of clients !
+	if (!dbManager->Initializer(4, 8))
 	{
 	MYPRINTF("error in Initializer : %d\n", GetLastError());
 	return 0;
 	}
 
+	std::string command;
 	//------------------------------------
-
+	// test code
+	while (1)
+	{
+		std::getline(std::cin, command);
+		dbManager->QueryEx(command.c_str());
+	}
 	//------------------------------------
 
 	Sleep(INFINITE);
