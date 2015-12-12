@@ -1,45 +1,94 @@
 #include "stdafx.h"
 
-CClientManager::CClientManager()
-:iocp(NULL), proactor()
-{
-}
-
-
 CClientManager::~CClientManager()
 {
 }
 
-bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsizeParam, const WORD &port)
+CClientManager &CClientManager::GetInstance()
+{
+	static CClientManager clientManager;
+	return clientManager;
+}
+
+bool CClientManager::FirstInitializer()
+{
+	iocp = NULL;
+
+	return true;
+}
+
+bool CClientManager::SecondInitializer(const int &threadNum, const int &socketPoolsizeParam, const WORD &port)
 {
 	socketPoolSize = socketPoolsizeParam;
 
 	if (!proactor.Initializer(threadNum))
 	{
-		MYPRINTF("Error on Initializer functino of proactor in CClientManager : %d\n", WSAGetLastError());
+		MYERRORPRINTF("Initializer of proactor");
 		return false;
 	}
 
 	if (!listenSocket.Init(port, 100))
 	{
-		MYPRINTF("Error on Init of listenSocket.sock in Initializer of CClientManager : %d\n", WSAGetLastError());
+		MYERRORPRINTF("Init of listenSocket");
 		return false;
 	}
 
-	connector.Initializer(&proactor);
-	disconnector.Initializer(&proactor);
-	receiver.Initializer(&proactor);
-	sender.Initializer(&proactor);
-	acceptor.Initializer(listenSocket, &proactor);
-
-	if (!proactor.Register((HANDLE)listenSocket.sock))
+	if (!connector.Initializer())
 	{
-		MYPRINTF("Error on Register functino of proactor in CClientManager : %d\n", WSAGetLastError());
+		MYERRORPRINTF("Initializer of connector");
+		return false;
+	}
+	if (!disconnector.Initializer())
+	{
+		MYERRORPRINTF("Initializer of disconnector");
+		return false;
+	}
+	if (!receiver.Initializer())
+	{
+		MYERRORPRINTF("Initializer of receiver");
+		return false;
+	}
+	if (!sender.Initializer())
+	{
+		MYERRORPRINTF("Initializer of sender");
+		return false;
+	}
+	if (!acceptor.Initializer(listenSocket))
+	{
+		MYERRORPRINTF("Initializer of acceptor");
+		return false;
+	}
+	
+	if (!listenSocket.Listen())
+	{
+		MYERRORPRINTF("listen of listensocket");
 		return false;
 	}
 
-	listenSocket.Listen();
+	if (!MakeSocketPool())
+	{
+		MYERRORPRINTF("MakeSocketPool");
+		return false;
+	}
 
+	return true;
+}
+
+bool CClientManager::SocketCreate(CClientSocket &socket)
+{
+	socket.sock = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+
+	if (INVALID_SOCKET == socket.sock)
+	{
+		MYERRORPRINTF("WSASocket");
+		return false;
+	}
+
+	return true;
+}
+
+bool CClientManager::MakeSocketPool()
+{
 	socketPoolSize = 1;
 
 	sockets.reserve(socketPoolSize);
@@ -50,36 +99,17 @@ bool CClientManager::Initializer(const int &threadNum, const int &socketPoolsize
 
 		if (!SocketCreate(*socket))
 		{
-			MYPRINTF("Error on SocketCreate functino of CClientManager : %d\n", WSAGetLastError());
+			MYERRORPRINTF("SocketCreate");
 			return false;
 		}
 
 		socket->InitBuf();
 
 		socket->Initializer(&proactor, &connector, &disconnector, &receiver, &sender, &acceptor);
-		
+
 		acceptor.Register(*socket, 0);
-		
+
 		sockets.push_back(socket);
-	}
-
-	return true;
-}
-
-bool CClientManager::SocketCreate(CClientSocket &socket)
-{
-	int result;
-
-	//if (!reuse)
-	{
-		socket.sock = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
-		//socket.sock = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-		if (INVALID_SOCKET == socket.sock)
-		{
-			MYPRINTF("Error on WSASocket in Bind function of CClientManager : %d\n", WSAGetLastError());
-			return false;
-		}
 	}
 
 	return true;

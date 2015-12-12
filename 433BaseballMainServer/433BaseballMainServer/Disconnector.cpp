@@ -18,8 +18,7 @@ bool CDisconnector::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CDisconnector::Initializer(CProactor *proactorParam)
+bool CDisconnector::Initializer()
 {
-	proactor = proactorParam;
 	return true;
 }

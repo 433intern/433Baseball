@@ -16,7 +16,9 @@ bool CAcceptor::EventProc(CAct *act, DWORD receivedBytes)
 
 	CClientSocket &tmpSocket = *tmpAct.clientSocket;
 
-	proactor->Register((HANDLE)tmpSocket.sock);
+	CClientManager &clientManager = CClientManager::GetInstance();
+
+	clientManager.proactor.Register((HANDLE)tmpSocket.sock);
 
 	tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
 
@@ -28,10 +30,9 @@ bool CAcceptor::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CAcceptor::Initializer(CListenSocket &listenSockParam, CProactor *proactorParam)
+bool CAcceptor::Initializer(CListenSocket &listenSockParam)
 {
 	listenSocket = &listenSockParam;
-	proactor = proactorParam;
 
 	lpfnAcceptEx = NULL;
 	GUID GuidAcceptEx = WSAID_ACCEPTEX;
@@ -71,7 +72,7 @@ bool CAcceptor::Register(CClientSocket &clientSocket, int size)
 	{
 		if (WSA_IO_PENDING != error)
 		{
-			MYPRINTF("Error on AcceptEx in Register of Acceptor : %d\n", error);
+			MYERRORPRINTF("AcceptEx");
 			return false;
 		}
 	}

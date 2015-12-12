@@ -1,13 +1,9 @@
 #include "stdafx.h"
 
-CDBManager::CDBManager(const std::string &hostAddress, const std::string &userName, 
-	const std::string &userPassword, const std::string &schemaName)
-:dbHost(hostAddress), dbUser(userName), dbPasswd(userPassword), dbSchema(schemaName)
+CDBManager &CDBManager::GetInstance()
 {
-	threadPoolSize = 0;
-	handlePoolSize = 0;
-
-	dbHandleSema = NULL;
+	static CDBManager dbManager;
+	return dbManager;
 }
 
 CDBManager::~CDBManager()
@@ -20,60 +16,50 @@ CDBManager::~CDBManager()
 	CloseHandle(dbHandleSema);
 }
 
-bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumParam)
+bool CDBManager::FirstInitializer(const std::string &hostAddress, const std::string &userName,
+	const std::string &userPassword, const std::string &schemaName)
 {
-	MYSQL_ROW sqlRow;
-	int queryStat;
+	dbHost = hostAddress;
+	dbUser = userName;
+	dbPasswd = userPassword;
+	dbSchema = schemaName;
 
+	threadPoolSize = 0;
+	handlePoolSize = 0;
+
+	dbHandleSema = NULL;
+
+	return true;
+}
+
+bool CDBManager::SecondInitializer(const int &threadNumParam, const int &handleNumParam)
+{
 	threadPoolSize = threadNumParam;
 
 	//----------------------------------------------------------
 
 	if (!proactor.Initializer(threadPoolSize))
 	{
-		MYPRINTF("Error on Initializer functino of proactor in Initializer of CDBManager : %d\n", WSAGetLastError());
+		MYERRORPRINTF("Error on Initializer functino of proactor in Initializer of CDBManager : %d\n", WSAGetLastError());
 		return false;
 	}
 
-	connector.Initializer(&proactor);
-	disconnector.Initializer(&proactor);
-	querier.Initializer(&proactor);
-	harvester.Initializer(&proactor);
+	connector.Initializer();
+	disconnector.Initializer();
+	querier.Initializer();
+	harvester.Initializer();
 
 	//----------------------------------------------------------
 
 	if (mysql_library_init(0, NULL, NULL))
 	{
-		MYPRINTF("Error on mysql_library_init in Initializer of CDBManager : %s\n", mysql_error());
+		MYERRORPRINTF("Error on mysql_library_init in Initializer of CDBManager : %s\n", mysql_error());
 		return false;
 	}
 
-	CDBHandle *tmpDbHandle;
-
-	dbHandleSema = CreateSemaphore(NULL, handleNumParam, handleNumParam, L"433_DB_Sema");
-	if (NULL == dbHandleSema)
+	if (!CreateDBHandlePool(handleNumParam))
 	{
-		MYPRINTF("Error on CreateSemaphore in Initializer of CDBManager : %u\n", GetLastError());
-		return false;
-	}
-
-	for (int k = 0; k < handleNumParam; ++k)
-	{
-		tmpDbHandle = new CDBHandle();
-
-		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier, &harvester))
-		{
-			MYPRINTF("Error on InitActs of CDBHandle in Initializer of CDBManager : %s\n", mysql_error());
-			return false;
-		}
-
-		if (!tmpDbHandle->Initializer(dbHost, dbUser, dbPasswd, dbSchema))
-		{
-			MYPRINTF("%dth DB Handle Initializing has been canceled by an error : %s\n", mysql_error());
-			return false;
-		}
-
-		dbHandles.push(tmpDbHandle);
+		MYERRORPRINTF("CreateDBHandlePool");
 	}
 
 	// For using Korean
@@ -92,6 +78,38 @@ bool CDBManager::Initializer(const int &threadNumParam, const int &handleNumPara
 	return true;
 }
 
+bool CDBManager::CreateDBHandlePool(const int &handleNumParam)
+{
+	CDBHandle *tmpDbHandle;
+
+	dbHandleSema = CreateSemaphore(NULL, handleNumParam, handleNumParam, L"433_DB_Sema");
+	if (NULL == dbHandleSema)
+	{
+		MYERRORPRINTF("CreateSemaphore");
+		return false;
+	}
+
+	for (int k = 0; k < handleNumParam; ++k)
+	{
+		tmpDbHandle = new CDBHandle();
+
+		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier, &harvester))
+		{
+			MYERRORPRINTF("InitActs");
+			return false;
+		}
+
+		if (!tmpDbHandle->Initializer(dbHost, dbUser, dbPasswd, dbSchema))
+		{
+			MYERRORPRINTF("The Initializer of %d th DB Handle", k);
+			return false;
+		}
+
+		dbHandles.push(tmpDbHandle);
+	}
+	return true;
+}
+
 // You must call the ReleaseHandle function after you have used the handle off !
 CDBHandle *CDBManager::GetAvailableHandle()
 {
@@ -101,7 +119,7 @@ CDBHandle *CDBManager::GetAvailableHandle()
 
 	if (WAIT_FAILED == result)
 	{
-		MYPRINTF("Error on WaitForSingleObject in GetAvailableHandle of CDBManager : %u\n", GetLastError());
+		MYERRORPRINTF("WaitForSingleObject");
 		return false;
 	}
 	else if (WAIT_TIMEOUT == result)
@@ -125,7 +143,7 @@ CDBHandle *CDBManager::GetAvailableHandle()
 			return choosedDBHandle;
 		}
 
-		MYPRINTF("The available handle's state is not the idle state !\n");
+		MYERRORPRINTF("The available handle's state is not the idle state !\n");
 		return NULL;
 	}
 
@@ -156,7 +174,7 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 
 	if (!ReleaseSemaphore(dbHandleSema, 1, NULL))
 	{
-		MYPRINTF("Error on ReleaseSemaphore in Enter function of CDBIdle : %u\n", GetLastError());
+		MYERRORPRINTF("ReleaseSemaphore");
 		return false;
 	}
 
@@ -191,6 +209,8 @@ bool CDBManager::QueryEx(const char *str)
 	}
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
+
+	return true;
 }
 
 bool CDBManager::HarvestEx(CDBHandle *param)
@@ -216,6 +236,8 @@ bool CDBManager::HarvestEx(CDBHandle *param)
 	}
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
+
+	return true;
 }
 
 bool CDBManager::ConnectEx(CDBHandle *param)
@@ -241,6 +263,8 @@ bool CDBManager::ConnectEx(CDBHandle *param)
 	}
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
+
+	return true;
 }
 
 bool CDBManager::DisconnectEx(CDBHandle *param)
@@ -266,4 +290,6 @@ bool CDBManager::DisconnectEx(CDBHandle *param)
 	}
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
+
+	return true;
 }

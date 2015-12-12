@@ -14,7 +14,7 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBAct *dbAct = (CDBAct*)act;
 
-	CDBManager &dbManager = *globalManager.dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	CDBHandle *dbHandle = dbAct->dbHandle;
 
@@ -30,7 +30,7 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 	if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
 	{
-		MYPRINTF("DB Query error : %s\n", mysql_error());
+		MYERRORPRINTF("mysql_query");
 		return false;
 	}
 
@@ -45,13 +45,12 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 bool CDBQuerier::ErrorProc(CAct *act, DWORD error)
 {
-	MYPRINTF("Error on QueryEx of CDBManager!\n");
+	MYERRORPRINTF("ErrorPorc");
 
 	return true;
 }
 
-bool CDBQuerier::Initializer(CProactor *proactor)
+bool CDBQuerier::Initializer()
 {
-
 	return true;
 }

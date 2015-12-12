@@ -18,7 +18,7 @@ bool CDBAct::Complete(DWORD bytes_transferred)
 
 bool CDBAct::Error(DWORD error)
 {
-	MYPRINTF("Error in Error of CDBAct : %u\n", GetLastError());
+	MYERRORPRINTF("Error");
 	
 	return true;
 }

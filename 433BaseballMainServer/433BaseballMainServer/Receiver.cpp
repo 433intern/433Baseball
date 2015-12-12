@@ -18,8 +18,7 @@ bool CReceiver::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CReceiver::Initializer(CProactor *proactorParam)
+bool CReceiver::Initializer()
 {
-	proactor = proactorParam;
 	return true;
 }

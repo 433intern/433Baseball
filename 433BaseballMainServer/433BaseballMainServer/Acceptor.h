@@ -11,7 +11,7 @@ struct CAcceptor : public CActor
 	bool EventProc(CAct *act, DWORD receivedBytes);
 	bool ErrorProc(CAct *act, DWORD error);
 
-	bool Initializer(CListenSocket &listenSockParam, CProactor *proactor);
+	bool Initializer(CListenSocket &listenSockParam);
 
 	bool Register(CClientSocket &clientSocket, int size);
 };

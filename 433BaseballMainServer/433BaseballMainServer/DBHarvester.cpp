@@ -14,7 +14,7 @@ bool CDBHarvester::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBAct *dbAct = (CDBAct*)act;
 
-	CDBManager &dbManager = *globalManager.dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	CDBHandle *dbHandle = dbAct->dbHandle;
 
@@ -34,8 +34,7 @@ bool CDBHarvester::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CDBHarvester::Initializer(CProactor *proactor)
+bool CDBHarvester::Initializer()
 {
-
 	return true;
 }

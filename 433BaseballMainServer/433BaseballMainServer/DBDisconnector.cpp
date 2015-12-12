@@ -14,7 +14,7 @@ bool CDBDisconnector::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBAct *dbAct = (CDBAct*)act;
 
-	CDBManager &dbManager = *globalManager.dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	CDBHandle *dbHandle = dbAct->dbHandle;
 
@@ -33,7 +33,7 @@ bool CDBDisconnector::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CDBDisconnector::Initializer(CProactor *proactor)
+bool CDBDisconnector::Initializer()
 {
 
 	return true;

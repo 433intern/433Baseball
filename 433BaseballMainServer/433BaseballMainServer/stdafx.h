@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <string>
+#include <wchar.h>
+#include <stdlib.h>
 
 #include <WinSock2.h>
 #include <WS2tcpip.h>
@@ -80,7 +82,10 @@ struct CAct;
 struct CClientAct;
 struct CDBAct;
 
+#define MYERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyErrorPrintf(A, typeid(this).name(), __FUNCTION__)
 #define MYPRINTF(A) CGlobalManager::GetInstance().logWriter.MyPrintf(A)
+
+#include "Utils.h"
 
 #include "LogWriter.h"
 

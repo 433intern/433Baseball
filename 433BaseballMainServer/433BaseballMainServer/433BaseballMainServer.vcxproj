@@ -115,11 +115,11 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="Act.cpp" />
-    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ClientAct.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
@@ -142,6 +142,7 @@
     <ClCompile Include="Receiver.cpp" />
     <ClCompile Include="Sender.cpp" />
     <ClCompile Include="SockInfo.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

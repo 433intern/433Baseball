@@ -18,8 +18,7 @@ bool CConnector::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CConnector::Initializer(CProactor *proactorParam)
+bool CConnector::Initializer()
 {
-	proactor = proactorParam;
 	return true;
 }

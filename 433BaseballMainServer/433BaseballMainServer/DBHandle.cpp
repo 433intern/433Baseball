@@ -33,11 +33,11 @@ bool CDBHandle::Initializer(const std::string &dbHostParam, const std::string &d
 	dbPasswd = dbPasswdParam;
 	dbSchema = dbSchemaParam;
 
-	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	if (!dbManager.ConnectEx(this))
 	{
-		MYPRINTF("Error on ConnectEx in Initializer of CDBHandle");
+		MYERRORPRINTF("ConnectEx");
 		return false;
 	}
 
@@ -56,25 +56,25 @@ bool CDBHandle::InitActs(CProactor *proactorParam, CDBConnector *connectorParam,
 
 	if (!acts[CONNECT].Initializer(connector, this))
 	{
-		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[CONNECT]\n");
+		MYERRORPRINTF("Initializer of acts[CONNECT]");
 		return false;
 	}
 
 	if (!acts[DISCONNECT].Initializer(disconnector, this))
 	{
-		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[DISCONNECT]\n");
+		MYERRORPRINTF("Initializer of acts[DISCONNECT]");
 		return false;
 	}
 
 	if (!acts[QUERY].Initializer(querier, this))
 	{
-		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[QUERY]\n");
+		MYERRORPRINTF("Initializer of acts[QUERY]");
 		return false;
 	}
 
 	if (!acts[HARVEST].Initializer(harvester, this))
 	{
-		MYPRINTF("Error on Initializer of CDBAct in InitActs of CDBHandle : acts[HARVEST]\n");
+		MYERRORPRINTF("Initializer of acts[HARVEST]");
 		return false;
 	}
 

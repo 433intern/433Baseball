@@ -66,7 +66,7 @@ void CDBWaitResult::Enter(CDBHandle *dbHandle)
 
 void CDBWaitResult::Exit(CDBHandle *dbHandle)
 {
-	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	if (NULL == dbHandle)
 	{

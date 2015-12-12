@@ -14,7 +14,7 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBHandle &dbHandle = *(CDBHandle*)dbAct->dbHandle;
 
-	CDBManager &dbManager = *CGlobalManager::GetInstance().dbManager;
+	CDBManager &dbManager = CDBManager::GetInstance();
 
 	//--------------------------------------
 
@@ -27,7 +27,7 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 
 	if (NULL == dbHandle.dbConnection)
 	{
-		MYPRINTF("error on mysql_real_connect in CDBManager Constructor : %s\n", mysql_error());
+		MYERRORPRINTF("mysql_real_connect");
 		return false;
 	}
 
@@ -44,8 +44,7 @@ bool CDBConnector::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CDBConnector::Initializer(CProactor *proactor)
+bool CDBConnector::Initializer()
 {
-
 	return true;
 }
