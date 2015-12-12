@@ -64,7 +64,7 @@ bool CLogWriter::MyPrintf(const char *str, ...)
 		return false;
 	}
 #else
-	if (-1 == vfprintf(logFile, tmpStr.c_str(), vaList))
+	if (-1 == vfprintf(logFile, str, vaList))
 	{
 		va_end(vaList);
 		Beep(750, 10000);

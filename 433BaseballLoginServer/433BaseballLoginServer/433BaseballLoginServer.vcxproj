@@ -14,6 +14,7 @@
     <ProjectGuid>{CD033D84-AFD0-4D41-B19C-67689B843965}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My433BaseballLoginServer</RootNamespace>
+    <ProjectName>433LoginServer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -52,31 +53,91 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="Act.cpp" />
+    <ClCompile Include="LoginAct.cpp" />
+    <ClCompile Include="LoginManager.cpp" />
+    <ClCompile Include="LoginSocket.cpp" />
+    <ClCompile Include="LoginSocketStates.cpp" />
+    <ClCompile Include="Connector.cpp" />
+    <ClCompile Include="DBAct.cpp" />
+    <ClCompile Include="DBConnector.cpp" />
+    <ClCompile Include="DBDisconnector.cpp" />
+    <ClCompile Include="DBHandle.cpp" />
+    <ClCompile Include="DBHandleStates.cpp" />
+    <ClCompile Include="DBHarvester.cpp" />
+    <ClCompile Include="DBManager.cpp" />
+    <ClCompile Include="DBQuerier.cpp" />
+    <ClCompile Include="Disconnector.cpp" />
+    <ClCompile Include="GlobalManager.cpp" />
+    <ClCompile Include="ListenSocket.cpp" />
+    <ClCompile Include="LogWriter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Proactor.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="Sender.cpp" />
+    <ClCompile Include="SockInfo.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Act.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="LoginAct.h" />
+    <ClInclude Include="LoginManager.h" />
+    <ClInclude Include="LoginSocket.h" />
+    <ClInclude Include="LoginSocketStates.h" />
+    <ClInclude Include="Connector.h" />
+    <ClInclude Include="DBAct.h" />
+    <ClInclude Include="DBConnector.h" />
+    <ClInclude Include="DBDisconnector.h" />
+    <ClInclude Include="DBHandle.h" />
+    <ClInclude Include="DBHandleStates.h" />
+    <ClInclude Include="DBHarvester.h" />
+    <ClInclude Include="DBManager.h" />
+    <ClInclude Include="DBQuerier.h" />
+    <ClInclude Include="Disconnector.h" />
+    <ClInclude Include="GlobalManager.h" />
+    <ClInclude Include="ListenSocket.h" />
+    <ClInclude Include="LogWriter.h" />
+    <ClInclude Include="Proactor.h" />
+    <ClInclude Include="Receiver.h" />
+    <ClInclude Include="Sender.h" />
+    <ClInclude Include="SockInfo.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

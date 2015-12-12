@@ -5,18 +5,223 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\Manager">
+      <UniqueIdentifier>{86963cca-62de-4931-9842-5b22dd717d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\LoginManager">
+      <UniqueIdentifier>{e750de7b-0801-4ab2-9c91-7d16045939cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\DBManager">
+      <UniqueIdentifier>{b8837a8c-a651-481b-9451-a325c000855c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\GlobalManager">
+      <UniqueIdentifier>{90d77cdb-ebc7-49f7-bba6-d7ab24ca3cb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Utilities">
+      <UniqueIdentifier>{40bc8e35-3e41-4c55-9bb2-184b5e24f98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor">
+      <UniqueIdentifier>{aaaaf935-670e-42c4-98d5-232b57d1eedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\Acts">
+      <UniqueIdentifier>{7024c06f-9bb3-42d8-8145-48d0ce462343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\Acts\ChildrenOfAct">
+      <UniqueIdentifier>{07090a73-c3ee-4476-a4d4-d8e8d44a8aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\ChildrenOfActor">
+      <UniqueIdentifier>{da73de1e-42ae-4b11-85a5-2015d30f0d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\ChildrenOfActor\LoginActors">
+      <UniqueIdentifier>{d2291e18-57f6-46d4-9adf-3cfc3933f0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\ChildrenOfActor\DBActors">
+      <UniqueIdentifier>{fdaeb319-3289-4bd3-aeca-5e31517b46a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\HandlesOfIO">
+      <UniqueIdentifier>{b272e9e1-feed-4988-89b0-954a131a234d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\HandlesOfIO\DBHandle">
+      <UniqueIdentifier>{94936967-2388-487b-9d34-972faf13ff3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\HandlesOfIO\SockInfo">
+      <UniqueIdentifier>{d873e50f-7779-4cc9-bb4b-e95c46def191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\HandlesOfIO\SockInfo\Login">
+      <UniqueIdentifier>{7363cba8-300c-4cc4-a455-7208135373ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State">
+      <UniqueIdentifier>{e0d6bd7e-68c7-4e11-9595-8011d9b989a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Acceptor.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Connector.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Receiver.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Sender.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Disconnector.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClCompile>
+    <ClCompile Include="DBConnector.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
+    <ClCompile Include="DBDisconnector.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHarvester.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
+    <ClCompile Include="DBQuerier.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalManager.cpp">
+      <Filter>소스 파일\Manager\GlobalManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DBManager.cpp">
+      <Filter>소스 파일\Manager\DBManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHandle.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHandleStates.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClCompile>
+    <ClCompile Include="Proactor.cpp">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClCompile>
+    <ClCompile Include="Act.cpp">
+      <Filter>소스 파일\Proactor\Acts</Filter>
+    </ClCompile>
+    <ClCompile Include="DBAct.cpp">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenSocket.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="LogWriter.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SockInfo.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginAct.cpp">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginManager.cpp">
+      <Filter>소스 파일\Manager\LoginManager</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginSocket.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginSocketStates.cpp">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Acceptor.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Connector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Receiver.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Sender.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClInclude>
+    <ClInclude Include="Disconnector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\LoginActors</Filter>
+    </ClInclude>
+    <ClInclude Include="DBConnector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="DBDisconnector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHarvester.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="DBQuerier.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalManager.h">
+      <Filter>소스 파일\Manager\GlobalManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>소스 파일\Manager\DBManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHandle.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHandleStates.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\DBHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Proactor.h">
+      <Filter>소스 파일\Proactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Act.h">
+      <Filter>소스 파일\Proactor\Acts</Filter>
+    </ClInclude>
+    <ClInclude Include="DBAct.h">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="LogWriter.h">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>소스 파일\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>소스 파일\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SockInfo.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginAct.h">
+      <Filter>소스 파일\Proactor\Acts\ChildrenOfAct</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginManager.h">
+      <Filter>소스 파일\Manager\LoginManager</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginSocket.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginSocketStates.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
