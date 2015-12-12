@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Ljhoo\Desktop\protobuf\cmake\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Sonjoy\Desktop\433_야구게임프로젝트\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
