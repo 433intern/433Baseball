@@ -57,6 +57,9 @@
     <Filter Include="소스 파일\State">
       <UniqueIdentifier>{e0d6bd7e-68c7-4e11-9595-8011d9b989a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ProtocolBuffer">
+      <UniqueIdentifier>{cf18d8d6-1982-4c60-9be8-f8bbc0ec9f44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="LoginSocketStates.cpp">
       <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginMessage.PROTO.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +228,9 @@
     </ClInclude>
     <ClInclude Include="LoginSocketStates.h">
       <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginMessage.PROTO.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

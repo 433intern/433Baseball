@@ -13,8 +13,9 @@ class CLoginManager
 	CSender							sender;
 	CAcceptor						acceptor;
 
+	HANDLE							sockPoolSema;
 	int								socketPoolSize;
-	std::vector<CLoginSocket*>		sockets;
+	std::queue<CLoginSocket*>		sockets;
 public:
 	CProactor						proactor;
 
@@ -25,8 +26,11 @@ public:
 	bool FirstInitializer();
 	bool SecondInitializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
 
-	bool MakeSocketPool();
+	bool MakeSocketPool(const int &sockPoolSizeParam);
 	bool SocketCreate(CLoginSocket &socket);
+
+	CLoginSocket					*GetAvailableSocket();
+	bool							ReleaseSocket(CLoginSocket *param);
 
 	static CLoginManager			&GetInstance();
 };

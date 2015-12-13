@@ -20,7 +20,9 @@ bool CAcceptor::EventProc(CAct *act, DWORD receivedBytes)
 
 	loginManager.proactor.Register((HANDLE)tmpSocket.sock);
 
-	tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
+	MYPRINTF("Accepted !!!");
+
+	//tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
 
 	return true;
 }
@@ -34,7 +36,7 @@ bool CAcceptor::Initializer(CListenSocket &listenSockParam)
 {
 	listenSocket = &listenSockParam;
 
-	lpfnAcceptEx = NULL;
+	/*lpfnAcceptEx = NULL;
 	GUID GuidAcceptEx = WSAID_ACCEPTEX;
 
 	DWORD dwBytes;
@@ -50,7 +52,7 @@ bool CAcceptor::Initializer(CListenSocket &listenSockParam)
 		closesocket(listenSockParam.sock);
 		WSACleanup();
 		return false;
-	}
+	}*/
 
 	return true;
 }
@@ -59,12 +61,22 @@ bool CAcceptor::Register(CLoginSocket &loginSocket, int size)
 {
 	DWORD byteTransferred;
 
-	memset(&olOverlap, 0, sizeof (olOverlap));
+	//memset(&olOverlap, 0, sizeof (olOverlap));
 
-	BOOL result = lpfnAcceptEx(listenSocket->sock, loginSocket.sock, loginSocket.acceptBuf,
-		BUFSIZE - ((sizeof (sockaddr_in)+16) << 1),
-		sizeof (sockaddr_in)+16, sizeof (sockaddr_in)+16,
-		&byteTransferred, static_cast<OVERLAPPED*>(&loginSocket.acts[CLoginSocket::ACT_TYPE::ACCEPT]));
+	//BOOL result = lpfnAcceptEx(listenSocket->sock, loginSocket.sock, loginSocket.acceptBuf,
+	//	BUFSIZE - ((sizeof (sockaddr_in)+16) << 1),
+	//	sizeof (sockaddr_in)+16, sizeof (sockaddr_in)+16,
+	//	&byteTransferred, &olOverlap);// static_cast<OVERLAPPED*>(&loginSocket.acts[CLoginSocket::ACT_TYPE::ACCEPT]));
+
+	BOOL result = AcceptEx(
+		listenSocket->sock,
+		loginSocket.sock,
+		loginSocket.acceptBuf, size,
+		sizeof(SOCKADDR_IN)+16,
+		sizeof(SOCKADDR_IN)+16,
+		&byteTransferred,
+		static_cast<OVERLAPPED*>(&loginSocket.acts[CLoginSocket::ACT_TYPE::ACCEPT])
+		);
 
 	int error = WSAGetLastError();
 

@@ -8,8 +8,13 @@ CDBManager &CDBManager::GetInstance()
 
 CDBManager::~CDBManager()
 {
-	while(dbHandles.size() > 0)
+	while (dbHandles.size() > 0)
+	{
+		CDBHandle *tmpHandle = dbHandles.front();
+		mysql_close(tmpHandle->dbConnection);
 		dbHandles.pop();
+		delete tmpHandle;
+	}
 
 	mysql_library_end();
 
@@ -164,11 +169,6 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 		MYPRINTF("Error : The DB Handle is already available !\n");
 		return false;
 	}
-	else if (CDBClosed::Instance() == param->stateMachine.CurrentState())
-	{
-		MYPRINTF("Error : The DB Handle has been closed !\n");
-		return false;
-	}
 
 	param->stateMachine.ChangeState(CDBIdle::Instance());
 
@@ -199,14 +199,23 @@ bool CDBManager::QueryEx(const char *str)
 		return false;
 	}
 
+	if (CDBIdle::Instance() != dbHandle->stateMachine.CurrentState())
+	{
+		MYPRINTF("The available DB handle is not in idle state !\n");
+		return false;
+	}
+
 	dbHandle->queryStr = str;
 	CDBAct *tmpAct = &dbHandle->acts[CDBHandle::DB_ACK_TYPE::QUERY];
+	tmpAct->dbHandle = dbHandle;
 
 	if (NULL == tmpAct)
 	{
 		MYPRINTF("The act of handle in QueryEx of CDBManager is NULL!\n");
 		return false;
 	}
+
+	dbHandle->stateMachine.ChangeState(CDBWaitResult::Instance());
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 
@@ -228,6 +237,7 @@ bool CDBManager::HarvestEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::HARVEST];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{
@@ -255,6 +265,7 @@ bool CDBManager::ConnectEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::CONNECT];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{
@@ -282,6 +293,7 @@ bool CDBManager::DisconnectEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::DISCONNECT];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{

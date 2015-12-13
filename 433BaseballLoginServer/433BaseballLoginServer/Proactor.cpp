@@ -14,19 +14,25 @@ bool CProactor::Initializer(const int &threadNum)
 		return false;
 	}
 
+	if (!CreateThreadPool(threadNum))
+	{
+		MYERRORPRINTF("CreatetThreadPool");
+		return false;
+	}
 	
 	return true;
 }
 
 bool CProactor::CreateIOCP(const int &threadNum)
 {
-	iocp = (HANDLE)CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, threadNum);
+	iocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, threadNum);
 
 	if (NULL == iocp)
 	{
 		MYERRORPRINTF("CreateIoCompletionPort");
 		return false;
 	}
+
 	return true;
 }
 
@@ -38,7 +44,6 @@ bool CProactor::CreateThreadPool(const int &threadNum)
 	for (int k = 0; k < threadNum; ++k)
 	{
 		threadHandle = (HANDLE)_beginthreadex(NULL, NULL, CProactor::WorkerThread, (void*)this, NULL, NULL);
-
 		if (NULL == threadHandle)
 		{
 			MYERRORPRINTF("_beginthreadex");

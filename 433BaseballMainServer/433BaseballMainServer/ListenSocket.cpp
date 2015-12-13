@@ -8,12 +8,18 @@ CListenSocket::~CListenSocket()
 {
 }
 
-bool CListenSocket::Listen()
+bool CListenSocket::Listen(CProactor &proactor)
 {
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(SERVERPORT);
+
+	if (!proactor.Register((HANDLE)sock))
+	{
+		MYERRORPRINTF("proactor.Register");
+		return false;
+	}
 
 	int result = bind(sock, (SOCKADDR*)&addr, sizeof(addr));
 

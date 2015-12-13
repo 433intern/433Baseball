@@ -27,7 +27,7 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 
 	if (NULL == dbHandle.dbConnection)
 	{
-		MYERRORPRINTF("mysql_real_connect");
+		MYDBERRORPRINTF(*dbHandle.dbConnection,"mysql_real_connect");
 		return false;
 	}
 

@@ -29,12 +29,15 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT					9000
+#define SERVERPORT					9001
 #define DB_PORT						3306
 #define BUFSIZE						1024
 #define SOCKET_POOL_SIZE			3000
 #define HEADER_SIZE					2
 #define WAIT_AVAILABLE_HANDLE_TIME	100
+#define WAIT_AVAILABLE_SOCKET_TIME	100
+#define DB_THREAD_POOL_SIZE			4
+#define DB_HANDLE_POOL_SIZE			8
 
 //----------------------------------------------------
 
@@ -83,6 +86,8 @@ struct CClientAct;
 struct CDBAct;
 
 #define MYERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyErrorPrintf(A, typeid(this).name(), __FUNCTION__)
+#define MYSERVICEERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyServiceErrorPrintf(A, __FUNCTION__)
+#define MYDBERRORPRINTF(A,B) CGlobalManager::GetInstance().logWriter.MyDBErrorPrintf(A,B, __FUNCTION__)
 #define MYPRINTF(A) CGlobalManager::GetInstance().logWriter.MyPrintf(A)
 
 #include "Utils.h"

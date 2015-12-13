@@ -4,20 +4,53 @@ SERVICE_STATUS					serviceStatus = { 0 };
 SERVICE_STATUS_HANDLE			statusHandle = NULL;
 HANDLE							serviceStopEvent = INVALID_HANDLE_VALUE;
 
+#ifndef _DEBUG
 VOID	__stdcall	ServiceMain(DWORD argc, LPTSTR *argv);
 VOID	__stdcall	ServiceCtrlHandler(DWORD);
-DWORD	__stdcall	ServiceWorkerThread(LPVOID lpParam);
+bool				ServiceInit();
+bool				SetService(const DWORD controlAccepted, const DWORD currentState, const DWORD win32ExitCode, const DWORD checkPoint);
+#endif
 
-#define SERVICE_NAME _T("433LoginServer")
-#define DEBUGSTR(A) OutputDebugString(_T(A))
-#define STR1 "433_Baseball_Login_Server : ServiceMain : SetServiceStatus returned error"
-#define STR2 "433_Baseball_Login_Server : ServiceCtrlHandler : SetServiceStatus returned error"
+bool				TotalInitializer();
+
+#define SERVICE_NAME	_T("433LoginServer")
+
+bool RealMain()
+{
+	CDBManager		&dbManager = CDBManager::GetInstance();
+	CLoginManager	&loginManager = CLoginManager::GetInstance();
+	CGlobalManager	&global = CGlobalManager::GetInstance();
+
+	WSADATA				wsa;
+
+	if (NULL != WSAStartup(MAKEWORD(2, 2), &wsa))
+	{
+		MYSERVICEERRORPRINTF("WSAStartup");
+		return false;
+	}
+
+	if (!TotalInitializer())
+	{
+		MYSERVICEERRORPRINTF("TotalInitializer");
+		return false;
+	}
+
+	return true;
+}
 
 int _tmain(int argc, TCHAR *argv[])
 {
+#ifdef _DEBUG
+	if (!RealMain())
+	{
+		MYSERVICEERRORPRINTF("RealMain");
+		return -1;
+	}
+	Sleep(INFINITE);
+#else
 	SERVICE_TABLE_ENTRY serviceTable[] =
 	{
-		{ SERVICE_NAME, (LPSERVICE_MAIN_FUNCTION) ServiceMain },
+		{ SERVICE_NAME, (LPSERVICE_MAIN_FUNCTION)ServiceMain },
 		{ NULL, NULL }
 	};
 
@@ -25,10 +58,11 @@ int _tmain(int argc, TCHAR *argv[])
 	{
 		return GetLastError();
 	}
-
+#endif
 	return 0;
 }
 
+#ifndef _DEBUG
 VOID __stdcall ServiceMain(DWORD argc, LPTSTR *argv)
 {
 	DWORD status = E_FAIL;
@@ -37,66 +71,49 @@ VOID __stdcall ServiceMain(DWORD argc, LPTSTR *argv)
 
 	if (NULL == statusHandle)
 	{
+		MYPRINTF("RegisterServiceCtrlHandler's return value is null : %u", WSAGetLastError());
 		return;
 	}
 
-	memset(&serviceStatus, 0, sizeof(serviceStatus));
-	serviceStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
-	serviceStatus.dwControlsAccepted = 0;
-	serviceStatus.dwCurrentState = SERVICE_START_PENDING;
-	serviceStatus.dwWin32ExitCode = 0;
-	serviceStatus.dwServiceSpecificExitCode = 0;
-	serviceStatus.dwCheckPoint = 0;
+	if (!ServiceInit())
+		return;
 
-	if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
-	{
-		DEBUGSTR(STR1);
-	}
-
+	//--------------------------------------------------------------
 	// Perform tasks necessary to start the service here !
 
-	serviceStopEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-	if (NULL == serviceStopEvent)
+	if (!RealMain())
 	{
-		serviceStatus.dwControlsAccepted = 0;
-		serviceStatus.dwCurrentState = SERVICE_STOPPED;
-		serviceStatus.dwWin32ExitCode = GetLastError();
-		serviceStatus.dwCheckPoint = 1;
-
-		if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
-		{
-			DEBUGSTR(STR1);
-		}
+		MYSERVICEERRORPRINTF("RealMain");
 		return;
 	}
 
-	serviceStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP;
-	serviceStatus.dwCurrentState = SERVICE_RUNNING;
-	serviceStatus.dwWin32ExitCode = 0;
-	serviceStatus.dwCheckPoint = 0;
+	//--------------------------------------------------------------
 
-	if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
+	serviceStopEvent = CreateEvent(NULL, TRUE, FALSE, L"433_Login_KillServer");
+
+	if (NULL == serviceStopEvent)
 	{
-		DEBUGSTR(STR1);
+		if (!SetService(0, SERVICE_STOPPED, GetLastError(), 1))
+			return;
 	}
 
-	HANDLE serviceThread = CreateThread(NULL, 0, ServiceWorkerThread, NULL, 0, NULL);
+	if (!SetService(SERVICE_ACCEPT_STOP, SERVICE_RUNNING, 0, 0))
+		return;
 
-	WaitForSingleObject(serviceThread, INFINITE);
+	DWORD result = WaitForSingleObject(serviceStopEvent, INFINITE);
+	if (WAIT_FAILED == result)
+	{
+		MYSERVICEERRORPRINTF("WaitForSingleObject");
+		return;
+	}
 
 	// Perform any cleanup tasks here !
 
 	CloseHandle(serviceStopEvent);
 
-	serviceStatus.dwControlsAccepted = 0;
-	serviceStatus.dwCurrentState = SERVICE_STOPPED;
-	serviceStatus.dwWin32ExitCode = 0;
-	serviceStatus.dwCheckPoint = 3;
+	if (!SetService(0, SERVICE_STOPPED, 0, 3))
+		return;
 
-	if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
-	{
-		DEBUGSTR(STR1);
-	}
 	return;
 }
 
@@ -110,15 +127,8 @@ VOID __stdcall ServiceCtrlHandler(DWORD ctrlCode)
 
 		// Perform tasks necessary to stop the service here !
 
-		serviceStatus.dwControlsAccepted = 0;
-		serviceStatus.dwCurrentState = SERVICE_STOP_PENDING;
-		serviceStatus.dwWin32ExitCode = 0;
-		serviceStatus.dwCheckPoint = 4;
-
-		if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
-		{
-			DEBUGSTR(STR2);
-		}
+		if (!SetService(0, SERVICE_STOP_PENDING, 0, 4))
+			return;
 
 		SetEvent(serviceStopEvent);
 		break;
@@ -127,14 +137,76 @@ VOID __stdcall ServiceCtrlHandler(DWORD ctrlCode)
 	}
 }
 
-DWORD	__stdcall	ServiceWorkerThread(LPVOID lpParam)
+bool ServiceInit()
 {
-	while (WAIT_OBJECT_0 != WaitForSingleObject(serviceStopEvent, 0))
-	{
-		// Perform main service function here
+	memset(&serviceStatus, 0, sizeof(serviceStatus));
+	serviceStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
+	serviceStatus.dwControlsAccepted = 0;
+	serviceStatus.dwCurrentState = SERVICE_START_PENDING;
+	serviceStatus.dwWin32ExitCode = 0;
+	serviceStatus.dwServiceSpecificExitCode = 0;
+	serviceStatus.dwCheckPoint = 0;
 
-		Sleep(3000);
+	if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
+	{
+		MYSERVICEERRORPRINTF("ServiceInit()");
+		return false;
 	}
 
-	return ERROR_SUCCESS;
+	return true;
+}
+
+bool SetService(const DWORD controlAccepted, const DWORD currentState,
+	const DWORD win32ExitCode, const DWORD checkPoint)
+{
+	serviceStatus.dwControlsAccepted = controlAccepted;
+	serviceStatus.dwCurrentState = currentState;
+	serviceStatus.dwWin32ExitCode = win32ExitCode;
+	serviceStatus.dwCheckPoint = checkPoint;
+
+	if (FALSE == SetServiceStatus(statusHandle, &serviceStatus))
+	{
+		MYSERVICEERRORPRINTF("SetService");
+		return false;
+	}
+	return true;
+}
+#endif
+
+bool TotalInitializer()
+{
+	SYSTEM_INFO		systemInfo;
+
+	CDBManager		&dbManager = CDBManager::GetInstance();
+	CLoginManager	&loginManager = CLoginManager::GetInstance();
+
+	GetSystemInfo(&systemInfo);
+
+	if (!loginManager.FirstInitializer())
+	{
+		MYPRINTF("error in Initializer : %d\n", GetLastError());
+		return 0;
+	}
+
+	if (!loginManager.SecondInitializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
+	{
+		MYPRINTF("error in Initializer : %d\n", GetLastError());
+		return 0;
+	}
+
+	if (!dbManager.FirstInitializer("127.0.0.1", "root", "1234", "433baseball"))
+	{
+		MYPRINTF("error on FirstInitializer in _tmain : %d\n", GetLastError());
+		return 0;
+	}
+
+	// thread pool size for DB, DB handle pool size
+	// These handles must be dynamically resized by the number of logins !
+	if (!dbManager.SecondInitializer(4, 8))
+	{
+		MYPRINTF("error on SecondInitializer in _tmain : %d\n", GetLastError());
+		return 0;
+	}
+
+	return true;
 }

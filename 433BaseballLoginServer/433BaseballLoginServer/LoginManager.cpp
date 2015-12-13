@@ -2,6 +2,15 @@
 
 CLoginManager::~CLoginManager()
 {
+	CloseHandle(iocp);
+	CloseHandle(sockPoolSema);
+	for (int k = 0; k < sockets.size(); ++k)
+	{
+		CLoginSocket *tmpSock = sockets.front();
+		closesocket(tmpSock->sock);
+		sockets.pop();
+		delete tmpSock;
+	}
 }
 
 CLoginManager &CLoginManager::GetInstance()
@@ -59,13 +68,13 @@ bool CLoginManager::SecondInitializer(const int &threadNum, const int &socketPoo
 		return false;
 	}
 	
-	if (!listenSocket.Listen())
+	if (!listenSocket.Listen(proactor))
 	{
 		MYERRORPRINTF("listen of listensocket");
 		return false;
 	}
 
-	if (!MakeSocketPool())
+	if (!MakeSocketPool(socketPoolsizeParam))
 	{
 		MYERRORPRINTF("MakeSocketPool");
 		return false;
@@ -87,11 +96,18 @@ bool CLoginManager::SocketCreate(CLoginSocket &socket)
 	return true;
 }
 
-bool CLoginManager::MakeSocketPool()
+bool CLoginManager::MakeSocketPool(const int &sockPoolSizeParam)
 {
-	socketPoolSize = 1;
+	socketPoolSize = sockPoolSizeParam;
 
-	sockets.reserve(socketPoolSize);
+	CLoginSocket *socket;
+
+	sockPoolSema = CreateSemaphore(NULL, socketPoolSize, socketPoolSize, L"433_DB_Login_Sema");
+	if (NULL == sockPoolSema)
+	{
+		MYERRORPRINTF("CreateSemaphore");
+		return false;
+	}
 
 	for (int k = 0; k < socketPoolSize; ++k)
 	{
@@ -109,8 +125,73 @@ bool CLoginManager::MakeSocketPool()
 
 		acceptor.Register(*socket, 0);
 
-		sockets.push_back(socket);
+		sockets.push(socket);
 	}
+
+	return true;
+}
+
+CLoginSocket *CLoginManager::GetAvailableSocket()
+{
+	CLoginSocket *tmpSocket = NULL;
+
+	DWORD result = WaitForSingleObject(sockPoolSema, WAIT_AVAILABLE_SOCKET_TIME);
+
+	if (WAIT_FAILED == result)
+	{
+		MYERRORPRINTF("WaitForSingleObject");
+		return false;
+	}
+	else if (WAIT_TIMEOUT == result)
+	{
+		MYPRINTF("There is no available DB handle !\n");
+		return NULL;
+	}
+	else if (WAIT_OBJECT_0 == result)
+	{
+		tmpSocket = sockets.front();
+		sockets.pop();
+
+		if (NULL == tmpSocket)
+		{
+			MYPRINTF("The Sockets' queue is empty !\n");
+			return NULL;
+		}
+
+		if (CDisconnected::Instance() == tmpSocket->stateMachine.CurrentState())
+		{
+			return tmpSocket;
+		}
+
+		MYERRORPRINTF("The available socket's state is not the ");
+	}
+
+	return tmpSocket;
+}
+
+bool CLoginManager::ReleaseSocket(CLoginSocket *param)
+{
+	if (NULL == param)
+	{
+		MYPRINTF("Error : The parameter of ReleaseSocket is NULL !\n");
+		return false;
+	}
+	
+	if (CDisconnected::Instance() == param->stateMachine.CurrentState())
+	{
+		MYPRINTF("Error : The Socket is already disconnected.\n");
+		return false;
+	}
+
+	param->stateMachine.ChangeState(CDisconnected::Instance());
+
+	if (!ReleaseSemaphore(sockPoolSema, 1, NULL))
+	{
+		MYERRORPRINTF("RelaseSemaphore");
+		return false;
+	}
+
+	sockets.push(param);
 
 	return true;
 }

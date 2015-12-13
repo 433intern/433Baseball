@@ -20,6 +20,8 @@ bool CAcceptor::EventProc(CAct *act, DWORD receivedBytes)
 
 	clientManager.proactor.Register((HANDLE)tmpSocket.sock);
 
+	MYPRINTF("ACCEPTED !!");
+
 	tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
 
 	return true;

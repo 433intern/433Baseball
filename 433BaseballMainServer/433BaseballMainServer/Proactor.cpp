@@ -14,7 +14,12 @@ bool CProactor::Initializer(const int &threadNum)
 		return false;
 	}
 
-	
+	if (!CreateThreadPool(threadNum))
+	{
+		MYERRORPRINTF("CreatetThreadPool");
+		return false;
+	}
+
 	return true;
 }
 

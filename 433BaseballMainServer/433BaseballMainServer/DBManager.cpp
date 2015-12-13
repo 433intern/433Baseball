@@ -8,8 +8,13 @@ CDBManager &CDBManager::GetInstance()
 
 CDBManager::~CDBManager()
 {
-	while(dbHandles.size() > 0)
+	while (dbHandles.size() > 0)
+	{
+		CDBHandle *tmpHandle = dbHandles.front();
+		mysql_close(tmpHandle->dbConnection);
 		dbHandles.pop();
+		delete tmpHandle;
+	}
 
 	mysql_library_end();
 
@@ -201,6 +206,7 @@ bool CDBManager::QueryEx(const char *str)
 
 	dbHandle->queryStr = str;
 	CDBAct *tmpAct = &dbHandle->acts[CDBHandle::DB_ACK_TYPE::QUERY];
+	tmpAct->dbHandle = dbHandle;
 
 	if (NULL == tmpAct)
 	{
@@ -228,6 +234,7 @@ bool CDBManager::HarvestEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::HARVEST];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{
@@ -255,6 +262,7 @@ bool CDBManager::ConnectEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::CONNECT];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{
@@ -282,6 +290,7 @@ bool CDBManager::DisconnectEx(CDBHandle *param)
 	}
 
 	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::DISCONNECT];
+	tmpAct->dbHandle = param;
 
 	if (NULL == tmpAct)
 	{

@@ -8,18 +8,24 @@ CListenSocket::~CListenSocket()
 {
 }
 
-bool CListenSocket::Listen()
+bool CListenSocket::Listen(CProactor& proactor)
 {
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(SERVERPORT);
 
+	if (!proactor.Register((HANDLE)sock))
+	{
+		MYERRORPRINTF("proactor.Register");
+		return false;
+	}
+
 	int result = bind(sock, (SOCKADDR*)&addr, sizeof(addr));
 
 	if (SOCKET_ERROR == result)
 	{
-		MYPRINTF("Error on bind in Listen function of CListenSocket : %d\n", WSAGetLastError());
+		MYERRORPRINTF("bind");
 		return false;
 	}
 
@@ -27,7 +33,7 @@ bool CListenSocket::Listen()
 	
 	if (SOCKET_ERROR == result)
 	{
-		MYPRINTF("Error on listen in Listen function of CListenSocket : %d\n", WSAGetLastError());
+		MYERRORPRINTF("listen");
 		return false;
 	}
 
@@ -41,7 +47,7 @@ bool CListenSocket::Init(WORD port, int backlogSizeParam)
 
 	if (INVALID_SOCKET == sock)
 	{
-		MYPRINTF("Error on WSASocket in Init function of CListenSocket : %d\n", WSAGetLastError());
+		MYERRORPRINTF("WSASocket");
 		return false;
 	}
 

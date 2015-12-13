@@ -13,8 +13,9 @@ class CClientManager
 	CSender							sender;
 	CAcceptor						acceptor;
 
+	HANDLE							sockPoolSema;
 	int								socketPoolSize;
-	std::vector<CClientSocket*>		sockets;
+	std::queue<CClientSocket*>		sockets;
 public:
 	CProactor						proactor;
 
@@ -25,8 +26,11 @@ public:
 	bool FirstInitializer();
 	bool SecondInitializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
 
-	bool MakeSocketPool();
+	bool MakeSocketPool(const int &sockPoolSizeParam);
 	bool SocketCreate(CClientSocket &socket);
+
+	CClientSocket					*GetAvailableSocket();
+	bool							ReleaseSocket(CClientSocket *param);
 
 	static CClientManager			&GetInstance();
 };

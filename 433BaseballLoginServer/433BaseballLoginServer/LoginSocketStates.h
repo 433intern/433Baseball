@@ -1,13 +1,26 @@
 #pragma once
 
-class CWaitResponse : public State<CLoginSocket>
+class CWaitCreateAccountResponse : public State<CLoginSocket>
 {
 private:
-	CWaitResponse(){}
-	CWaitResponse(const CWaitResponse&);
-	CWaitResponse& operator=(const CWaitResponse&);
+	CWaitCreateAccountResponse(){}
+	CWaitCreateAccountResponse(const CWaitCreateAccountResponse&);
+	CWaitCreateAccountResponse& operator=(const CWaitCreateAccountResponse&);
 public:
-	static CWaitResponse* Instance();
+	static CWaitCreateAccountResponse* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CWaitLoginResponse : public State<CLoginSocket>
+{
+private:
+	CWaitLoginResponse(){}
+	CWaitLoginResponse(const CWaitLoginResponse&);
+	CWaitLoginResponse& operator=(const CWaitLoginResponse&);
+public:
+	static CWaitLoginResponse* Instance();
 	virtual void Enter(CLoginSocket *login);
 	virtual void Exit(CLoginSocket *login);
 	virtual void Execute(CLoginSocket *login);
@@ -21,6 +34,19 @@ private:
 	CWaitMessage& operator=(const CWaitMessage&);
 public:
 	static CWaitMessage* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CDisconnected : public State<CLoginSocket>
+{
+private:
+	CDisconnected(){}
+	CDisconnected(const CDisconnected&);
+	CDisconnected& operator=(const CDisconnected&);
+public:
+	static CDisconnected* Instance();
 	virtual void Enter(CLoginSocket *login);
 	virtual void Exit(CLoginSocket *login);
 	virtual void Execute(CLoginSocket *login);

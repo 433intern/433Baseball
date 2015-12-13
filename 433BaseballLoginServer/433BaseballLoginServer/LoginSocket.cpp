@@ -3,6 +3,7 @@
 CLoginSocket::CLoginSocket()
 :stateMachine(this)
 {
+	stateMachine.SetCurrentState(CDisconnected::Instance());
 }
 
 CLoginSocket::~CLoginSocket()
@@ -23,7 +24,7 @@ bool CLoginSocket::Initializer(CProactor *proactorParam, CConnector *connectorPa
 	acceptor = acceptorParam;
 
 	if (!acts[CONNECT].Initializer(connector, this))
-	{
+	{ 
 		MYPRINTF("error on acts[CONNECT].Initializer in Initializer of CLoginSocket : %d\n", WSAGetLastError());
 		return false;
 	}

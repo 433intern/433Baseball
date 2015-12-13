@@ -8,5 +8,5 @@ struct CListenSocket : public CSockInfo
 	~CListenSocket();
 
 	bool Init(WORD port, int backlogSizeParam = 0);
-	bool Listen();
+	bool Listen(CProactor& proactor);
 };
