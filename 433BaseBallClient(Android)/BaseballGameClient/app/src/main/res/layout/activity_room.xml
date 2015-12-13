@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:showDividers="none">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="방"
+            android:id="@+id/ROOM_ROOMNUM_VIEW"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Me"
+            android:layout_weight="2.50"
+            android:id="@+id/textView9"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:singleLine="false"
+            android:textAlignment="center"
+            android:textIsSelectable="false"
+            android:enabled="true"
+            android:focusable="false"
+            android:elegantTextHeight="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Opponent"
+            android:layout_weight="1"
+            android:id="@+id/textView10"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Empty"
+            android:layout_weight="0.96"
+            android:id="@+id/textView11"
+            android:textSize="30dp"
+            android:singleLine="false"
+            android:textAlignment="center"
+            android:textIsSelectable="false"
+            android:enabled="true"
+            android:focusable="false"
+            android:elegantTextHeight="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Empty"
+            android:layout_weight="1"
+            android:id="@+id/textView12"
+            android:textSize="30dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_weight="0.23">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Number"
+            android:id="@+id/textView13"
+            android:layout_weight="0.16"
+            android:textSize="30dp"
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:layout_width="154dp"
+            android:layout_height="54dp"
+            android:id="@+id/editText3"
+            android:layout_weight="0.27"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="입력"
+            android:id="@+id/button5"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.19">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="게임 시작"
+            android:layout_weight="1"
+            android:id="@+id/ROOM_START_BUTTON"
+            android:onClick="roomStartBtnClicked" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나가기"
+            android:id="@+id/ROOM_LEAVE_BUTTON"
+            android:layout_weight="1"
+            android:onClick="roomLeaveBtnClicked" />
+
+    </LinearLayout>
+
+</LinearLayout>

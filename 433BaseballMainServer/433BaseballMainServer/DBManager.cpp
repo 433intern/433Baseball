@@ -8,6 +8,7 @@ CDBManager::CDBManager(const std::string &hostAddress, const std::string &userNa
 	handlePoolSize = 0;
 
 	availableDBHandles = 0;
+	
 }
 
 CDBManager::~CDBManager()

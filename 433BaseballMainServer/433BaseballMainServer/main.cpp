@@ -28,11 +28,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 
-	if (!dbManager->Initializer(4, 8))			// thread pool size for DB, DB handle pool size
-	{
-	MYPRINTF("error in Initializer : %d\n", GetLastError());
-	return 0;
-	}
+	//if (!dbManager->Initializer(4, 8))			// thread pool size for DB, DB handle pool size
+	//{
+	//MYPRINTF("error in Initializer : %d\n", GetLastError());
+	//return 0;
+	//}
 
 	//------------------------------------
 

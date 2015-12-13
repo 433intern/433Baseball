@@ -1,4 +1,4 @@
-package GameEnumeration;
+package BaseballProtocol;
 
 enum PacketType
 {

@@ -61,6 +61,15 @@
     <Filter Include="소스 파일\Manager\GlobalManager">
       <UniqueIdentifier>{7d255809-185c-4988-b327-9e874af125cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Protocol">
+      <UniqueIdentifier>{2bbbc402-3dfe-4c61-a76e-40c676a6767f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Protocol\PB">
+      <UniqueIdentifier>{65e2d23e-5205-4959-8938-998ee3cc8841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Protocol\Common">
+      <UniqueIdentifier>{cec4f76c-5c74-42fa-8343-cd4286e69754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -147,6 +156,24 @@
     <ClInclude Include="Disconnector.h">
       <Filter>소스 파일\Proactor\ChildrenOfActor\ClientActors</Filter>
     </ClInclude>
+    <ClInclude Include="GamePacketEnumeration.pb.h">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClInclude>
+    <ClInclude Include="IngamePacket.pb.h">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginMessage.pb.h">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.pb.h">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>소스 파일\Protocol\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CPacket.h">
+      <Filter>소스 파일\Protocol\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBManager.cpp">
@@ -221,5 +248,31 @@
     <ClCompile Include="GlobalManager.cpp">
       <Filter>소스 파일\Manager\GlobalManager</Filter>
     </ClCompile>
+    <ClCompile Include="GamePacketEnumeration.pb.cc">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClCompile>
+    <ClCompile Include="IngamePacket.pb.cc">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginMessage.pb.cc">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomPacket.pb.cc">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GamePacketEnumeration.PROTO">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </None>
+    <None Include="IngamePacket.PROTO">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </None>
+    <None Include="LoginMessage.PROTO">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </None>
+    <None Include="RoomPacket.Proto">
+      <Filter>소스 파일\Protocol\PB</Filter>
+    </None>
   </ItemGroup>
 </Project>

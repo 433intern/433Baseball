@@ -22,9 +22,9 @@ public:
   State<entity_type>* GlobalState()   const{return m_pGlobalState;}
   State<entity_type>* PreviousState() const{return m_pPreviousState;}
   
-  void Update(long long time)const
+  void Update(long long time) const
   {
-    if(m_pGlobalState)   m_pGlobalState->Execute(m_pOwner, time);
+    if (m_pGlobalState)   m_pGlobalState->Execute(m_pOwner, time);
     if (m_pCurrentState) m_pCurrentState->Execute(m_pOwner, time);
   }
 

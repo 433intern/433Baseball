@@ -1,0 +1,50 @@
+package protocol;
+option java_package = "com.example.sonjoy.baseballgameclient.protocol";
+
+// Client <-> Login Server
+
+enum PacketType
+{
+	CLS_LOGIN_REQUEST = 0;
+	LSC_LOGIN_RESULT = 1;
+	CLS_ACCOUNT_CREATE = 2;
+	LSC_ACCOUNT_CREATE_RESULT = 3;
+}
+
+enum FailSignal
+{
+	UNKNOWN = 0;
+	NO_EXIST = 1;
+	ALREADY_EXIST = 2;
+	WRONG_PASSWORD = 3;
+}
+
+message PacketHeader{
+
+	optional uint32 size = 1;
+	optional PacketType type = 2;
+
+}
+
+message CLS_login_request
+{
+	optional   string			id = 1;
+	optional   string			password = 2;
+}
+
+message LSC_login_result
+{
+	optional   FailSignal       failsignal = 1; 
+}
+
+message CLS_account_create
+{
+	optional   string			id = 1;
+	optional   string			password = 2;
+}
+
+message LSC_account_create_result
+{
+	optional   FailSignal		failSignal = 1;
+	optional   string 			securityCode = 2;
+}

@@ -1,6 +1,6 @@
-package RoomPacket;
+package BaseballProtocol;
 
-import "GamePacketEnumeration.PROTO";
+import public "GamePacketEnumeration.proto";
 
 message CS_room_create
 {

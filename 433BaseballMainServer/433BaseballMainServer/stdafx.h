@@ -110,3 +110,12 @@ struct CDBAct;
 #include "ClientManager.h"
 
 #include "ClientSocketStates.h"
+
+#include <google/protobuf/text_format.h>
+#include <google\protobuf\io\coded_stream.h>
+#include "GamePacketEnumeration.pb.h"
+#include "IngamePacket.pb.h"
+#include "RoomPacket.pb.h"
+#include "LoginMessage.pb.h"
+
+#include "CPacket.h"

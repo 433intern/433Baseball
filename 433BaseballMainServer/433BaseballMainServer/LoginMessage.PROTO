@@ -1,0 +1,44 @@
+package protocol;
+
+// Client <-> Login Server
+
+import "GamePacketEnumeration.proto";
+
+//enum PacketType
+//{
+//	CLS_LOGIN_REQUEST = 0;
+//	LSC_LOGIN_SUCCESS = 1;
+//	LSC_LOGIN_FAILED = 2;
+//	CLS_ACCOUNT_CREATE = 3;
+//	LSC_ACCOUNT_CREATE_SUCCESS = 4;
+//	LSC_ACCOUNT_CREATE_FAILED = 5;
+//}
+//
+//enum FailSignal
+//{
+//	NO_EXIST = 0;
+//	ALREADY_EXIST = 1;
+//	WRONG_PASSWORD = 2;
+//}
+
+message CLS_login_request
+{
+	optional   string			id = 1;
+	optional   string			password = 2;
+}
+
+message LSC_login_result
+{
+	optional   FailSignal       failsignal = 1; 
+}
+
+message CLS_account_create
+{
+	optional   string			id = 1;
+	optional   string			password = 2;
+}
+
+message LSC_account_create_result
+{
+	optional   FailSignal		failSignal = 1;
+}
