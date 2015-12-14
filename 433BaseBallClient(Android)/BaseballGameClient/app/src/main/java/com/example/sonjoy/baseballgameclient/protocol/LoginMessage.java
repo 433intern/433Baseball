@@ -213,22 +213,22 @@ public final class LoginMessage {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     boolean hasSize();
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     int getSize();
 
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
     boolean hasType();
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
-    com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType getType();
+    int getType();
   }
   /**
    * Protobuf type {@code protocol.PacketHeader}
@@ -282,20 +282,14 @@ public final class LoginMessage {
               }
               break;
             }
-            case 8: {
+            case 13: {
               bitField0_ |= 0x00000001;
-              size_ = input.readUInt32();
+              size_ = input.readFixed32();
               break;
             }
-            case 16: {
-              int rawValue = input.readEnum();
-              com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType value = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
-              } else {
-                bitField0_ |= 0x00000002;
-                type_ = value;
-              }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              type_ = input.readFixed32();
               break;
             }
           }
@@ -341,36 +335,36 @@ public final class LoginMessage {
     public static final int SIZE_FIELD_NUMBER = 1;
     private int size_;
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     public boolean hasSize() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     public int getSize() {
       return size_;
     }
 
     public static final int TYPE_FIELD_NUMBER = 2;
-    private com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType type_;
+    private int type_;
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
-    public com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType getType() {
+    public int getType() {
       return type_;
     }
 
     private void initFields() {
       size_ = 0;
-      type_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType.CLS_LOGIN_REQUEST;
+      type_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -386,10 +380,10 @@ public final class LoginMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, size_);
+        output.writeFixed32(1, size_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, type_.getNumber());
+        output.writeFixed32(2, type_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -402,11 +396,11 @@ public final class LoginMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, size_);
+          .computeFixed32Size(1, size_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, type_.getNumber());
+          .computeFixed32Size(2, type_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -527,7 +521,7 @@ public final class LoginMessage {
         super.clear();
         size_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType.CLS_LOGIN_REQUEST;
+        type_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -616,19 +610,19 @@ public final class LoginMessage {
 
       private int size_ ;
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public boolean hasSize() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public int getSize() {
         return size_;
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public Builder setSize(int value) {
         bitField0_ |= 0x00000001;
@@ -637,7 +631,7 @@ public final class LoginMessage {
         return this;
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public Builder clearSize() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -646,37 +640,34 @@ public final class LoginMessage {
         return this;
       }
 
-      private com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType type_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType.CLS_LOGIN_REQUEST;
+      private int type_ ;
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
-      public com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType getType() {
+      public int getType() {
         return type_;
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
-      public Builder setType(com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
+      public Builder setType(int value) {
         bitField0_ |= 0x00000002;
         type_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        type_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.PacketType.CLS_LOGIN_REQUEST;
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -2961,21 +2952,21 @@ public final class LoginMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022LoginMessage.proto\022\010protocol\"@\n\014Packet" +
-      "Header\022\014\n\004size\030\001 \001(\r\022\"\n\004type\030\002 \001(\0162\024.pro" +
-      "tocol.PacketType\"1\n\021CLS_login_request\022\n\n" +
-      "\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"<\n\020LSC_login" +
-      "_result\022(\n\nfailsignal\030\001 \001(\0162\024.protocol.F" +
-      "ailSignal\"2\n\022CLS_account_create\022\n\n\002id\030\001 " +
-      "\001(\t\022\020\n\010password\030\002 \001(\t\"[\n\031LSC_account_cre" +
-      "ate_result\022(\n\nfailSignal\030\001 \001(\0162\024.protoco" +
-      "l.FailSignal\022\024\n\014securityCode\030\002 \001(\t*p\n\nPa" +
-      "cketType\022\025\n\021CLS_LOGIN_REQUEST\020\000\022\024\n\020LSC_L",
-      "OGIN_RESULT\020\001\022\026\n\022CLS_ACCOUNT_CREATE\020\002\022\035\n" +
-      "\031LSC_ACCOUNT_CREATE_RESULT\020\003*N\n\nFailSign" +
-      "al\022\013\n\007UNKNOWN\020\000\022\014\n\010NO_EXIST\020\001\022\021\n\rALREADY" +
-      "_EXIST\020\002\022\022\n\016WRONG_PASSWORD\020\003B0\n.com.exam" +
-      "ple.sonjoy.baseballgameclient.protocol"
+      "\n\022LoginMessage.proto\022\010protocol\"*\n\014Packet" +
+      "Header\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 \001(\007\"1\n\021CL" +
+      "S_login_request\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030" +
+      "\002 \001(\t\"<\n\020LSC_login_result\022(\n\nfailsignal\030" +
+      "\001 \001(\0162\024.protocol.FailSignal\"2\n\022CLS_accou" +
+      "nt_create\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"" +
+      "[\n\031LSC_account_create_result\022(\n\nfailSign" +
+      "al\030\001 \001(\0162\024.protocol.FailSignal\022\024\n\014securi" +
+      "tyCode\030\002 \001(\t*p\n\nPacketType\022\025\n\021CLS_LOGIN_" +
+      "REQUEST\020\000\022\024\n\020LSC_LOGIN_RESULT\020\001\022\026\n\022CLS_A",
+      "CCOUNT_CREATE\020\002\022\035\n\031LSC_ACCOUNT_CREATE_RE" +
+      "SULT\020\003*N\n\nFailSignal\022\013\n\007UNKNOWN\020\000\022\014\n\010NO_" +
+      "EXIST\020\001\022\021\n\rALREADY_EXIST\020\002\022\022\n\016WRONG_PASS" +
+      "WORD\020\003B0\n.com.example.sonjoy.baseballgam" +
+      "eclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
         EditText idEdit = (EditText)findViewById(R.id.LOGIN_ID_EDIT);
         EditText passwordEdit = (EditText)findViewById(R.id.LOGIN_PASSWORD_EDIT);
 
-        id = idEdit.toString();
-        password = passwordEdit.toString();
+        id = idEdit.getText().toString();
+        password = passwordEdit.getText().toString();
 
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                if(mLoginSocket != null)
+
                 {
                     LoginMessage.CLS_login_request payload = LoginMessage.CLS_login_request.newBuilder()
                             .setId(id)
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
                             .build();
 
                     LoginMessage.PacketHeader header = LoginMessage.PacketHeader.newBuilder()
+                            .setType(LoginMessage.PacketType.CLS_LOGIN_REQUEST_VALUE)
                             .setSize(payload.getSerializedSize())
-                            .setType(LoginMessage.PacketType.CLS_LOGIN_REQUEST)
                             .build();
 
                     try {
@@ -90,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        }).start();
 
-        Intent intent = new Intent(this, LobbyActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("ID",idEdit.getText());
-        intent.putExtra("PASSWORD",passwordEdit.getText());
-        startActivity(intent);
+//        Intent intent = new Intent(this, LobbyActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.putExtra("ID",idEdit.getText());
+//        intent.putExtra("PASSWORD",passwordEdit.getText());
+//        startActivity(intent);
     }
 
     public void accountCreateBtnClicked(View v){
@@ -111,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        private String LOGIN_SERVER_IP = "127.0.0.1";
-        private int LOGIN_SERVER_PORT = 9000;
+        private String LOGIN_SERVER_IP = "10.100.58.3";
+        private int LOGIN_SERVER_PORT = 9001;
 
-        private final int HEADER_SIZE = 4;
+        private final int HEADER_SIZE = 10;
 
         private byte[] rcvHeaderBuf = new byte[HEADER_SIZE];
         private byte[] rcvDataBuf;
@@ -179,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
-        public void RecvProcess(byte[] buf, LoginMessage.PacketType type){
+        public void RecvProcess(byte[] buf, int type){
 
             switch(type)
             {
-                case LSC_LOGIN_RESULT:
+                case LoginMessage.PacketType.LSC_LOGIN_RESULT_VALUE:
 
                     try {
                         LoginMessage.LSC_login_result pkt = LoginMessage.LSC_login_result.parseFrom(buf);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
 
-                case LSC_ACCOUNT_CREATE_RESULT:
+                case LoginMessage.PacketType.LSC_ACCOUNT_CREATE_RESULT_VALUE:
                     break;
             }
         }

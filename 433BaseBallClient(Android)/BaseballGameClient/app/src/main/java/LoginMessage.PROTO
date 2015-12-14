@@ -21,8 +21,8 @@ enum FailSignal
 
 message PacketHeader{
 
-	optional uint32 size = 1;
-	optional PacketType type = 2;
+	optional fixed32 size = 1;
+	optional fixed32 type = 2;
 
 }
 

@@ -318,22 +318,22 @@ public final class GamePacketEnumeration {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     boolean hasSize();
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     int getSize();
 
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
     boolean hasType();
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
-    com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType getType();
+    int getType();
   }
   /**
    * Protobuf type {@code protocol.PacketHeader}
@@ -387,20 +387,14 @@ public final class GamePacketEnumeration {
               }
               break;
             }
-            case 8: {
+            case 13: {
               bitField0_ |= 0x00000001;
-              size_ = input.readUInt32();
+              size_ = input.readFixed32();
               break;
             }
-            case 16: {
-              int rawValue = input.readEnum();
-              com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType value = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
-              } else {
-                bitField0_ |= 0x00000002;
-                type_ = value;
-              }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              type_ = input.readFixed32();
               break;
             }
           }
@@ -446,36 +440,36 @@ public final class GamePacketEnumeration {
     public static final int SIZE_FIELD_NUMBER = 1;
     private int size_;
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     public boolean hasSize() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional uint32 size = 1;</code>
+     * <code>optional fixed32 size = 1;</code>
      */
     public int getSize() {
       return size_;
     }
 
     public static final int TYPE_FIELD_NUMBER = 2;
-    private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType type_;
+    private int type_;
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .protocol.PacketType type = 2;</code>
+     * <code>optional fixed32 type = 2;</code>
      */
-    public com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType getType() {
+    public int getType() {
       return type_;
     }
 
     private void initFields() {
       size_ = 0;
-      type_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType.UNKNOWN;
+      type_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -491,10 +485,10 @@ public final class GamePacketEnumeration {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, size_);
+        output.writeFixed32(1, size_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, type_.getNumber());
+        output.writeFixed32(2, type_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -507,11 +501,11 @@ public final class GamePacketEnumeration {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, size_);
+          .computeFixed32Size(1, size_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, type_.getNumber());
+          .computeFixed32Size(2, type_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -632,7 +626,7 @@ public final class GamePacketEnumeration {
         super.clear();
         size_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType.UNKNOWN;
+        type_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -721,19 +715,19 @@ public final class GamePacketEnumeration {
 
       private int size_ ;
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public boolean hasSize() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public int getSize() {
         return size_;
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public Builder setSize(int value) {
         bitField0_ |= 0x00000001;
@@ -742,7 +736,7 @@ public final class GamePacketEnumeration {
         return this;
       }
       /**
-       * <code>optional uint32 size = 1;</code>
+       * <code>optional fixed32 size = 1;</code>
        */
       public Builder clearSize() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -751,37 +745,34 @@ public final class GamePacketEnumeration {
         return this;
       }
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType type_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType.UNKNOWN;
+      private int type_ ;
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
-      public com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType getType() {
+      public int getType() {
         return type_;
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
-      public Builder setType(com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
+      public Builder setType(int value) {
         bitField0_ |= 0x00000002;
         type_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional .protocol.PacketType type = 2;</code>
+       * <code>optional fixed32 type = 2;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        type_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.PacketType.UNKNOWN;
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -812,20 +803,19 @@ public final class GamePacketEnumeration {
   static {
     java.lang.String[] descriptorData = {
       "\n\033GamePacketEnumeration.proto\022\010protocol\"" +
-      "@\n\014PacketHeader\022\014\n\004size\030\001 \001(\r\022\"\n\004type\030\002 " +
-      "\001(\0162\024.protocol.PacketType*\324\002\n\nPacketType" +
-      "\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_ROOM_CREATE\020\001\022\020\n\014CS_" +
-      "ROOM_JOIN\020\002\022\031\n\025SC_ROOM_CREATE_RESULT\020\003\022\027" +
-      "\n\023SC_ROOM_JOIN_RESULT\020\004\022\021\n\rCS_ROOM_LEAVE" +
-      "\020\005\022\033\n\027CS_REQUEST_INGAME_START\020\006\022\030\n\024SC_RO" +
-      "OM_LEAVE_RESULT\020\007\022\032\n\026SC_INGAME_START_RES" +
-      "ULT\020\010\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\t\022%\n!SC" +
-      "_RECEIVE_BASEBALL_NUMBER_RESULT\020\n\022\020\n\014SC_",
-      "GIVE_TURN\020\013\022\020\n\014SC_WAIT_TURN\020\014\022\021\n\rSC_INGA" +
-      "ME_END\020\r*F\n\nFailSignal\022\014\n\010NO_EXIST\020\000\022\r\n\t" +
-      "FULL_ROOM\020\001\022\033\n\027EXIST_REPETITION_NUMBER\020\002" +
-      "B0\n.com.example.sonjoy.baseballgameclien" +
-      "t.protocol"
+      "*\n\014PacketHeader\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 " +
+      "\001(\007*\324\002\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_RO" +
+      "OM_CREATE\020\001\022\020\n\014CS_ROOM_JOIN\020\002\022\031\n\025SC_ROOM" +
+      "_CREATE_RESULT\020\003\022\027\n\023SC_ROOM_JOIN_RESULT\020" +
+      "\004\022\021\n\rCS_ROOM_LEAVE\020\005\022\033\n\027CS_REQUEST_INGAM" +
+      "E_START\020\006\022\030\n\024SC_ROOM_LEAVE_RESULT\020\007\022\032\n\026S" +
+      "C_INGAME_START_RESULT\020\010\022\033\n\027CS_SEND_BASEB" +
+      "ALL_NUMBER\020\t\022%\n!SC_RECEIVE_BASEBALL_NUMB" +
+      "ER_RESULT\020\n\022\020\n\014SC_GIVE_TURN\020\013\022\020\n\014SC_WAIT",
+      "_TURN\020\014\022\021\n\rSC_INGAME_END\020\r*F\n\nFailSignal" +
+      "\022\014\n\010NO_EXIST\020\000\022\r\n\tFULL_ROOM\020\001\022\033\n\027EXIST_R" +
+      "EPETITION_NUMBER\020\002B0\n.com.example.sonjoy" +
+      ".baseballgameclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
