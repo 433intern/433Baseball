@@ -3,6 +3,16 @@ option java_package = "com.example.sonjoy.baseballgameclient.protocol";
 
 import public "GamePacketEnumeration.proto";
 
+
+message RoomInfo
+{
+	optional uint32 roomNum = 1;
+}
+
+message CS_room_info_request
+{
+}
+
 message CS_room_create
 {
 	optional   uint32			roomNum = 1;
@@ -20,6 +30,13 @@ message CS_room_leave
 
 message CS_request_ingame_start
 {
+
+}
+
+message SC_room_info_response
+{
+	optional uint32 roomCount = 1;
+	repeated RoomInfo roomList = 2;
 }
 
 message SC_room_create_result

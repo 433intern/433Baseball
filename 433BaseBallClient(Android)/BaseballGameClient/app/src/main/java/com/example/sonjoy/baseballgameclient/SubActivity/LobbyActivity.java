@@ -10,8 +10,13 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sonjoy.baseballgameclient.BaseballApp;
 import com.example.sonjoy.baseballgameclient.R;
+import com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration;
+import com.example.sonjoy.baseballgameclient.protocol.LoginMessage;
+import com.example.sonjoy.baseballgameclient.protocol.RoomPacket;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -28,6 +33,26 @@ public class LobbyActivity extends Activity {
         Toast.makeText(this, "onCreate() 호출", Toast.LENGTH_SHORT).show();
         btnList = new LinkedList<Button>();
 
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                {
+                    RoomPacket.CS_room_info_request payload = RoomPacket.CS_room_info_request.newBuilder().build();
+
+                    GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
+                            .setSize(payload.getSerializedSize())
+                            .setType(GamePacketEnumeration.PacketType.CS_ROOM_INFO_REQUEST_VALUE)
+                            .build();
+
+                    BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
+                }
+
+            }
+        }).start();
+
+
+
         listner = new View.OnClickListener()
         {
             @Override
@@ -42,6 +67,10 @@ public class LobbyActivity extends Activity {
                 startActivity(intent);
             }
         };
+
+
+
+
 
     }
     @Override

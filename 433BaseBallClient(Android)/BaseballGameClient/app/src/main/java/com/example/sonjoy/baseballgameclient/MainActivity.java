@@ -28,19 +28,18 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private LoginClientSocket loginTaskSocket;
 
     private String id;
     private String password;
 
-    private Socket mLoginSocket = null;
-
+    private Socket mLoginSocket;
     private OutputStream outStream;
     private InputStream inputStream;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -51,13 +50,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume()
+    {
         super.onResume();
         Toast.makeText(this, "onResume() 호출", Toast.LENGTH_SHORT).show();
     }
 
 
-    public void loginBtnClicked(View v){
+    public void loginBtnClicked(View v)
+    {
         EditText idEdit = (EditText)findViewById(R.id.LOGIN_ID_EDIT);
         EditText passwordEdit = (EditText)findViewById(R.id.LOGIN_PASSWORD_EDIT);
 
@@ -65,10 +66,8 @@ public class MainActivity extends AppCompatActivity {
         password = passwordEdit.getText().toString();
 
         new Thread(new Runnable() {
-
             @Override
             public void run() {
-
                 {
                     LoginMessage.CLS_login_request payload = LoginMessage.CLS_login_request.newBuilder()
                             .setId(id)
@@ -80,36 +79,22 @@ public class MainActivity extends AppCompatActivity {
                             .setSize(payload.getSerializedSize())
                             .build();
 
-                    try {
-                        outStream.write(header.toByteArray());
-                        outStream.write(payload.toByteArray());
-                        outStream.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    BaseballApp.Instance().sendUnionPacket(outStream, header.toByteArray(), payload.toByteArray());
                 }
-
             }
         }).start();
 
-//        Intent intent = new Intent(this, LobbyActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.putExtra("ID",idEdit.getText());
-//        intent.putExtra("PASSWORD",passwordEdit.getText());
-//        startActivity(intent);
     }
 
-    public void accountCreateBtnClicked(View v){
-
+    public void accountCreateBtnClicked(View v)
+    {
         Intent intent = new Intent(MainActivity.this, AccountCreateActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-
     }
 
-    public class LoginClientSocket extends AsyncTask {
-
-
+    public class LoginClientSocket extends AsyncTask
+    {
 
         private String LOGIN_SERVER_IP = "10.100.58.3";
         private int LOGIN_SERVER_PORT = 9001;
@@ -127,10 +112,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Object doInBackground(Object... parmas) {
+        protected Object doInBackground(Object... parmas)
+        {
             try {
                 InetAddress serverAddr = InetAddress.getByName(LOGIN_SERVER_IP);
                 mLoginSocket = new Socket(serverAddr, LOGIN_SERVER_PORT);
+                BaseballApp.Instance().setRefLoginSocket(mLoginSocket);
 
                 outStream = mLoginSocket.getOutputStream();
                 inputStream = mLoginSocket.getInputStream();
@@ -175,11 +162,13 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
             return null;
         }
 
-        public void RecvProcess(byte[] buf, int type){
+        public void RecvProcess(byte[] buf, int type)
+        {
 
             switch(type)
             {
@@ -190,11 +179,24 @@ public class MainActivity extends AppCompatActivity {
 
                         if(pkt.getFailsignal() == LoginMessage.FailSignal.UNKNOWN)
                         {
-                            isLoginSuccess = true;
-                            Toast.makeText(MainActivity.this, "Login 성공", Toast.LENGTH_SHORT).show();
+                            // Login Success Packet Process Logic...
+                            // TO DO..
+
+                            Toast.makeText(MainActivity.this, "Received Success", Toast.LENGTH_SHORT).show();
+
+                            //isLoginSuccess = BaseballApp.Instance().GameServerConnection(pkt.getIp(), pkt.getPort());
+//
+                            //if(isLoginSuccess)
+                            //    Toast.makeText(MainActivity.this, "Game Server 연결 성공", Toast.LENGTH_SHORT).show();
+                            //else
+                            //    Toast.makeText(MainActivity.this, "Game Server 연결 실패", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
+                            // Login Failed Packet Process Logic...
+                            // TO DO..
+
+                            isLoginSuccess = false;
                             Toast.makeText(MainActivity.this, "Login 실패", Toast.LENGTH_SHORT).show();
                         }
                     } catch (InvalidProtocolBufferException e) {
@@ -210,11 +212,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Object result) {
+        protected void onPostExecute(Object result)
+        {
             super.onPostExecute(result);
 
+            // Lobby로 이동
+            Intent intent = new Intent(MainActivity.this, LobbyActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
 
+            Toast.makeText(MainActivity.this, "Login 성공", Toast.LENGTH_SHORT).show();
         }
 
     }

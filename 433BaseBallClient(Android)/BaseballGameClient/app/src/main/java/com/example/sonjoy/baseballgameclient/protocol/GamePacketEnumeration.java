@@ -50,37 +50,45 @@ public final class GamePacketEnumeration {
      */
     CS_REQUEST_INGAME_START(6, 6),
     /**
-     * <code>SC_ROOM_LEAVE_RESULT = 7;</code>
+     * <code>CS_ROOM_INFO_REQUEST = 7;</code>
      */
-    SC_ROOM_LEAVE_RESULT(7, 7),
+    CS_ROOM_INFO_REQUEST(7, 7),
     /**
-     * <code>SC_INGAME_START_RESULT = 8;</code>
+     * <code>SC_ROOM_LEAVE_RESULT = 8;</code>
      */
-    SC_INGAME_START_RESULT(8, 8),
+    SC_ROOM_LEAVE_RESULT(8, 8),
     /**
-     * <code>CS_SEND_BASEBALL_NUMBER = 9;</code>
+     * <code>SC_INGAME_START_RESULT = 9;</code>
+     */
+    SC_INGAME_START_RESULT(9, 9),
+    /**
+     * <code>SC_ROOM_INFO_REQUEST_RESPONSE = 10;</code>
+     */
+    SC_ROOM_INFO_REQUEST_RESPONSE(10, 10),
+    /**
+     * <code>CS_SEND_BASEBALL_NUMBER = 11;</code>
      *
      * <pre>
      * INGAME
      * </pre>
      */
-    CS_SEND_BASEBALL_NUMBER(9, 9),
+    CS_SEND_BASEBALL_NUMBER(11, 11),
     /**
-     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 10;</code>
+     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 12;</code>
      */
-    SC_RECEIVE_BASEBALL_NUMBER_RESULT(10, 10),
+    SC_RECEIVE_BASEBALL_NUMBER_RESULT(12, 12),
     /**
-     * <code>SC_GIVE_TURN = 11;</code>
+     * <code>SC_GIVE_TURN = 13;</code>
      */
-    SC_GIVE_TURN(11, 11),
+    SC_GIVE_TURN(13, 13),
     /**
-     * <code>SC_WAIT_TURN = 12;</code>
+     * <code>SC_WAIT_TURN = 14;</code>
      */
-    SC_WAIT_TURN(12, 12),
+    SC_WAIT_TURN(14, 14),
     /**
-     * <code>SC_INGAME_END = 13;</code>
+     * <code>SC_INGAME_END = 15;</code>
      */
-    SC_INGAME_END(13, 13),
+    SC_INGAME_END(15, 15),
     ;
 
     /**
@@ -120,37 +128,45 @@ public final class GamePacketEnumeration {
      */
     public static final int CS_REQUEST_INGAME_START_VALUE = 6;
     /**
-     * <code>SC_ROOM_LEAVE_RESULT = 7;</code>
+     * <code>CS_ROOM_INFO_REQUEST = 7;</code>
      */
-    public static final int SC_ROOM_LEAVE_RESULT_VALUE = 7;
+    public static final int CS_ROOM_INFO_REQUEST_VALUE = 7;
     /**
-     * <code>SC_INGAME_START_RESULT = 8;</code>
+     * <code>SC_ROOM_LEAVE_RESULT = 8;</code>
      */
-    public static final int SC_INGAME_START_RESULT_VALUE = 8;
+    public static final int SC_ROOM_LEAVE_RESULT_VALUE = 8;
     /**
-     * <code>CS_SEND_BASEBALL_NUMBER = 9;</code>
+     * <code>SC_INGAME_START_RESULT = 9;</code>
+     */
+    public static final int SC_INGAME_START_RESULT_VALUE = 9;
+    /**
+     * <code>SC_ROOM_INFO_REQUEST_RESPONSE = 10;</code>
+     */
+    public static final int SC_ROOM_INFO_REQUEST_RESPONSE_VALUE = 10;
+    /**
+     * <code>CS_SEND_BASEBALL_NUMBER = 11;</code>
      *
      * <pre>
      * INGAME
      * </pre>
      */
-    public static final int CS_SEND_BASEBALL_NUMBER_VALUE = 9;
+    public static final int CS_SEND_BASEBALL_NUMBER_VALUE = 11;
     /**
-     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 10;</code>
+     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 12;</code>
      */
-    public static final int SC_RECEIVE_BASEBALL_NUMBER_RESULT_VALUE = 10;
+    public static final int SC_RECEIVE_BASEBALL_NUMBER_RESULT_VALUE = 12;
     /**
-     * <code>SC_GIVE_TURN = 11;</code>
+     * <code>SC_GIVE_TURN = 13;</code>
      */
-    public static final int SC_GIVE_TURN_VALUE = 11;
+    public static final int SC_GIVE_TURN_VALUE = 13;
     /**
-     * <code>SC_WAIT_TURN = 12;</code>
+     * <code>SC_WAIT_TURN = 14;</code>
      */
-    public static final int SC_WAIT_TURN_VALUE = 12;
+    public static final int SC_WAIT_TURN_VALUE = 14;
     /**
-     * <code>SC_INGAME_END = 13;</code>
+     * <code>SC_INGAME_END = 15;</code>
      */
-    public static final int SC_INGAME_END_VALUE = 13;
+    public static final int SC_INGAME_END_VALUE = 15;
 
 
     public final int getNumber() { return value; }
@@ -164,13 +180,15 @@ public final class GamePacketEnumeration {
         case 4: return SC_ROOM_JOIN_RESULT;
         case 5: return CS_ROOM_LEAVE;
         case 6: return CS_REQUEST_INGAME_START;
-        case 7: return SC_ROOM_LEAVE_RESULT;
-        case 8: return SC_INGAME_START_RESULT;
-        case 9: return CS_SEND_BASEBALL_NUMBER;
-        case 10: return SC_RECEIVE_BASEBALL_NUMBER_RESULT;
-        case 11: return SC_GIVE_TURN;
-        case 12: return SC_WAIT_TURN;
-        case 13: return SC_INGAME_END;
+        case 7: return CS_ROOM_INFO_REQUEST;
+        case 8: return SC_ROOM_LEAVE_RESULT;
+        case 9: return SC_INGAME_START_RESULT;
+        case 10: return SC_ROOM_INFO_REQUEST_RESPONSE;
+        case 11: return CS_SEND_BASEBALL_NUMBER;
+        case 12: return SC_RECEIVE_BASEBALL_NUMBER_RESULT;
+        case 13: return SC_GIVE_TURN;
+        case 14: return SC_WAIT_TURN;
+        case 15: return SC_INGAME_END;
         default: return null;
       }
     }
@@ -804,18 +822,20 @@ public final class GamePacketEnumeration {
     java.lang.String[] descriptorData = {
       "\n\033GamePacketEnumeration.proto\022\010protocol\"" +
       "*\n\014PacketHeader\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 " +
-      "\001(\007*\324\002\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_RO" +
+      "\001(\007*\221\003\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_RO" +
       "OM_CREATE\020\001\022\020\n\014CS_ROOM_JOIN\020\002\022\031\n\025SC_ROOM" +
       "_CREATE_RESULT\020\003\022\027\n\023SC_ROOM_JOIN_RESULT\020" +
       "\004\022\021\n\rCS_ROOM_LEAVE\020\005\022\033\n\027CS_REQUEST_INGAM" +
-      "E_START\020\006\022\030\n\024SC_ROOM_LEAVE_RESULT\020\007\022\032\n\026S" +
-      "C_INGAME_START_RESULT\020\010\022\033\n\027CS_SEND_BASEB" +
-      "ALL_NUMBER\020\t\022%\n!SC_RECEIVE_BASEBALL_NUMB" +
-      "ER_RESULT\020\n\022\020\n\014SC_GIVE_TURN\020\013\022\020\n\014SC_WAIT",
-      "_TURN\020\014\022\021\n\rSC_INGAME_END\020\r*F\n\nFailSignal" +
-      "\022\014\n\010NO_EXIST\020\000\022\r\n\tFULL_ROOM\020\001\022\033\n\027EXIST_R" +
-      "EPETITION_NUMBER\020\002B0\n.com.example.sonjoy" +
-      ".baseballgameclient.protocol"
+      "E_START\020\006\022\030\n\024CS_ROOM_INFO_REQUEST\020\007\022\030\n\024S" +
+      "C_ROOM_LEAVE_RESULT\020\010\022\032\n\026SC_INGAME_START" +
+      "_RESULT\020\t\022!\n\035SC_ROOM_INFO_REQUEST_RESPON" +
+      "SE\020\n\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\013\022%\n!SC_",
+      "RECEIVE_BASEBALL_NUMBER_RESULT\020\014\022\020\n\014SC_G" +
+      "IVE_TURN\020\r\022\020\n\014SC_WAIT_TURN\020\016\022\021\n\rSC_INGAM" +
+      "E_END\020\017*F\n\nFailSignal\022\014\n\010NO_EXIST\020\000\022\r\n\tF" +
+      "ULL_ROOM\020\001\022\033\n\027EXIST_REPETITION_NUMBER\020\002B" +
+      "0\n.com.example.sonjoy.baseballgameclient" +
+      ".protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

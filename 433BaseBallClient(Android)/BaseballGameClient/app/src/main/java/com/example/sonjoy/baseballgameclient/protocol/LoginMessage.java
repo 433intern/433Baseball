@@ -1328,6 +1328,43 @@ public final class LoginMessage {
      * <code>optional .protocol.FailSignal failsignal = 1;</code>
      */
     com.example.sonjoy.baseballgameclient.protocol.LoginMessage.FailSignal getFailsignal();
+
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    boolean hasSecurityCode();
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    java.lang.String getSecurityCode();
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSecurityCodeBytes();
+
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    boolean hasIp();
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+
+    /**
+     * <code>optional int32 port = 4;</code>
+     */
+    boolean hasPort();
+    /**
+     * <code>optional int32 port = 4;</code>
+     */
+    int getPort();
   }
   /**
    * Protobuf type {@code protocol.LSC_login_result}
@@ -1392,6 +1429,23 @@ public final class LoginMessage {
               }
               break;
             }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              securityCode_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              ip_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              port_ = input.readInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1447,8 +1501,110 @@ public final class LoginMessage {
       return failsignal_;
     }
 
+    public static final int SECURITYCODE_FIELD_NUMBER = 2;
+    private java.lang.Object securityCode_;
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public boolean hasSecurityCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public java.lang.String getSecurityCode() {
+      java.lang.Object ref = securityCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          securityCode_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSecurityCodeBytes() {
+      java.lang.Object ref = securityCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        securityCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IP_FIELD_NUMBER = 3;
+    private java.lang.Object ip_;
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    public boolean hasIp() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ip = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 4;
+    private int port_;
+    /**
+     * <code>optional int32 port = 4;</code>
+     */
+    public boolean hasPort() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int32 port = 4;</code>
+     */
+    public int getPort() {
+      return port_;
+    }
+
     private void initFields() {
       failsignal_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.FailSignal.UNKNOWN;
+      securityCode_ = "";
+      ip_ = "";
+      port_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1466,6 +1622,15 @@ public final class LoginMessage {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeEnum(1, failsignal_.getNumber());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getSecurityCodeBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getIpBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, port_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1478,6 +1643,18 @@ public final class LoginMessage {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, failsignal_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getSecurityCodeBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getIpBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, port_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1598,6 +1775,12 @@ public final class LoginMessage {
         super.clear();
         failsignal_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.FailSignal.UNKNOWN;
         bitField0_ = (bitField0_ & ~0x00000001);
+        securityCode_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ip_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        port_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -1630,6 +1813,18 @@ public final class LoginMessage {
           to_bitField0_ |= 0x00000001;
         }
         result.failsignal_ = failsignal_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.securityCode_ = securityCode_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.ip_ = ip_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.port_ = port_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1648,6 +1843,19 @@ public final class LoginMessage {
         if (other == com.example.sonjoy.baseballgameclient.protocol.LoginMessage.LSC_login_result.getDefaultInstance()) return this;
         if (other.hasFailsignal()) {
           setFailsignal(other.getFailsignal());
+        }
+        if (other.hasSecurityCode()) {
+          bitField0_ |= 0x00000002;
+          securityCode_ = other.securityCode_;
+          onChanged();
+        }
+        if (other.hasIp()) {
+          bitField0_ |= 0x00000004;
+          ip_ = other.ip_;
+          onChanged();
+        }
+        if (other.hasPort()) {
+          setPort(other.getPort());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1707,6 +1915,190 @@ public final class LoginMessage {
       public Builder clearFailsignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
         failsignal_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.FailSignal.UNKNOWN;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object securityCode_ = "";
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public boolean hasSecurityCode() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public java.lang.String getSecurityCode() {
+        java.lang.Object ref = securityCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            securityCode_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSecurityCodeBytes() {
+        java.lang.Object ref = securityCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          securityCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder setSecurityCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        securityCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder clearSecurityCode() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        securityCode_ = getDefaultInstance().getSecurityCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder setSecurityCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        securityCode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public boolean hasIp() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public Builder clearIp() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ip = 3;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int port_ ;
+      /**
+       * <code>optional int32 port = 4;</code>
+       */
+      public boolean hasPort() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int32 port = 4;</code>
+       */
+      public int getPort() {
+        return port_;
+      }
+      /**
+       * <code>optional int32 port = 4;</code>
+       */
+      public Builder setPort(int value) {
+        bitField0_ |= 0x00000008;
+        port_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 port = 4;</code>
+       */
+      public Builder clearPort() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        port_ = 0;
         onChanged();
         return this;
       }
@@ -2955,18 +3347,19 @@ public final class LoginMessage {
       "\n\022LoginMessage.proto\022\010protocol\"*\n\014Packet" +
       "Header\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 \001(\007\"1\n\021CL" +
       "S_login_request\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030" +
-      "\002 \001(\t\"<\n\020LSC_login_result\022(\n\nfailsignal\030" +
-      "\001 \001(\0162\024.protocol.FailSignal\"2\n\022CLS_accou" +
-      "nt_create\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"" +
-      "[\n\031LSC_account_create_result\022(\n\nfailSign" +
-      "al\030\001 \001(\0162\024.protocol.FailSignal\022\024\n\014securi" +
-      "tyCode\030\002 \001(\t*p\n\nPacketType\022\025\n\021CLS_LOGIN_" +
-      "REQUEST\020\000\022\024\n\020LSC_LOGIN_RESULT\020\001\022\026\n\022CLS_A",
-      "CCOUNT_CREATE\020\002\022\035\n\031LSC_ACCOUNT_CREATE_RE" +
-      "SULT\020\003*N\n\nFailSignal\022\013\n\007UNKNOWN\020\000\022\014\n\010NO_" +
-      "EXIST\020\001\022\021\n\rALREADY_EXIST\020\002\022\022\n\016WRONG_PASS" +
-      "WORD\020\003B0\n.com.example.sonjoy.baseballgam" +
-      "eclient.protocol"
+      "\002 \001(\t\"l\n\020LSC_login_result\022(\n\nfailsignal\030" +
+      "\001 \001(\0162\024.protocol.FailSignal\022\024\n\014securityC" +
+      "ode\030\002 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\"2\n\022C" +
+      "LS_account_create\022\n\n\002id\030\001 \001(\t\022\020\n\010passwor" +
+      "d\030\002 \001(\t\"[\n\031LSC_account_create_result\022(\n\n" +
+      "failSignal\030\001 \001(\0162\024.protocol.FailSignal\022\024" +
+      "\n\014securityCode\030\002 \001(\t*p\n\nPacketType\022\025\n\021CL",
+      "S_LOGIN_REQUEST\020\000\022\024\n\020LSC_LOGIN_RESULT\020\001\022" +
+      "\026\n\022CLS_ACCOUNT_CREATE\020\002\022\035\n\031LSC_ACCOUNT_C" +
+      "REATE_RESULT\020\003*N\n\nFailSignal\022\013\n\007UNKNOWN\020" +
+      "\000\022\014\n\010NO_EXIST\020\001\022\021\n\rALREADY_EXIST\020\002\022\022\n\016WR" +
+      "ONG_PASSWORD\020\003B0\n.com.example.sonjoy.bas" +
+      "eballgameclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2997,7 +3390,7 @@ public final class LoginMessage {
     internal_static_protocol_LSC_login_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_LSC_login_result_descriptor,
-        new java.lang.String[] { "Failsignal", });
+        new java.lang.String[] { "Failsignal", "SecurityCode", "Ip", "Port", });
     internal_static_protocol_CLS_account_create_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_protocol_CLS_account_create_fieldAccessorTable = new
