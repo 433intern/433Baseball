@@ -16,23 +16,27 @@ struct CLoginSocket : public CSockInfo
 		LPFN_CONNECTEX ConnectEx;
 	} mswsock;
 
-	CLoginAct						acts[ACT_TYPE::TYPE_CNT];
+	CLoginAct								acts[ACT_TYPE::TYPE_CNT];
 
-	CProactor						*proactor;
+	CProactor								*proactor;
 
-	CConnector						*connector;
-	CDisconnector					*disconnector;
-	CReceiver						*receiver;
-	CSender							*sender;
-	CAcceptor						*acceptor;
+	CConnector								*connector;
+	CDisconnector							*disconnector;
+	CReceiver								*receiver;
+	CSender									*sender;
+	CAcceptor								*acceptor;
 
-	CHAR							acceptBuf[BUFSIZE];
-	CHAR							recvBuf[BUFSIZE];
-	CHAR							sendBuf[BUFSIZE];
+	CHAR									acceptBuf[BUFSIZE];
+	CHAR									recvBuf[BUFSIZE];
+	CHAR									sendBuf[BUFSIZE];
 
-	WSABUF							wsaRecvBuf, wsaSendBuf;
+	WSABUF									wsaRecvBuf, wsaSendBuf;
 
-	StateMachine<CLoginSocket>		stateMachine;
+	StateMachine<CLoginSocket>				stateMachine;
+
+	protocol::PacketHeader					header;
+	protocol::LSC_account_create_result		accountCreateResult;
+	protocol::LSC_login_result				loginResult;
 
 	CLoginSocket();
 	~CLoginSocket();

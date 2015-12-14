@@ -53,11 +53,51 @@ bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorP
 
 bool CClientSocket::Recv(CHAR *buf, int bufSize)
 {
+	DWORD recvbytes = 0;
+	DWORD flags = 0;
+	wsaRecvBuf.buf = buf;
+	wsaRecvBuf.len = bufSize;
+
+	int result = WSARecv(sock, &(wsaRecvBuf), 1, &recvbytes, &flags, static_cast<OVERLAPPED*>(&acts[CClientSocket::ACT_TYPE::RECEIVE]), NULL);
+
+	if (0 != result)
+	{
+		int error = WSAGetLastError();
+
+		if (ERROR_IO_PENDING != error)
+		{
+			MYPRINTF("WSARecv");
+			return false;
+		}
+	}
+
 	return true;
 }
 
 bool CClientSocket::Send(CHAR *buf, int bufSize)
 {
+	if (0 == bufSize)
+	{
+		MYERRORPRINTF("bufSize is 0 in Send function");
+		return false;
+	}
+	DWORD sentbytes = 0;
+	wsaSendBuf.buf = buf;
+	wsaSendBuf.len = bufSize;
+
+	int result = WSASend(sock, &(wsaSendBuf), 1, &sentbytes, 0, static_cast<OVERLAPPED*>(&acts[CClientSocket::ACT_TYPE::SEND]), NULL);
+
+	if (0 != result)
+	{
+		int error = WSAGetLastError();
+
+		if (ERROR_IO_PENDING != error)
+		{
+			MYPRINTF("WSASend");
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -69,7 +109,26 @@ bool CClientSocket::Connect()
 
 bool CClientSocket::Disconnect()
 {
-	// Useless function
+	BOOL result = TransmitFile(
+		sock,
+		NULL,
+		0,
+		0,
+		static_cast<OVERLAPPED*>(&acts[CClientSocket::ACT_TYPE::DISCONNECT]),
+		NULL,
+		TF_DISCONNECT | TF_REUSE_SOCKET
+		);
+
+	if (!result)
+	{
+		int error = WSAGetLastError();
+
+		if (error != ERROR_IO_PENDING)
+		{
+			MYPRINTF("TransmitFile");
+		}
+	}
+
 	return true;
 }
 

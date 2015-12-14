@@ -210,3 +210,39 @@ bool TotalInitializer()
 
 	return true;
 }
+
+void test()
+{
+	//int retval = recv(client_sock, buf, HEADER_SIZE, 0);
+
+	//if (retval == SOCKET_ERROR){
+	//}
+	//else if (retval == 0)
+	//	break;
+
+	//protocol::PacketHeader header;
+
+	//header.ParseFromArray(buf, HEADER_SIZE);
+
+	////------------------------------
+
+	//retval = recv(client_sock, buf, header.size(), 0);
+
+	//tutorial::Person dst_person;
+	//dst_person.ParseFromArray(buf, header.size());
+
+	////----------------------------------------------------------
+
+	//char sendBuf[1024];
+	//std::cout << header.ByteSize() << std::endl;
+	//header.SerializeToArray(sendBuf, header.ByteSize());
+
+	//dst_person.SerializeToArray(sendBuf + header.ByteSize(), dst_person.ByteSize());
+
+	//std::cout << dst_person.ByteSize() << std::endl;
+
+	//retval = send(client_sock, sendBuf, header.ByteSize() + dst_person.ByteSize(), 0);
+
+	//if (retval == SOCKET_ERROR){
+	//}
+}

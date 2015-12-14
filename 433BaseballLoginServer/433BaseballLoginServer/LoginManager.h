@@ -11,13 +11,12 @@ class CLoginManager
 	CDisconnector					disconnector;
 	CReceiver						receiver;
 	CSender							sender;
-	CAcceptor						acceptor;
 
-	HANDLE							sockPoolSema;
 	int								socketPoolSize;
-	std::queue<CLoginSocket*>		sockets;
+	std::vector<CLoginSocket*>		sockets;
 public:
 	CProactor						proactor;
+	CAcceptor						acceptor;
 
 	//--------------------------------------------
 
@@ -28,9 +27,6 @@ public:
 
 	bool MakeSocketPool(const int &sockPoolSizeParam);
 	bool SocketCreate(CLoginSocket &socket);
-
-	CLoginSocket					*GetAvailableSocket();
-	bool							ReleaseSocket(CLoginSocket *param);
 
 	static CLoginManager			&GetInstance();
 };

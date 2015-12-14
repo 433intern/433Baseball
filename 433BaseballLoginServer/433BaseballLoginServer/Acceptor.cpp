@@ -19,10 +19,12 @@ bool CAcceptor::EventProc(CAct *act, DWORD receivedBytes)
 	CLoginManager &loginManager = CLoginManager::GetInstance();
 
 	loginManager.proactor.Register((HANDLE)tmpSocket.sock);
+	
+	// You must change the state before receive the header !!!
+	tmpSocket.stateMachine.ChangeState(CWaitHeader::Instance());
+	tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
 
-	MYPRINTF("Accepted !!!");
-
-	//tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
+	MYPRINTF("ACCEPTED");
 
 	return true;
 }
@@ -36,37 +38,18 @@ bool CAcceptor::Initializer(CListenSocket &listenSockParam)
 {
 	listenSocket = &listenSockParam;
 
-	/*lpfnAcceptEx = NULL;
-	GUID GuidAcceptEx = WSAID_ACCEPTEX;
-
-	DWORD dwBytes;
-
-	int iResult = WSAIoctl(listenSockParam.sock, SIO_GET_EXTENSION_FUNCTION_POINTER,
-		&GuidAcceptEx, sizeof (GuidAcceptEx),
-		&lpfnAcceptEx, sizeof (lpfnAcceptEx),
-		&dwBytes, NULL, NULL);
-
-	if (SOCKET_ERROR == iResult)
-	{
-		wprintf(L"WSAIoctl failed with error: %u\n", WSAGetLastError());
-		closesocket(listenSockParam.sock);
-		WSACleanup();
-		return false;
-	}*/
-
 	return true;
 }
 
 bool CAcceptor::Register(CLoginSocket &loginSocket, int size)
 {
+	if (CDisconnected::Instance() != loginSocket.stateMachine.CurrentState())
+	{
+		MYERRORPRINTF("loginSocket's state is not CDisconnected !!!");
+		return false;
+	}
+
 	DWORD byteTransferred;
-
-	//memset(&olOverlap, 0, sizeof (olOverlap));
-
-	//BOOL result = lpfnAcceptEx(listenSocket->sock, loginSocket.sock, loginSocket.acceptBuf,
-	//	BUFSIZE - ((sizeof (sockaddr_in)+16) << 1),
-	//	sizeof (sockaddr_in)+16, sizeof (sockaddr_in)+16,
-	//	&byteTransferred, &olOverlap);// static_cast<OVERLAPPED*>(&loginSocket.acts[CLoginSocket::ACT_TYPE::ACCEPT]));
 
 	BOOL result = AcceptEx(
 		listenSocket->sock,

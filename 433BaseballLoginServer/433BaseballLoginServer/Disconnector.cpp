@@ -10,6 +10,16 @@ CDisconnector::~CDisconnector()
 
 bool CDisconnector::EventProc(CAct *act, DWORD receivedBytes)
 {
+	CLoginAct *loginAct = (CLoginAct*)act;
+
+	CLoginManager &loginManager = CLoginManager::GetInstance();
+
+	CLoginSocket &loginSock = *loginAct->loginSocket;
+
+	loginSock.stateMachine.ChangeState(CDisconnected::Instance());
+
+	loginManager.acceptor.Register(loginSock, 0);
+
 	return true;
 }
 

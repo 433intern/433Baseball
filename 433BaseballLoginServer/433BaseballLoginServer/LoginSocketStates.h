@@ -1,39 +1,91 @@
 #pragma once
 
-class CWaitCreateAccountResponse : public State<CLoginSocket>
+class CToSendCreateAccountResponse : public State<CLoginSocket>
 {
 private:
-	CWaitCreateAccountResponse(){}
-	CWaitCreateAccountResponse(const CWaitCreateAccountResponse&);
-	CWaitCreateAccountResponse& operator=(const CWaitCreateAccountResponse&);
+	CToSendCreateAccountResponse(){}
+	CToSendCreateAccountResponse(const CToSendCreateAccountResponse&);
+	CToSendCreateAccountResponse& operator=(const CToSendCreateAccountResponse&);
 public:
-	static CWaitCreateAccountResponse* Instance();
+	static CToSendCreateAccountResponse* Instance();
 	virtual void Enter(CLoginSocket *login);
 	virtual void Exit(CLoginSocket *login);
 	virtual void Execute(CLoginSocket *login);
 };
 
-class CWaitLoginResponse : public State<CLoginSocket>
+class CToSendLoginResponse : public State<CLoginSocket>
 {
 private:
-	CWaitLoginResponse(){}
-	CWaitLoginResponse(const CWaitLoginResponse&);
-	CWaitLoginResponse& operator=(const CWaitLoginResponse&);
+	CToSendLoginResponse(){}
+	CToSendLoginResponse(const CToSendLoginResponse&);
+	CToSendLoginResponse& operator=(const CToSendLoginResponse&);
 public:
-	static CWaitLoginResponse* Instance();
+	static CToSendLoginResponse* Instance();
 	virtual void Enter(CLoginSocket *login);
 	virtual void Exit(CLoginSocket *login);
 	virtual void Execute(CLoginSocket *login);
 };
 
-class CWaitMessage : public State<CLoginSocket>
+class CSentCreateAccountResponse : public State<CLoginSocket>
 {
 private:
-	CWaitMessage(){}
-	CWaitMessage(const CWaitMessage&);
-	CWaitMessage& operator=(const CWaitMessage&);
+	CSentCreateAccountResponse(){}
+	CSentCreateAccountResponse(const CSentCreateAccountResponse&);
+	CSentCreateAccountResponse& operator=(const CSentCreateAccountResponse&);
 public:
-	static CWaitMessage* Instance();
+	static CSentCreateAccountResponse* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CSentLoginResponse : public State<CLoginSocket>
+{
+private:
+	CSentLoginResponse(){}
+	CSentLoginResponse(const CSentLoginResponse&);
+	CSentLoginResponse& operator=(const CSentLoginResponse&);
+public:
+	static CSentLoginResponse* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CWaitCreateAccountBody : public State<CLoginSocket>
+{
+private:
+	CWaitCreateAccountBody(){}
+	CWaitCreateAccountBody(const CWaitCreateAccountBody&);
+	CWaitCreateAccountBody& operator=(const CWaitCreateAccountBody&);
+public:
+	static CWaitCreateAccountBody* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CWaitLoginBody : public State<CLoginSocket>
+{
+private:
+	CWaitLoginBody(){}
+	CWaitLoginBody(const CWaitLoginBody&);
+	CWaitLoginBody& operator=(const CWaitLoginBody&);
+public:
+	static CWaitLoginBody* Instance();
+	virtual void Enter(CLoginSocket *login);
+	virtual void Exit(CLoginSocket *login);
+	virtual void Execute(CLoginSocket *login);
+};
+
+class CWaitHeader : public State<CLoginSocket>
+{
+private:
+	CWaitHeader(){}
+	CWaitHeader(const CWaitHeader&);
+	CWaitHeader& operator=(const CWaitHeader&);
+public:
+	static CWaitHeader* Instance();
 	virtual void Enter(CLoginSocket *login);
 	virtual void Exit(CLoginSocket *login);
 	virtual void Execute(CLoginSocket *login);

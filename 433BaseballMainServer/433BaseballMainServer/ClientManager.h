@@ -11,12 +11,11 @@ class CClientManager
 	CDisconnector					disconnector;
 	CReceiver						receiver;
 	CSender							sender;
-	CAcceptor						acceptor;
 
-	HANDLE							sockPoolSema;
 	int								socketPoolSize;
-	std::queue<CClientSocket*>		sockets;
+	std::vector<CClientSocket*>		sockets;
 public:
+	CAcceptor						acceptor;
 	CProactor						proactor;
 
 	//--------------------------------------------
@@ -28,9 +27,6 @@ public:
 
 	bool MakeSocketPool(const int &sockPoolSizeParam);
 	bool SocketCreate(CClientSocket &socket);
-
-	CClientSocket					*GetAvailableSocket();
-	bool							ReleaseSocket(CClientSocket *param);
 
 	static CClientManager			&GetInstance();
 };

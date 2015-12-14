@@ -10,6 +10,14 @@ CDisconnector::~CDisconnector()
 
 bool CDisconnector::EventProc(CAct *act, DWORD receivedBytes)
 {
+	CClientAct *clientAct = (CClientAct*)act;
+
+	CClientManager &clientManager = CClientManager::GetInstance();
+
+	CClientSocket &clientSock = *clientAct->clientSocket;
+
+	clientManager.acceptor.Register(clientSock, 0);
+
 	return true;
 }
 

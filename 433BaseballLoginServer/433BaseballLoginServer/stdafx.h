@@ -35,9 +35,10 @@
 #define DB_PORT						3306
 #define BUFSIZE						1024
 #define SOCKET_POOL_SIZE			3000
-#define HEADER_SIZE					2
+#define HEADER_SIZE					10
 #define WAIT_AVAILABLE_HANDLE_TIME	100
 #define WAIT_AVAILABLE_SOCKET_TIME	100
+#define IP_ADDRESS					"127.0.0.1"
 
 //----------------------------------------------------
 
@@ -50,9 +51,13 @@ class State;
 template <class entity_type>
 class StateMachine;
 
-class CWaitLoginResponse;
-class CWaitCreateAccountResponse;
-class CWaitMessage;
+class CToSendLoginResponse;
+class CToSendCreateAccountResponse;
+class CSentLoginResponse;
+class CSentCreateAccountResponse;
+class CWaitLoginBody	;
+class CWaitCreateAccountBody;
+class CWaitHeader;
 class CDisconnected;
 
 class CDBClosed;
