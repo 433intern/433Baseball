@@ -18,11 +18,6 @@ struct CClientSocket : public CSockInfo
 
 	CClientAct						acts[ACT_TYPE::TYPE_CNT];
 
-public:
-	int								roomNum;
-	std::string						id;
-
-public:
 	CProactor						*proactor;
 
 	CConnector						*connector;
@@ -31,17 +26,11 @@ public:
 	CSender							*sender;
 	CAcceptor						*acceptor;
 
-public:
 	CHAR							acceptBuf[BUFSIZE];
 	CHAR							recvBuf[BUFSIZE];
 	CHAR							sendBuf[BUFSIZE];
 
 	WSABUF							wsaRecvBuf, wsaSendBuf;
-	
-	int								position;
-	int								remainBytes;
-	
-	bool disconnectCall;
 
 	StateMachine<CClientSocket>		stateMachine;
 
@@ -56,12 +45,5 @@ public:
 	bool Connect();
 	bool Disconnect();
 	bool InitBuf();
-
-	void RecvProcess(bool isError, CAct* act, DWORD bytes_transferred);
-	void SendProcess(bool isError, CAct* act, DWORD bytes_transferred);
-	void AcceptProcess(bool isError, CAct* act, DWORD bytes_transferred);
-	void DisconnProcess(bool isError, CAct* act, DWORD bytes_transferred);
-	void ConnProcess(bool isError, CAct* act, DWORD bytes_transferred);
-
 };
 

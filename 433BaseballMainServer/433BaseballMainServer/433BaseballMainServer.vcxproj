@@ -41,7 +41,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,15 +52,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)vc$(ProjectName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;C:\Program Files (x86)\MySQL\Connector.C++ 1.1\lib\opt;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libmysql.lib;libprotobuf.lib;libprotoc.lib;libprotobuf-lite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\Debug;C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,13 +94,12 @@
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="ClientSocketStates.h" />
-    <ClInclude Include="Common.h" />
     <ClInclude Include="Connector.h" />
-    <ClInclude Include="CPacket.h" />
     <ClInclude Include="DBAct.h" />
     <ClInclude Include="DBConnector.h" />
     <ClInclude Include="DBDisconnector.h" />
     <ClInclude Include="DBHandle.h" />
+    <ClInclude Include="DBHandleStates.h" />
     <ClInclude Include="DBHarvester.h" />
     <ClInclude Include="DBManager.h" />
     <ClInclude Include="DBQuerier.h" />
@@ -110,7 +108,6 @@
     <ClInclude Include="GlobalManager.h" />
     <ClInclude Include="IngamePacket.pb.h" />
     <ClInclude Include="ListenSocket.h" />
-    <ClInclude Include="LoginMessage.pb.h" />
     <ClInclude Include="LogWriter.h" />
     <ClInclude Include="Proactor.h" />
     <ClInclude Include="Receiver.h" />
@@ -121,11 +118,11 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="Act.cpp" />
-    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ClientAct.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
@@ -135,6 +132,7 @@
     <ClCompile Include="DBConnector.cpp" />
     <ClCompile Include="DBDisconnector.cpp" />
     <ClCompile Include="DBHandle.cpp" />
+    <ClCompile Include="DBHandleStates.cpp" />
     <ClCompile Include="DBHarvester.cpp" />
     <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="DBQuerier.cpp" />
@@ -143,7 +141,6 @@
     <ClCompile Include="GlobalManager.cpp" />
     <ClCompile Include="IngamePacket.pb.cc" />
     <ClCompile Include="ListenSocket.cpp" />
-    <ClCompile Include="LoginMessage.pb.cc" />
     <ClCompile Include="LogWriter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Proactor.cpp" />
@@ -151,11 +148,11 @@
     <ClCompile Include="RoomPacket.pb.cc" />
     <ClCompile Include="Sender.cpp" />
     <ClCompile Include="SockInfo.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GamePacketEnumeration.PROTO" />
     <None Include="IngamePacket.PROTO" />
-    <None Include="LoginMessage.PROTO" />
     <None Include="RoomPacket.Proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

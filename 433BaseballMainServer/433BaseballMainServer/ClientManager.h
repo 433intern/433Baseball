@@ -6,7 +6,6 @@ class CClientManager
 	std::vector<HANDLE>				threads;
 
 	CListenSocket					listenSocket;
-	CProactor						proactor;
 
 	CConnector						connector;
 	CDisconnector					disconnector;
@@ -14,13 +13,24 @@ class CClientManager
 	CSender							sender;
 	CAcceptor						acceptor;
 
+	HANDLE							sockPoolSema;
 	int								socketPoolSize;
-	std::vector<CClientSocket*>		sockets;
+	std::queue<CClientSocket*>		sockets;
 public:
-	CClientManager();
+	CProactor						proactor;
+
+	//--------------------------------------------
+
 	~CClientManager();
 
-	bool Initializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
-	bool SocketCreate(CClientSocket &socket);
-};
+	bool FirstInitializer();
+	bool SecondInitializer(const int &threadNum, const int& socketPoolSize, const WORD &port);
 
+	bool MakeSocketPool(const int &sockPoolSizeParam);
+	bool SocketCreate(CClientSocket &socket);
+
+	CClientSocket					*GetAvailableSocket();
+	bool							ReleaseSocket(CClientSocket *param);
+
+	static CClientManager			&GetInstance();
+};

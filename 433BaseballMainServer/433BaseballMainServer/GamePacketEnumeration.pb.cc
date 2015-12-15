@@ -84,27 +84,19 @@ void protobuf_AddDesc_GamePacketEnumeration_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\033GamePacketEnumeration.proto\022\010protocol\""
-    "@\n\014PacketHeader\022\014\n\004size\030\001 \001(\r\022\"\n\004type\030\002 "
-    "\001(\0162\024.protocol.PacketType*\205\005\n\nPacketType"
-    "\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_ROOM_CREATE\020\001\022\020\n\014CS_"
-    "ROOM_JOIN\020\002\022\021\n\rCS_ROOM_LEAVE\020\003\022\033\n\027CS_REQ"
-    "UEST_INGAME_START\020\004\022\032\n\026SC_ROOM_CREATE_SU"
-    "CCESS\020\005\022\031\n\025SC_ROOM_CREATE_FAILED\020\006\022\030\n\024SC"
-    "_ROOM_JOIN_SUCCESS\020\007\022\027\n\023SC_ROOM_JOIN_FAI"
-    "LED\020\010\022\031\n\025SC_ROOM_LEAVE_SUCCESS\020\t\022\030\n\024SC_R"
-    "OOM_LEAVE_FAILED\020\n\022\033\n\027CS_SEND_BASEBALL_N"
-    "UMBER\020\013\022\033\n\027SC_INGAME_START_SUCCESS\020\014\022\032\n\026"
-    "SC_INGAME_START_FAILED\020\r\022&\n\"SC_RECEIVE_B"
-    "ASEBALL_NUMBER_SUCCESS\020\016\022%\n!SC_RECEIVE_B"
-    "ASEBALL_NUMBER_FAILED\020\017\022\020\n\014SC_GIVE_TURN\020"
-    "\020\022\020\n\014SC_WAIT_TURN\020\021\022\021\n\rSC_INGAME_END\020\022\022\025"
-    "\n\021CLS_LOGIN_REQUEST\020\023\022\025\n\021LSC_LOGIN_SUCCE"
-    "SS\020\024\022\024\n\020LSC_LOGIN_FAILED\020\025\022\026\n\022CLS_ACCOUN"
-    "T_CREATE\020\026\022\036\n\032LSC_ACCOUNT_CREATE_SUCCESS"
-    "\020\027\022\035\n\031LSC_ACCOUNT_CREATE_FAILED\020\030*m\n\nFai"
-    "lSignal\022\014\n\010NO_EXIST\020\000\022\r\n\tFULL_ROOM\020\001\022\033\n\027"
-    "EXIST_REPETITION_NUMBER\020\002\022\021\n\rALREADY_EXI"
-    "ST\020\003\022\022\n\016WRONG_PASSWORD\020\004", 864);
+    "*\n\014PacketHeader\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 "
+    "\001(\007*\221\003\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_RO"
+    "OM_CREATE\020\001\022\020\n\014CS_ROOM_JOIN\020\002\022\031\n\025SC_ROOM"
+    "_CREATE_RESULT\020\003\022\027\n\023SC_ROOM_JOIN_RESULT\020"
+    "\004\022\021\n\rCS_ROOM_LEAVE\020\005\022\033\n\027CS_REQUEST_INGAM"
+    "E_START\020\006\022\030\n\024CS_ROOM_INFO_REQUEST\020\007\022\030\n\024S"
+    "C_ROOM_LEAVE_RESULT\020\010\022\032\n\026SC_INGAME_START"
+    "_RESULT\020\t\022!\n\035SC_ROOM_INFO_REQUEST_RESPON"
+    "SE\020\n\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\013\022%\n!SC_"
+    "RECEIVE_BASEBALL_NUMBER_RESULT\020\014\022\020\n\014SC_G"
+    "IVE_TURN\020\r\022\020\n\014SC_WAIT_TURN\020\016\022\021\n\rSC_INGAM"
+    "E_END\020\017*F\n\nFailSignal\022\014\n\010NO_EXIST\020\000\022\r\n\tF"
+    "ULL_ROOM\020\001\022\033\n\027EXIST_REPETITION_NUMBER\020\002", 559);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "GamePacketEnumeration.proto", &protobuf_RegisterTypes);
   PacketHeader::default_instance_ = new PacketHeader();
@@ -140,15 +132,6 @@ bool PacketType_IsValid(int value) {
     case 13:
     case 14:
     case 15:
-    case 16:
-    case 17:
-    case 18:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
-    case 23:
-    case 24:
       return true;
     default:
       return false;
@@ -164,8 +147,6 @@ bool FailSignal_IsValid(int value) {
     case 0:
     case 1:
     case 2:
-    case 3:
-    case 4:
       return true;
     default:
       return false;
@@ -199,7 +180,7 @@ PacketHeader::PacketHeader(const PacketHeader& from)
 void PacketHeader::SharedCtor() {
   _cached_size_ = 0;
   size_ = 0u;
-  type_ = 0;
+  type_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -264,33 +245,28 @@ bool PacketHeader::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional uint32 size = 1;
+      // optional fixed32 size = 1;
       case 1: {
-        if (tag == 8) {
+        if (tag == 13) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
                  input, &size_)));
           set_has_size();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_type;
+        if (input->ExpectTag(21)) goto parse_type;
         break;
       }
 
-      // optional .protocol.PacketType type = 2;
+      // optional fixed32 type = 2;
       case 2: {
-        if (tag == 16) {
+        if (tag == 21) {
          parse_type:
-          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::protocol::PacketType_IsValid(value)) {
-            set_type(static_cast< ::protocol::PacketType >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(2, value);
-          }
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &type_)));
+          set_has_type();
         } else {
           goto handle_unusual;
         }
@@ -323,15 +299,14 @@ failure:
 void PacketHeader::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:protocol.PacketHeader)
-  // optional uint32 size = 1;
+  // optional fixed32 size = 1;
   if (has_size()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->size(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(1, this->size(), output);
   }
 
-  // optional .protocol.PacketType type = 2;
+  // optional fixed32 type = 2;
   if (has_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(2, this->type(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -344,15 +319,14 @@ void PacketHeader::SerializeWithCachedSizes(
 ::google::protobuf::uint8* PacketHeader::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:protocol.PacketHeader)
-  // optional uint32 size = 1;
+  // optional fixed32 size = 1;
   if (has_size()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(1, this->size(), target);
   }
 
-  // optional .protocol.PacketType type = 2;
+  // optional fixed32 type = 2;
   if (has_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(2, this->type(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -367,17 +341,14 @@ int PacketHeader::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional uint32 size = 1;
+    // optional fixed32 size = 1;
     if (has_size()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->size());
+      total_size += 1 + 4;
     }
 
-    // optional .protocol.PacketType type = 2;
+    // optional fixed32 type = 2;
     if (has_type()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+      total_size += 1 + 4;
     }
 
   }

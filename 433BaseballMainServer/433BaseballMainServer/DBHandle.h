@@ -3,8 +3,7 @@
 struct CDBHandle
 {
 	MYSQL					*dbConnection;
-	HANDLE					*dbSema;
-	bool					isAvailable;
+	MYSQL					connTmp;
 
 	std::string				dbQuery;
 	MYSQL_RES				*sqlResult;
@@ -15,6 +14,9 @@ struct CDBHandle
 	CDBDisconnector			*disconnector;
 	CDBQuerier				*querier;
 	CDBHarvester			*harvester;
+
+	std::string				dbHost, dbUser, dbPasswd, dbSchema;
+	std::string				queryStr;
 
 	enum DB_ACK_TYPE
 	{
@@ -27,6 +29,8 @@ struct CDBHandle
 
 	CDBAct acts[ACK_CNT];
 
+	StateMachine<CDBHandle> stateMachine;
+
 	//--------------------------------------------
 
 	CDBHandle();
@@ -35,15 +39,10 @@ struct CDBHandle
 private:
 	friend class CDBManager;
 
-	bool			Query(const char *str);
-	MYSQL_RES		*Harvest();
-
-	bool			Initializer(MYSQL &connTmp, const std::string &hostAddress, const std::string &userName,
+	bool			Initializer(const std::string &hostAddress, const std::string &userName,
 							const std::string &userPassword, const std::string &schemaName);
 
 	bool			InitActs(CProactor *proactorParam, CDBConnector *connectorParam, CDBDisconnector *disconnectorParam,
 							CDBQuerier *querierParam, CDBHarvester *harvesterParam);
-
-	
 };
 

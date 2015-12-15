@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma warning(disable : 4002)
+
 #include "targetver.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -7,6 +9,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <string>
+#include <wchar.h>
+#include <stdlib.h>
 
 #include <WinSock2.h>
 #include <WS2tcpip.h>
@@ -24,11 +29,15 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT			9000
-#define DB_PORT				3306
-#define BUFSIZE				1024
-#define SOCKET_POOL_SIZE	3000
-#define HEADER_SIZE			2
+#define SERVERPORT					9001
+#define DB_PORT						3306
+#define BUFSIZE						1024
+#define SOCKET_POOL_SIZE			3000
+#define HEADER_SIZE					10
+#define WAIT_AVAILABLE_HANDLE_TIME	100
+#define WAIT_AVAILABLE_SOCKET_TIME	100
+#define DB_THREAD_POOL_SIZE			4
+#define DB_HANDLE_POOL_SIZE			8
 
 //----------------------------------------------------
 
@@ -44,16 +53,20 @@ class StateMachine;
 class CWaitResponse;
 class CWaitMessage;
 
+class CDBClosed;
+class CDBIdle;
+class CDBWaitResult;
+
 class CDBManager;
 class CClientManager;
 
 class CActor;
 
-class CConnector;
-class CDisconnector;
-class CReceiver;
-class CSender;
-class CAcceptor;
+struct CConnector;
+struct CDisconnector;
+struct CReceiver;
+struct CSender;
+struct CAcceptor;
 
 struct CDBConnector;
 struct CDBDisconnector;
@@ -72,7 +85,12 @@ struct CAct;
 struct CClientAct;
 struct CDBAct;
 
+#define MYERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyErrorPrintf(A, typeid(this).name(), __FUNCTION__)
+#define MYSERVICEERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyServiceErrorPrintf(A, __FUNCTION__)
+#define MYDBERRORPRINTF(A,B) CGlobalManager::GetInstance().logWriter.MyDBErrorPrintf(A,B, __FUNCTION__)
 #define MYPRINTF(A) CGlobalManager::GetInstance().logWriter.MyPrintf(A)
+
+#include "Utils.h"
 
 #include "LogWriter.h"
 
@@ -110,12 +128,4 @@ struct CDBAct;
 #include "ClientManager.h"
 
 #include "ClientSocketStates.h"
-
-#include <google/protobuf/text_format.h>
-#include <google\protobuf\io\coded_stream.h>
-#include "GamePacketEnumeration.pb.h"
-#include "IngamePacket.pb.h"
-#include "RoomPacket.pb.h"
-#include "LoginMessage.pb.h"
-
-#include "CPacket.h"
+#include "DBHandleStates.h"

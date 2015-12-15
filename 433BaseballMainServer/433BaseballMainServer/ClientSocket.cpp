@@ -53,46 +53,11 @@ bool CClientSocket::Initializer(CProactor *proactorParam, CConnector *connectorP
 
 bool CClientSocket::Recv(CHAR *buf, int bufSize)
 {
-	DWORD recvbytes = 0;
-	DWORD flags = 0;
-
-	INT ret = WSARecv(sock, &(wsaRecvBuf), 1, &recvbytes, &flags, static_cast<OVERLAPPED*>(&(acts[ACT_TYPE::RECEIVE])), NULL);
-
-	if (ret != 0)
-	{
-		int error = WSAGetLastError();
-
-		if (error != ERROR_IO_PENDING)
-		{
-			MYPRINTF("WSARecv() Error!!! s(%d) err(%d)\n", sock, error);
-			//Disconnect();
-		}
-	}
-
 	return true;
 }
 
 bool CClientSocket::Send(CHAR *buf, int bufSize)
 {
-	if (bufSize == 0) return;
-	
-	DWORD sentbytes = 0;
-	wsaSendBuf.buf = buf;
-	wsaSendBuf.len = bufSize;
-
-	INT ret = WSASend(sock, &(wsaSendBuf), 1, &sentbytes, 0, static_cast<OVERLAPPED*>(&(acts[ACT_TYPE::SEND])), NULL);
-
-	if (ret != 0)
-	{
-		int error = WSAGetLastError();
-
-		if (error != ERROR_IO_PENDING)
-		{
-			MYPRINTF("WSASend() Error!!! s(%d) err(%d)\n", sock, error);
-			//Disconnect();
-		}
-	}
-
 	return true;
 }
 
@@ -104,30 +69,7 @@ bool CClientSocket::Connect()
 
 bool CClientSocket::Disconnect()
 {
-	if (disconnectCall) return;
-
-	disconnectCall = true;
-
-	BOOL ret = TransmitFile(
-		sock,
-		NULL,
-		0,
-		0,
-		static_cast<OVERLAPPED*>(&(acts[ACT_TYPE::DISCONNECT])),
-		NULL,
-		TF_DISCONNECT | TF_REUSE_SOCKET
-		);
-
-	if (!ret)
-	{
-		int error = WSAGetLastError();
-
-		if (error != ERROR_IO_PENDING)
-		{
-			MYPRINTF("already disconnected, DisconnectEx Error!!! s(%d), err(%d)\n", socket_, error);
-		}
-	}
-
+	// Useless function
 	return true;
 }
 
@@ -144,77 +86,4 @@ bool CClientSocket::InitBuf()
 	memset(sendBuf, 0, BUFSIZE);
 
 	return true;
-}
-
-void CClientSocket::RecvProcess(bool isError, CAct* act, DWORD bytes_transferred)
-{
-	if (isError)
-	{
-		MYPRINTF("[AgentClientSocket] RecvProcess Error : %d\n", WSAGetLastError);
-		Disconnect();
-		return;
-	}
-
-	if (bytes_transferred == 0)
-	{
-		Disconnect();
-		return;
-	}
-
-	this->position += bytes_transferred;
-	this->remainBytes -= bytes_transferred;
-
-	if (this->sock == NULL){
-		MYPRINTF("[AgentClientSocket] RecvProcess : recv buf socket is not available\n");
-		return;
-	}
-
-	char* buf = this->recvBuf;
-
-	if (this->position < HEADER_SIZE)
-	{
-		if (position == 0) remainBytes = HEADER_SIZE;
-	}
-	else
-	{
-		if (position == HEADER_SIZE && remainBytes == 0)
-
-		if (remainBytes == 0)
-		{
-
-
-
-		}
-	}
-	Recv(buf + position, remainBytes);
-
-}
-
-void CClientSocket::SendProcess(bool isError, CAct* act, DWORD bytes_transferred)
-{
-
-
-}
-
-void CClientSocket::AcceptProcess(bool isError, CAct* act, DWORD bytes_transferred)
-{
-	if (!isError){
-
-	}
-	else{
-		/* error handling */
-	}
-
-}
-
-void CClientSocket::DisconnProcess(bool isError, CAct* act, DWORD bytes_transferred)
-{
-
-
-}
-
-void CClientSocket::ConnProcess(bool isError, CAct* act, DWORD bytes_transferred)
-{
-
-
 }

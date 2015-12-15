@@ -15,19 +15,23 @@ import com.example.sonjoy.baseballgameclient.R;
 public class RoomActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
         Toast.makeText(this, "onCreate() 호출", Toast.LENGTH_SHORT).show();
         this.setData();
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume()
+    {
         super.onResume();
         Toast.makeText(this, "onResume() 호출", Toast.LENGTH_SHORT).show();
     }
 
-    public void roomStartBtnClicked(View v){
+    public void roomStartBtnClicked(View v)
+    {
 
         Intent intent = new Intent(RoomActivity.this, InGameActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -35,14 +39,16 @@ public class RoomActivity extends Activity {
 
     }
 
-    public void roomLeaveBtnClicked(View v){
+    public void roomLeaveBtnClicked(View v)
+    {
 
         Intent intent = new Intent(RoomActivity.this, LobbyActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
 
     }
-    public void setData(){
+    public void setData()
+    {
         Intent intent = getIntent();
         String roomNum = intent.getExtras().get("ROOM_NUMBER").toString();
 

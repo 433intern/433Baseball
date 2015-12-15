@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sonjoy.baseballgameclient.Player.Player;
+import com.example.sonjoy.baseballgameclient.SubActivity.AccountCreateActivity;
 import com.example.sonjoy.baseballgameclient.SubActivity.LobbyActivity;
 import com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration;
 import com.example.sonjoy.baseballgameclient.protocol.LoginMessage;
@@ -18,9 +19,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
+
 /**
  * Created by Sonjoy on 2015-12-13.
  */
@@ -64,6 +71,8 @@ public class BaseballApp extends Application
 
     // Login Server
     private Socket mRefLoginSocket = null;
+    private boolean isAccountCreateSuccess = false;
+    private boolean isRepeatCreate = false;
 
     public class ClientSocket extends AsyncTask{
 
@@ -135,7 +144,6 @@ public class BaseballApp extends Application
                         if(bytesRead == 0) break;
 
                         recvProcess(rcvDataBuf, header.getType());
-
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -193,8 +201,6 @@ public class BaseballApp extends Application
         protected void onPostExecute(Object result)
         {
             super.onPostExecute(result);
-
-
         }
 
         public OutputStream getOutputStream()
@@ -224,12 +230,12 @@ public class BaseballApp extends Application
 
     }
 
-    public boolean GameServerConnection(String ip, int port)
+    public void GameServerConnection(String ip, int port)
     {
         mClientSocket = new ClientSocket(ip,port);
-        mClientSocket.execute();
 
-        return mClientSocket.IsConnected();
+        mClientSocket.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"");
+
     }
 
 
@@ -254,14 +260,46 @@ public class BaseballApp extends Application
     public void setGameServerIP(String ip){ GAME_SERVER_IP = ip;}
     public void setGameServerPort(int port) { GAME_SERVER_PORT = port;}
     public void setSecurityCode(String code) { securityCode = code;}
+    public void setAccountCreateSuccess(boolean isSuccess) { isAccountCreateSuccess = isSuccess;}
+    public void setIsAccountRepeatCreate(boolean isRepeat) { isRepeatCreate = isRepeat; }
 
     public String getGameServerIP() { return GAME_SERVER_IP;}
     public int getGameServerPort() { return GAME_SERVER_PORT; }
     public String getSercurityCode() { return securityCode; }
 
+    public boolean IsAccountCreateSuccess() { return isAccountCreateSuccess;}
+    public boolean IsAccountRepeatCreate() { return isRepeatCreate; }
+
+    public boolean IsGameServerConnected()
+    {
+       if(mClientSocket != null) {
+           return mClientSocket.IsConnected();
+       }
+       return false;
+    }
+
     public void setRefLoginSocket(Socket socket) { mRefLoginSocket = socket; }
     public Socket getRefLoginSocket() { return mRefLoginSocket; }
 
-
+    public static String getLocalIp()
+    {
+        try
+        {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+            {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+                {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
+                    {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        }
+        catch (SocketException ex) {}
+        return null;
+    }
 }
 

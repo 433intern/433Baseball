@@ -2,6 +2,7 @@ package com.example.sonjoy.baseballgameclient.SubActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,12 +22,18 @@ import java.net.Socket;
  */
 public class AccountCreateActivity extends Activity {
 
+    private AcitivitySwitchTask switchTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_create);
-        Toast.makeText(this, "onCreate() 호출", Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "onCreate() 호출", Toast.LENGTH_SHORT).show();
+
+        switchTask = new AcitivitySwitchTask();
+        switchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+
     }
 
     public void accountCreateBtnClicked(View v)
@@ -40,7 +47,8 @@ public class AccountCreateActivity extends Activity {
 
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
                 {
                     LoginMessage.CLS_account_create payload = LoginMessage.CLS_account_create.newBuilder()
                             .setId(id)
@@ -56,8 +64,10 @@ public class AccountCreateActivity extends Activity {
                         Socket refSocket = BaseballApp.Instance().getRefLoginSocket();
 
                         OutputStream tempOutStream = null;
+
                         if(refSocket != null)
                             tempOutStream = refSocket.getOutputStream();
+
                         BaseballApp.Instance().sendUnionPacket(tempOutStream, header.toByteArray(), payload.toByteArray());
 
                     } catch (IOException e) {
@@ -66,13 +76,42 @@ public class AccountCreateActivity extends Activity {
                 }
             }
         }).start();
-
-
-        Intent intent = new Intent(AccountCreateActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
     }
+    public class AcitivitySwitchTask extends AsyncTask
+    {
+        @Override
+        protected Object doInBackground(Object... parmas)
+        {
+            while(!BaseballApp.Instance().IsAccountCreateSuccess())
+            {
+                if(BaseballApp.Instance().IsAccountRepeatCreate())
+                {
+                    publishProgress(null);
+                    BaseballApp.Instance().setIsAccountRepeatCreate(false);
+                }
+            }
 
+            return null;
+        }
 
+        @Override
+        protected void onProgressUpdate(Object... progress)
+        {
+            Toast.makeText(AccountCreateActivity.this, "계정 생성 실패", Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        protected void onPostExecute(Object result)
+        {
+            super.onPostExecute(result);
+            Toast.makeText(AccountCreateActivity.this, "계정 생성 성공", Toast.LENGTH_SHORT).show();
+
+            BaseballApp.Instance().setAccountCreateSuccess(false);
+            BaseballApp.Instance().setIsAccountRepeatCreate(false);
+
+            Intent intent = new Intent(AccountCreateActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.sonjoy.baseballgameclient;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private Socket mLoginSocket;
     private OutputStream outStream;
     private InputStream inputStream;
+
+    private final String realLocalIP = new String("10.100.58.3");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -93,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public class LoginClientSocket extends AsyncTask
+    public class LoginClientSocket extends AsyncTask<Void, String, Void>
     {
-
         private String LOGIN_SERVER_IP = "10.100.58.3";
         private int LOGIN_SERVER_PORT = 9001;
 
@@ -107,12 +109,30 @@ public class MainActivity extends AppCompatActivity {
         private boolean isLoginSuccess;
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             super.onPreExecute();
         }
 
         @Override
-        protected Object doInBackground(Object... parmas)
+        protected void onProgressUpdate(String... progress)
+        {
+            if (progress[0].equals("LOGIN_CONNECTION_SUCCESS"))
+            {
+                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+            }
+            else if(progress[0].equals("LOGIN_CONNECTION_FAILED"))
+            {
+                Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            }
+            else if (progress[0].equals("LOGIN_FAILED"))
+            {
+                Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... parmas)
         {
             try {
                 InetAddress serverAddr = InetAddress.getByName(LOGIN_SERVER_IP);
@@ -133,14 +153,18 @@ public class MainActivity extends AppCompatActivity {
 
             int bytesRead = 0;
 
+
+
             if (mLoginSocket != null)
             {
                 while (!isLoginSuccess)
                 {
+
                     try {
                         bytesRead = inputStream.read(rcvHeaderBuf);
 
                         if (bytesRead == 0) break;
+                        if (bytesRead == -1) mLoginSocket.close();
 
                         if (rcvHeaderBuf != null) {
                             LoginMessage.PacketHeader header = LoginMessage.PacketHeader.parseFrom(rcvHeaderBuf);
@@ -149,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                             bytesRead = inputStream.read(rcvDataBuf);
 
                             if (bytesRead == 0) break;
-
                             RecvProcess(rcvDataBuf, header.getType());
                         }
                     } catch (IOException e) {
@@ -177,27 +200,19 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         LoginMessage.LSC_login_result pkt = LoginMessage.LSC_login_result.parseFrom(buf);
 
-                        if(pkt.getFailsignal() == LoginMessage.FailSignal.UNKNOWN)
-                        {
-                            // Login Success Packet Process Logic...
-                            // TO DO..
+                        if (pkt.getFailsignal() == LoginMessage.FailSignal.UNKNOWN) {
+                            isLoginSuccess = true;
 
-                            Toast.makeText(MainActivity.this, "Received Success", Toast.LENGTH_SHORT).show();
+                            String realIP = new String(pkt.getIp());
 
-                            //isLoginSuccess = BaseballApp.Instance().GameServerConnection(pkt.getIp(), pkt.getPort());
-//
-                            //if(isLoginSuccess)
-                            //    Toast.makeText(MainActivity.this, "Game Server 연결 성공", Toast.LENGTH_SHORT).show();
-                            //else
-                            //    Toast.makeText(MainActivity.this, "Game Server 연결 실패", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            // Login Failed Packet Process Logic...
-                            // TO DO..
+                            if(realIP.equals("127.0.0.1"))
+                                realIP = new String(realLocalIP);
 
+                            BaseballApp.Instance().GameServerConnection(realIP, pkt.getPort());
+
+                        } else {
+                            publishProgress("LOGIN_FAILED");
                             isLoginSuccess = false;
-                            Toast.makeText(MainActivity.this, "Login 실패", Toast.LENGTH_SHORT).show();
                         }
                     } catch (InvalidProtocolBufferException e) {
                         e.printStackTrace();
@@ -207,12 +222,28 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case LoginMessage.PacketType.LSC_ACCOUNT_CREATE_RESULT_VALUE:
+                    try {
+                        LoginMessage.LSC_account_create_result pkt = LoginMessage.LSC_account_create_result.parseFrom(buf);
+                        BaseballApp.Instance().setSecurityCode(pkt.getSecurityCode());
+
+                        if(pkt.getFailSignal() == LoginMessage.FailSignal.UNKNOWN)
+                        {
+                            BaseballApp.Instance().setAccountCreateSuccess(true);
+                        }
+                        else
+                        {
+                            BaseballApp.Instance().setIsAccountRepeatCreate(true);
+                        }
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
             }
         }
-
         @Override
-        protected void onPostExecute(Object result)
+        protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
 
@@ -222,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
 
-            Toast.makeText(MainActivity.this, "Login 성공", Toast.LENGTH_SHORT).show();
         }
 
     }

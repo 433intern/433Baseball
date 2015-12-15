@@ -18,8 +18,7 @@ bool CSender::ErrorProc(CAct *act, DWORD error)
 	return true;
 }
 
-bool CSender::Initializer(CProactor *proactorParam)
+bool CSender::Initializer()
 {
-	proactor = proactorParam;
 	return true;
 } 

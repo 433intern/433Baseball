@@ -11,12 +11,14 @@ CDBAct::~CDBAct()
 
 bool CDBAct::Complete(DWORD bytes_transferred)
 {
+	actor->EventProc(this, bytes_transferred);
 
 	return true;
 }
 
 bool CDBAct::Error(DWORD error)
 {
+	MYERRORPRINTF("Error");
 	
 	return true;
 }

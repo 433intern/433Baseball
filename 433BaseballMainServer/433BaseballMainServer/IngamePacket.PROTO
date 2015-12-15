@@ -1,6 +1,6 @@
 package protocol;
 
-import "GamePacketEnumeration.proto";
+import public "GamePacketEnumeration.PROTO";
 
 message CS_send_baseball_number
 {

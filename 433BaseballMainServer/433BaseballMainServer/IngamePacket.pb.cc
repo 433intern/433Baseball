@@ -166,11 +166,11 @@ void protobuf_AddDesc_IngamePacket_2eproto() {
   ::protocol::protobuf_AddDesc_GamePacketEnumeration_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\022IngamePacket.proto\022\010protocol\032\033GamePack"
-    "etEnumeration.proto\".\n\027CS_send_baseball_"
+    "etEnumeration.PROTO\".\n\027CS_send_baseball_"
     "number\022\023\n\013baseballNum\030\001 \001(\r\"8\n!SC_receiv"
     "e_baseball_number_result\022\023\n\013judgeStatus\030"
     "\001 \001(\r\"\016\n\014SC_give_turn\"\016\n\014SC_wait_turn\"\036\n"
-    "\rSC_ingame_end\022\r\n\005isWin\030\001 \001(\010", 229);
+    "\rSC_ingame_end\022\r\n\005isWin\030\001 \001(\010P\000", 231);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "IngamePacket.proto", &protobuf_RegisterTypes);
   CS_send_baseball_number::default_instance_ = new CS_send_baseball_number();
