@@ -36,7 +36,7 @@ struct CLoginSocket : public CSockInfo
 
 	protocol::PacketHeader					header;
 	protocol::LSC_account_create_result		accountCreateResult;
-	protocol::LSC_login_result				loginResult;
+	protocol::CLS_login_request				loginRequest;
 
 	CLoginSocket();
 	~CLoginSocket();

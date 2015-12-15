@@ -86,9 +86,6 @@
     <ClCompile Include="DBDisconnector.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
-    <ClCompile Include="DBHarvester.cpp">
-      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
-    </ClCompile>
     <ClCompile Include="DBQuerier.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
@@ -167,9 +164,6 @@
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBDisconnector.h">
-      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
-    </ClInclude>
-    <ClInclude Include="DBHarvester.h">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBQuerier.h">

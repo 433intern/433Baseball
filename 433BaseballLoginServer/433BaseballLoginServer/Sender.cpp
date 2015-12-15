@@ -32,27 +32,14 @@ bool CSender::EventProc(CAct *act, DWORD receivedBytes)
 		tmpSocket.stateMachine.ChangeState(CSentCreateAccountResponse::Instance());
 		tmpSocket.Send(tmpSocket.sendBuf, bufSize);
 	}
-	else if (CToSendLoginResponse::Instance() == tmpSocket.stateMachine.CurrentState())
-	{
-		protocol::LSC_login_result &tmpResult = tmpSocket.loginResult;
-		int bufSize = tmpResult.ByteSize();
-
-		tmpResult.SerializeToArray(tmpSocket.sendBuf, bufSize);
-
-		tmpSocket.stateMachine.ChangeState(CSentLoginResponse::Instance());
-		tmpSocket.Send(tmpSocket.sendBuf, bufSize);
-	}
 	else if (CSentCreateAccountResponse::Instance() == tmpSocket.stateMachine.CurrentState())
 	{
 		// You must change the state before receive the header !!!
 		tmpSocket.stateMachine.ChangeState(CWaitHeader::Instance());
-		tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
 	}
 	else if (CSentLoginResponse::Instance() == tmpSocket.stateMachine.CurrentState())
 	{
-		// You must change the state before receive the header !!!
-		tmpSocket.stateMachine.ChangeState(CWaitHeader::Instance());
-		tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
+		tmpSocket.Disconnect();
 	}
 
 	return true;

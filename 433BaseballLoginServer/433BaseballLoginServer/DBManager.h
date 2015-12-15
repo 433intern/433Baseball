@@ -11,7 +11,6 @@ class CDBManager
 
 	CDBConnector			connector;
 	CDBDisconnector			disconnector;
-	CDBHarvester			harvester;
 	CDBQuerier				querier;
 
 	int						threadPoolSize, handlePoolSize;
@@ -30,7 +29,7 @@ public:
 		const std::string &userPassword, const std::string &schemaName);
 	bool					SecondInitializer(const int &threadNum, const int &handleNumParam);
 
-	bool					QueryEx(const char *str);
+	bool					QueryEx(std::string &str, CLoginSocket &sock);
 	bool					HarvestEx(CDBHandle *param);
 
 	bool					ConnectEx(CDBHandle *param);

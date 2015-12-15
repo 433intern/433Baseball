@@ -29,7 +29,7 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT					9001
+#define SERVERPORT					8000
 #define DB_PORT						3306
 #define BUFSIZE						1024
 #define SOCKET_POOL_SIZE			3000

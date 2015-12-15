@@ -13,6 +13,7 @@
 #include <string>
 #include <wchar.h>
 #include <stdlib.h>
+#include <fstream>
 
 #include <WinSock2.h>
 #include <WS2tcpip.h>
@@ -31,14 +32,11 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT					9001
-#define DB_PORT						3306
 #define BUFSIZE						1024
 #define SOCKET_POOL_SIZE			3000
 #define HEADER_SIZE					10
 #define WAIT_AVAILABLE_HANDLE_TIME	100
 #define WAIT_AVAILABLE_SOCKET_TIME	100
-#define IP_ADDRESS					"127.0.0.1"
 
 //----------------------------------------------------
 
@@ -51,11 +49,10 @@ class State;
 template <class entity_type>
 class StateMachine;
 
-class CToSendLoginResponse;
 class CToSendCreateAccountResponse;
 class CSentLoginResponse;
 class CSentCreateAccountResponse;
-class CWaitLoginBody	;
+class CWaitLoginBody;
 class CWaitCreateAccountBody;
 class CWaitHeader;
 class CDisconnected;
@@ -78,7 +75,6 @@ struct CAcceptor;
 struct CDBConnector;
 struct CDBDisconnector;
 struct CDBQuerier;
-struct CDBHarvester;
 
 struct CProactor;
 
@@ -129,7 +125,6 @@ struct CDBAct;
 #include "DBConnector.h"
 #include "DBDisconnector.h"
 #include "DBQuerier.h"
-#include "DBHarvester.h"
 
 #include "Proactor.h"
 

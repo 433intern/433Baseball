@@ -48,17 +48,31 @@ bool CReceiver::EventProc(CAct *act, DWORD receivedBytes)
 	}
 	else if (CWaitCreateAccountBody::Instance() == tmpSocket.stateMachine.CurrentState())
 	{
-		protocol::CLS_login_request loginRequest;
-		loginRequest.ParseFromArray(tmpSocket.recvBuf, tmpSocket.header.size());
+		protocol::CLS_account_create accountCreate;
+		accountCreate.ParseFromArray(tmpSocket.recvBuf, tmpSocket.header.size());
 
 		tmpSocket.header.Clear();
 
 		// logic to somthing with body
-		std::string textFormat = loginRequest.DebugString();
+		std::string textFormat = accountCreate.DebugString();
 		MYPRINTF(textFormat.c_str());
 
 		// You must change the state before send the response !!!
 		tmpSocket.stateMachine.ChangeState(CToSendCreateAccountResponse::Instance());
+
+		//---------------------------------------------
+		// Invalidation check and save to my DB
+
+		CDBManager &dbManager = CDBManager::GetInstance();
+		CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
+		std::string tmpStr = "insert into " + globalManager.dbSecurityTableName + " values('" + accountCreate.id() + "','" + accountCreate.password() + "')";
+
+		if (!dbManager.QueryEx(tmpStr, tmpSocket))
+		{
+			MYERRORPRINTF("QueryEx");
+		}
+		//---------------------------------------------
 
 		protocol::PacketHeader header;
 
@@ -78,37 +92,29 @@ bool CReceiver::EventProc(CAct *act, DWORD receivedBytes)
 	}
 	else if (CWaitLoginBody::Instance() == tmpSocket.stateMachine.CurrentState())
 	{
-		protocol::CLS_account_create createAccount;
-		createAccount.ParseFromArray(tmpSocket.recvBuf, tmpSocket.header.size());
+		protocol::CLS_login_request loginRequest;
+		loginRequest.ParseFromArray(tmpSocket.recvBuf, tmpSocket.header.size());
+
+		tmpSocket.loginRequest = loginRequest;
 
 		tmpSocket.header.Clear();
 
 		// logic to somthing with body
-		std::string textFormat = createAccount.DebugString();
+		std::string textFormat = loginRequest.DebugString();
 		MYPRINTF(textFormat.c_str());
 
-		// You must change the state before send the response !!!
-		tmpSocket.stateMachine.ChangeState(CToSendLoginResponse::Instance());
+		//---------------------------------------------
+		// Invalidation check from DB
+		CDBManager &dbManager = CDBManager::GetInstance();
+		CGlobalManager &globalManager = CGlobalManager::GetInstance();
 
-		protocol::PacketHeader header;
+		std::string tmpStr = "select * from " + globalManager.dbSecurityTableName + " where id = '" + loginRequest.id() + "'";
 
-		protocol::LSC_login_result loginResult;
-
-		loginResult.set_failsignal(protocol::FailSignal::UNKNOWN);
-		loginResult.set_ip(IP_ADDRESS);
-		loginResult.set_port(SERVERPORT);
-		loginResult.set_securitycode("1");
-
-		header.set_type(protocol::PacketType::LSC_LOGIN_RESULT);
-		header.set_size(loginResult.ByteSize());
-
-		tmpSocket.loginResult = loginResult;
-
-		int bufSize = header.ByteSize();
-
-		header.SerializeToArray(tmpSocket.sendBuf, bufSize);
-
-		tmpSocket.Send(tmpSocket.sendBuf, bufSize);
+		if (!dbManager.QueryEx(tmpStr, tmpSocket))
+		{
+			MYERRORPRINTF("QueryEx");
+		}
+		//---------------------------------------------
 	}
 	return true;
 }

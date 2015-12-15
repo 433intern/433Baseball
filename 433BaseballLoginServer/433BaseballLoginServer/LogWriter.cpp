@@ -85,8 +85,9 @@ bool CLogWriter::MyDBErrorPrintf(MYSQL &handle, const std::string &str, const st
 	va_list vaList;
 	va_start(vaList, str);
 
+	std::string dbError = mysql_error(&handle);
 	std::string tmpStr = "DB Error : " + std::string(str) + " in the " + strFuncName + " function.\n"
-		+ "mysql_error : " + mysql_error(&handle) + "\n";
+		+ "mysql_error : " + dbError + "\n";
 #ifdef _DEBUG
 	if (-1 == vprintf(tmpStr.c_str(), vaList))
 	{

@@ -13,19 +13,6 @@ public:
 	virtual void Execute(CLoginSocket *login);
 };
 
-class CToSendLoginResponse : public State<CLoginSocket>
-{
-private:
-	CToSendLoginResponse(){}
-	CToSendLoginResponse(const CToSendLoginResponse&);
-	CToSendLoginResponse& operator=(const CToSendLoginResponse&);
-public:
-	static CToSendLoginResponse* Instance();
-	virtual void Enter(CLoginSocket *login);
-	virtual void Exit(CLoginSocket *login);
-	virtual void Execute(CLoginSocket *login);
-};
-
 class CSentCreateAccountResponse : public State<CLoginSocket>
 {
 private:

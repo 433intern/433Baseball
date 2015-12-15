@@ -21,7 +21,37 @@ bool RealMain()
 	CLoginManager	&loginManager = CLoginManager::GetInstance();
 	CGlobalManager	&global = CGlobalManager::GetInstance();
 
-	WSADATA				wsa;
+	WSADATA			wsa;
+
+	std::string		tmpLine;
+	std::string		tmpIp, tmpSchema, tmpSecurityTableName, tmpDBUserName, tmpDBPassword;
+	unsigned short  tmpDBPort = 0, tmpClientPort = 0, tmpLoginServerPort = 0;
+
+	std::ifstream	file;
+
+	file.open("433Baseball_config.cfg");
+
+	if (!file)
+	{
+		MYPRINTF("File openning failed no RealMain");
+		return false;
+	}
+
+	try
+	{
+		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpSecurityTableName >> tmpDBUserName >> tmpDBPassword >> tmpClientPort >> tmpLoginServerPort;
+	}
+	catch (const std::ifstream::failure &e)
+	{
+		MYSERVICEERRORPRINTF("ifstream read failed on realmain function : %s", e.what());
+		return false;
+	}
+
+	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpSecurityTableName, tmpDBUserName, tmpDBPassword, tmpClientPort, tmpLoginServerPort))
+	{
+		MYSERVICEERRORPRINTF("Initializer of CGlobalManager error");
+		return false;
+	}
 
 	if (NULL != WSAStartup(MAKEWORD(2, 2), &wsa))
 	{
@@ -179,6 +209,7 @@ bool TotalInitializer()
 
 	CDBManager		&dbManager = CDBManager::GetInstance();
 	CLoginManager	&loginManager = CLoginManager::GetInstance();
+	CGlobalManager	&globalManager = CGlobalManager::GetInstance();
 
 	GetSystemInfo(&systemInfo);
 
@@ -188,13 +219,13 @@ bool TotalInitializer()
 		return 0;
 	}
 
-	if (!loginManager.SecondInitializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
+	if (!loginManager.SecondInitializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, globalManager.clientPort))
 	{
 		MYPRINTF("error in Initializer : %d\n", GetLastError());
 		return 0;
 	}
 
-	if (!dbManager.FirstInitializer("127.0.0.1", "root", "1234", "433baseball"))
+	if (!dbManager.FirstInitializer(globalManager.dbServerIp, globalManager.dbUsername, globalManager.dbPassword, globalManager.dbSchemaName))
 	{
 		MYPRINTF("error on FirstInitializer in _tmain : %d\n", GetLastError());
 		return 0;
@@ -209,40 +240,4 @@ bool TotalInitializer()
 	}
 
 	return true;
-}
-
-void test()
-{
-	//int retval = recv(client_sock, buf, HEADER_SIZE, 0);
-
-	//if (retval == SOCKET_ERROR){
-	//}
-	//else if (retval == 0)
-	//	break;
-
-	//protocol::PacketHeader header;
-
-	//header.ParseFromArray(buf, HEADER_SIZE);
-
-	////------------------------------
-
-	//retval = recv(client_sock, buf, header.size(), 0);
-
-	//tutorial::Person dst_person;
-	//dst_person.ParseFromArray(buf, header.size());
-
-	////----------------------------------------------------------
-
-	//char sendBuf[1024];
-	//std::cout << header.ByteSize() << std::endl;
-	//header.SerializeToArray(sendBuf, header.ByteSize());
-
-	//dst_person.SerializeToArray(sendBuf + header.ByteSize(), dst_person.ByteSize());
-
-	//std::cout << dst_person.ByteSize() << std::endl;
-
-	//retval = send(client_sock, sendBuf, header.ByteSize() + dst_person.ByteSize(), 0);
-
-	//if (retval == SOCKET_ERROR){
-	//}
 }

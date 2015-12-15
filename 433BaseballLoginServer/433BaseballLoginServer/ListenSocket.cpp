@@ -10,10 +10,12 @@ CListenSocket::~CListenSocket()
 
 bool CListenSocket::Listen(CProactor& proactor)
 {
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	addr.sin_port = htons(SERVERPORT);
+	addr.sin_port = htons(globalManager.loginServerPort);
 
 	if (!proactor.Register((HANDLE)sock))
 	{

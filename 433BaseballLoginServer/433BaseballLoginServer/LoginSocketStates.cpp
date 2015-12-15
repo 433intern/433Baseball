@@ -1,26 +1,5 @@
 #include "stdafx.h";
 
-CToSendLoginResponse* CToSendLoginResponse::Instance()
-{
-	static CToSendLoginResponse instance;
-
-	return &instance;
-}
-
-void CToSendLoginResponse::Enter(CLoginSocket *login)
-{
-}
-
-void CToSendLoginResponse::Exit(CLoginSocket *login)
-{
-}
-
-void CToSendLoginResponse::Execute(CLoginSocket *login)
-{
-}
-
-//-----------------------------------------------------
-
 CToSendCreateAccountResponse* CToSendCreateAccountResponse::Instance()
 {
 	static CToSendCreateAccountResponse instance;

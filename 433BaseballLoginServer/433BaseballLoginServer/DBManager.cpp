@@ -52,7 +52,6 @@ bool CDBManager::SecondInitializer(const int &threadNumParam, const int &handleN
 	connector.Initializer();
 	disconnector.Initializer();
 	querier.Initializer();
-	harvester.Initializer();
 
 	//----------------------------------------------------------
 
@@ -71,15 +70,7 @@ bool CDBManager::SecondInitializer(const int &threadNumParam, const int &handleN
 	/*Query("set session character_set_connection=euckr;");
 	Query("set session character_set_results=euckr;");
 	Query("set session character_set_login=euckr;");*/
-
-	// Printing the result
-	/*sqlResult = mysql_store_result(connection);
-	while ((sqlRow = mysql_fetch_row(sqlResult)) != NULL)
-	{
-	printf("%2s %2s %s\n", sqlRow[0], sqlRow[1], sqlRow[2]);
-	}
-	mysql_free_result(sqlResult);*/
-
+	
 	return true;
 }
 
@@ -98,7 +89,7 @@ bool CDBManager::CreateDBHandlePool(const int &handleNumParam)
 	{
 		tmpDbHandle = new CDBHandle();
 
-		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier, &harvester))
+		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier))
 		{
 			MYERRORPRINTF("InitActs");
 			return false;
@@ -170,8 +161,6 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 		return false;
 	}
 
-	param->stateMachine.ChangeState(CDBIdle::Instance());
-
 	if (!ReleaseSemaphore(dbHandleSema, 1, NULL))
 	{
 		MYERRORPRINTF("ReleaseSemaphore");
@@ -183,9 +172,9 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 	return true;
 }
 
-bool CDBManager::QueryEx(const char *str)
+bool CDBManager::QueryEx(std::string &str, CLoginSocket &sock)
 {
-	if (NULL == str)
+	if ("" == str)
 	{
 		MYPRINTF("The string pointer of parameter in QueryEx of CDBManager is NULL!\n");
 		return false;
@@ -215,35 +204,9 @@ bool CDBManager::QueryEx(const char *str)
 		return false;
 	}
 
+	dbHandle->loginSock = &sock;
+
 	dbHandle->stateMachine.ChangeState(CDBWaitResult::Instance());
-
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
-
-	return true;
-}
-
-bool CDBManager::HarvestEx(CDBHandle *param)
-{
-	if (NULL == param)
-	{
-		MYPRINTF("The DBHandle of parameter in HarvestEx of CDBManager is NULL!\n");
-		return false;
-	}
-
-	if (CDBWaitResult::Instance() != param->stateMachine.CurrentState())
-	{
-		MYPRINTF("If you wish to use this HarvestEx function, this DB handle must be in the WaitResult state\n");
-		return false;
-	}
-
-	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::HARVEST];
-	tmpAct->dbHandle = param;
-
-	if (NULL == tmpAct)
-	{
-		MYPRINTF("The act of parameter in HarvestEx of CDBManager is NULL!\n");
-		return false;
-	}
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 
