@@ -61,6 +61,7 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 			protocol::PacketHeader header;
 			protocol::LSC_login_result loginResult;
+			std::string resultPassword, resultId;
 
 			//------------------------------
 
@@ -75,8 +76,8 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 			}
 			else
 			{
-				std::string resultPassword = row[1];
-				std::string resultId = row[0];
+				resultPassword = row[1];
+				resultId = row[0];
 				if (resultId == loginSock.loginRequest.id())
 				{
 					if (resultPassword == loginSock.loginRequest.password())
@@ -85,8 +86,6 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 						loginResult.set_ip(globalManager.dbServerIp);
 						loginResult.set_port(globalManager.clientPort);
 						loginResult.set_securitycode("1");
-
-						MYPRINTF("Your login request are successfully accepted !");
 					}
 					else
 					{
@@ -101,6 +100,8 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 				}
 			}
 
+			mysql_free_result(tmpRes);
+
 			header.set_size(loginResult.ByteSize());
 			int bufSize = header.ByteSize();
 			header.SerializeToArray(loginSock.sendBuf, bufSize);
@@ -111,14 +112,23 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 			bufSize = loginResult.ByteSize();
 			loginResult.SerializeToArray(loginSock.sendBuf, bufSize);
 
-			loginSock.stateMachine.ChangeState(CSentLoginResponse::Instance());
-
+			// Send The payload
 			loginSock.Send(loginSock.sendBuf, bufSize);
 
-			// Send The payload
+			if (NULL != row && resultId == loginSock.loginRequest.id()
+				&& resultPassword == loginSock.loginRequest.password())
+			{
+				loginSock.Disconnect();
+				MYPRINTF("Your login request are successfully accepted !");
+				return true;
+			}
+			else
+			{
+				// You must change the state before receive the header !!!
+				loginSock.stateMachine.ChangeState(CWaitHeader::Instance());
+				loginSock.Recv(loginSock.recvBuf, HEADER_SIZE);
+			}
 			//-------------------------------
-
-			mysql_free_result(tmpRes);
 		}
 		else
 		{

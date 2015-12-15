@@ -26,19 +26,6 @@ public:
 	virtual void Execute(CLoginSocket *login);
 };
 
-class CSentLoginResponse : public State<CLoginSocket>
-{
-private:
-	CSentLoginResponse(){}
-	CSentLoginResponse(const CSentLoginResponse&);
-	CSentLoginResponse& operator=(const CSentLoginResponse&);
-public:
-	static CSentLoginResponse* Instance();
-	virtual void Enter(CLoginSocket *login);
-	virtual void Exit(CLoginSocket *login);
-	virtual void Execute(CLoginSocket *login);
-};
-
 class CWaitCreateAccountBody : public State<CLoginSocket>
 {
 private:

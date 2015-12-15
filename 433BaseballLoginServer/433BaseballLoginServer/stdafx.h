@@ -50,7 +50,6 @@ template <class entity_type>
 class StateMachine;
 
 class CToSendCreateAccountResponse;
-class CSentLoginResponse;
 class CSentCreateAccountResponse;
 class CWaitLoginBody;
 class CWaitCreateAccountBody;

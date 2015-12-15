@@ -21,27 +21,6 @@ void CToSendCreateAccountResponse::Execute(CLoginSocket *login)
 
 //-----------------------------------------------------
 
-CSentLoginResponse* CSentLoginResponse::Instance()
-{
-	static CSentLoginResponse instance;
-
-	return &instance;
-}
-
-void CSentLoginResponse::Enter(CLoginSocket *login)
-{
-}
-
-void CSentLoginResponse::Exit(CLoginSocket *login)
-{
-}
-
-void CSentLoginResponse::Execute(CLoginSocket *login)
-{
-}
-
-//-----------------------------------------------------
-
 CSentCreateAccountResponse* CSentCreateAccountResponse::Instance()
 {
 	static CSentCreateAccountResponse instance;

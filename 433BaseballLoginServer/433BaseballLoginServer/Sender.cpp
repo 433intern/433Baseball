@@ -37,10 +37,6 @@ bool CSender::EventProc(CAct *act, DWORD receivedBytes)
 		// You must change the state before receive the header !!!
 		tmpSocket.stateMachine.ChangeState(CWaitHeader::Instance());
 	}
-	else if (CSentLoginResponse::Instance() == tmpSocket.stateMachine.CurrentState())
-	{
-		tmpSocket.Disconnect();
-	}
 
 	return true;
 }
