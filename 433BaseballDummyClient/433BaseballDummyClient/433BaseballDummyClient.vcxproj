@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamePacketEnumeration.pb.h" />
+    <ClInclude Include="GlobalManager.h" />
     <ClInclude Include="IngamePacket.pb.h" />
     <ClInclude Include="RoomPacket.pb.h" />
     <ClInclude Include="stdafx.h" />
@@ -88,9 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GamePacketEnumeration.pb.cc" />
+    <ClCompile Include="GlobalManager.cpp" />
+    <ClCompile Include="InGame.cpp" />
     <ClCompile Include="IngamePacket.pb.cc" />
+    <ClCompile Include="InRoom.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Lobby.cpp" />
+    <ClCompile Include="ProtocolBufferUtils.cpp" />
     <ClCompile Include="RoomPacket.pb.cc" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GamePacketEnumeration.PROTO" />

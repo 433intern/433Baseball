@@ -6,7 +6,6 @@ CSockInfo::CSockInfo()
 	memset(&addr, 0, sizeof(SOCKADDR_IN));
 }
 
-
 CSockInfo::~CSockInfo()
 {
 }

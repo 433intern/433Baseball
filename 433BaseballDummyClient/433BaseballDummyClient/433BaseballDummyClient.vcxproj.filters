@@ -13,11 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\ProtocolBuffer">
+    <Filter Include="소스 파일\DummyClient">
+      <UniqueIdentifier>{a0b548e6-2a50-42a9-9261-fffb22d12ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DummyClient\Managers">
+      <UniqueIdentifier>{a86db0e2-bbb9-4cc6-afd5-8f4bb7b5d997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DummyClient\ProtocolBuffer">
       <UniqueIdentifier>{640fed59-62c7-4572-b866-518185a95ebb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ProtocolBuffer\ProtoFiles">
+    <Filter Include="소스 파일\DummyClient\PlayerStates">
+      <UniqueIdentifier>{a65f6e7c-529b-4e91-b9a7-597510de2487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DummyClient\ProtocolBuffer\OriginalProtoFiles">
       <UniqueIdentifier>{3eb01d2f-9b53-4659-a21d-ecc995d9e78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles">
+      <UniqueIdentifier>{86c56b6f-1123-49ef-9f03-b50f5c4d9b13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,39 +42,60 @@
     <ClInclude Include="targetver.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalManager.h">
+      <Filter>소스 파일\DummyClient\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="GamePacketEnumeration.pb.h">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
     </ClInclude>
     <ClInclude Include="IngamePacket.pb.h">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
     </ClInclude>
     <ClInclude Include="RoomPacket.pb.h">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalManager.cpp">
+      <Filter>소스 파일\DummyClient\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>소스 파일\DummyClient</Filter>
+    </ClCompile>
+    <ClCompile Include="Lobby.cpp">
+      <Filter>소스 파일\DummyClient\PlayerStates</Filter>
+    </ClCompile>
     <ClCompile Include="GamePacketEnumeration.pb.cc">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
     </ClCompile>
     <ClCompile Include="IngamePacket.pb.cc">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
     </ClCompile>
     <ClCompile Include="RoomPacket.pb.cc">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\CompiledProtoFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolBufferUtils.cpp">
+      <Filter>소스 파일\DummyClient\ProtocolBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="InGame.cpp">
+      <Filter>소스 파일\DummyClient\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="InRoom.cpp">
+      <Filter>소스 파일\DummyClient\PlayerStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GamePacketEnumeration.PROTO">
-      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\OriginalProtoFiles</Filter>
     </None>
     <None Include="IngamePacket.PROTO">
-      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\OriginalProtoFiles</Filter>
     </None>
     <None Include="RoomPacket.Proto">
-      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+      <Filter>소스 파일\DummyClient\ProtocolBuffer\OriginalProtoFiles</Filter>
     </None>
   </ItemGroup>
 </Project>

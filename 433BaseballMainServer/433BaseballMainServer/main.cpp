@@ -23,7 +23,7 @@ bool RealMain()
 	CGlobalManager	&global = CGlobalManager::GetInstance();
 	CRoomManager	&roomManager = CRoomManager::GetInstance();
 
-	WSADATA				wsa;
+	WSADATA			wsa;
 
 	std::string		tmpIp, tmpSchema, tmpDBUserName, tmpDBPassword;
 	std::string		tmpStasticalTableName, tmpMatchRecordTableName, tmpOverloadRecordTableName;
@@ -35,7 +35,7 @@ bool RealMain()
 
 	if (!file)
 	{
-		MYPRINTF("File openning failed no RealMain");
+		MYPRINTF("File openning failed on RealMain");
 		return false;
 	}
 
