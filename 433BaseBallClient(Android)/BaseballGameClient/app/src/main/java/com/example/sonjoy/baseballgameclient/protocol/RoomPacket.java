@@ -405,6 +405,647 @@ public final class RoomPacket {
     // @@protoc_insertion_point(class_scope:protocol.RoomInfo)
   }
 
+  public interface CS_contact_alramOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CS_contact_alram)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    boolean hasNickName();
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    java.lang.String getNickName();
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNickNameBytes();
+
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    boolean hasSecurityCode();
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    java.lang.String getSecurityCode();
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSecurityCodeBytes();
+  }
+  /**
+   * Protobuf type {@code protocol.CS_contact_alram}
+   */
+  public static final class CS_contact_alram extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:protocol.CS_contact_alram)
+      CS_contact_alramOrBuilder {
+    // Use CS_contact_alram.newBuilder() to construct.
+    private CS_contact_alram(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private CS_contact_alram(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final CS_contact_alram defaultInstance;
+    public static CS_contact_alram getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public CS_contact_alram getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS_contact_alram(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              nickName_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              securityCode_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_contact_alram_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_contact_alram_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<CS_contact_alram> PARSER =
+        new com.google.protobuf.AbstractParser<CS_contact_alram>() {
+      public CS_contact_alram parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS_contact_alram(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS_contact_alram> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int NICKNAME_FIELD_NUMBER = 1;
+    private java.lang.Object nickName_;
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    public boolean hasNickName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    public java.lang.String getNickName() {
+      java.lang.Object ref = nickName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          nickName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string nickName = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNickNameBytes() {
+      java.lang.Object ref = nickName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nickName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SECURITYCODE_FIELD_NUMBER = 2;
+    private java.lang.Object securityCode_;
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public boolean hasSecurityCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public java.lang.String getSecurityCode() {
+      java.lang.Object ref = securityCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          securityCode_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string securityCode = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSecurityCodeBytes() {
+      java.lang.Object ref = securityCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        securityCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      nickName_ = "";
+      securityCode_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasNickName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNickNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getSecurityCodeBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNickNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getSecurityCodeBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code protocol.CS_contact_alram}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CS_contact_alram)
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alramOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_contact_alram_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_contact_alram_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.Builder.class);
+      }
+
+      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        nickName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        securityCode_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_contact_alram_descriptor;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram getDefaultInstanceForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.getDefaultInstance();
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram build() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram buildPartial() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.nickName_ = nickName_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.securityCode_ = securityCode_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram) {
+          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram other) {
+        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram.getDefaultInstance()) return this;
+        if (other.hasNickName()) {
+          bitField0_ |= 0x00000001;
+          nickName_ = other.nickName_;
+          onChanged();
+        }
+        if (other.hasSecurityCode()) {
+          bitField0_ |= 0x00000002;
+          securityCode_ = other.securityCode_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasNickName()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_contact_alram) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object nickName_ = "";
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public boolean hasNickName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public java.lang.String getNickName() {
+        java.lang.Object ref = nickName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            nickName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNickNameBytes() {
+        java.lang.Object ref = nickName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nickName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public Builder setNickName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        nickName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public Builder clearNickName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        nickName_ = getDefaultInstance().getNickName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string nickName = 1;</code>
+       */
+      public Builder setNickNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        nickName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object securityCode_ = "";
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public boolean hasSecurityCode() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public java.lang.String getSecurityCode() {
+        java.lang.Object ref = securityCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            securityCode_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSecurityCodeBytes() {
+        java.lang.Object ref = securityCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          securityCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder setSecurityCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        securityCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder clearSecurityCode() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        securityCode_ = getDefaultInstance().getSecurityCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string securityCode = 2;</code>
+       */
+      public Builder setSecurityCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        securityCode_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:protocol.CS_contact_alram)
+    }
+
+    static {
+      defaultInstance = new CS_contact_alram(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CS_contact_alram)
+  }
+
   public interface CS_room_info_requestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:protocol.CS_room_info_request)
       com.google.protobuf.MessageOrBuilder {
@@ -716,6 +1357,319 @@ public final class RoomPacket {
     }
 
     // @@protoc_insertion_point(class_scope:protocol.CS_room_info_request)
+  }
+
+  public interface CS_total_room_info_requestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.CS_total_room_info_request)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code protocol.CS_total_room_info_request}
+   */
+  public static final class CS_total_room_info_request extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:protocol.CS_total_room_info_request)
+      CS_total_room_info_requestOrBuilder {
+    // Use CS_total_room_info_request.newBuilder() to construct.
+    private CS_total_room_info_request(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private CS_total_room_info_request(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final CS_total_room_info_request defaultInstance;
+    public static CS_total_room_info_request getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public CS_total_room_info_request getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS_total_room_info_request(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_total_room_info_request_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_total_room_info_request_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<CS_total_room_info_request> PARSER =
+        new com.google.protobuf.AbstractParser<CS_total_room_info_request>() {
+      public CS_total_room_info_request parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS_total_room_info_request(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS_total_room_info_request> getParserForType() {
+      return PARSER;
+    }
+
+    private void initFields() {
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code protocol.CS_total_room_info_request}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.CS_total_room_info_request)
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_requestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_total_room_info_request_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_total_room_info_request_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.Builder.class);
+      }
+
+      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_CS_total_room_info_request_descriptor;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request getDefaultInstanceForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.getDefaultInstance();
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request build() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request buildPartial() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request) {
+          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request other) {
+        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_total_room_info_request) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:protocol.CS_total_room_info_request)
+    }
+
+    static {
+      defaultInstance = new CS_total_room_info_request(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.CS_total_room_info_request)
   }
 
   public interface CS_room_createOrBuilder extends
@@ -2295,8 +3249,913 @@ public final class RoomPacket {
     // @@protoc_insertion_point(class_scope:protocol.CS_request_ingame_start)
   }
 
-  public interface SC_room_info_responseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:protocol.SC_room_info_response)
+  public interface SC_contact_resultOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC_contact_result)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional .protocol.FailSignal failSignal = 1;</code>
+     */
+    boolean hasFailSignal();
+    /**
+     * <code>optional .protocol.FailSignal failSignal = 1;</code>
+     */
+    com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal getFailSignal();
+  }
+  /**
+   * Protobuf type {@code protocol.SC_contact_result}
+   */
+  public static final class SC_contact_result extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:protocol.SC_contact_result)
+      SC_contact_resultOrBuilder {
+    // Use SC_contact_result.newBuilder() to construct.
+    private SC_contact_result(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SC_contact_result(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SC_contact_result defaultInstance;
+    public static SC_contact_result getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SC_contact_result getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC_contact_result(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal value = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                failSignal_ = value;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_contact_result_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_contact_result_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<SC_contact_result> PARSER =
+        new com.google.protobuf.AbstractParser<SC_contact_result>() {
+      public SC_contact_result parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC_contact_result(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC_contact_result> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int FAILSIGNAL_FIELD_NUMBER = 1;
+    private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_;
+    /**
+     * <code>optional .protocol.FailSignal failSignal = 1;</code>
+     */
+    public boolean hasFailSignal() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .protocol.FailSignal failSignal = 1;</code>
+     */
+    public com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal getFailSignal() {
+      return failSignal_;
+    }
+
+    private void initFields() {
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, failSignal_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, failSignal_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code protocol.SC_contact_result}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC_contact_result)
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_resultOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_contact_result_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_contact_result_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.Builder.class);
+      }
+
+      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_contact_result_descriptor;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result getDefaultInstanceForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.getDefaultInstance();
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result build() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result buildPartial() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.failSignal_ = failSignal_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result) {
+          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result other) {
+        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result.getDefaultInstance()) return this;
+        if (other.hasFailSignal()) {
+          setFailSignal(other.getFailSignal());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_contact_result) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      /**
+       * <code>optional .protocol.FailSignal failSignal = 1;</code>
+       */
+      public boolean hasFailSignal() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .protocol.FailSignal failSignal = 1;</code>
+       */
+      public com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal getFailSignal() {
+        return failSignal_;
+      }
+      /**
+       * <code>optional .protocol.FailSignal failSignal = 1;</code>
+       */
+      public Builder setFailSignal(com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        failSignal_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .protocol.FailSignal failSignal = 1;</code>
+       */
+      public Builder clearFailSignal() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC_contact_result)
+    }
+
+    static {
+      defaultInstance = new SC_contact_result(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC_contact_result)
+  }
+
+  public interface SC_room_infoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC_room_info)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    com.google.protobuf.ProtocolStringList
+        getPlayerNickNamesList();
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    int getPlayerNickNamesCount();
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    java.lang.String getPlayerNickNames(int index);
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPlayerNickNamesBytes(int index);
+  }
+  /**
+   * Protobuf type {@code protocol.SC_room_info}
+   */
+  public static final class SC_room_info extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:protocol.SC_room_info)
+      SC_room_infoOrBuilder {
+    // Use SC_room_info.newBuilder() to construct.
+    private SC_room_info(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SC_room_info(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SC_room_info defaultInstance;
+    public static SC_room_info getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SC_room_info getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC_room_info(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                playerNickNames_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              playerNickNames_.add(bs);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          playerNickNames_ = playerNickNames_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<SC_room_info> PARSER =
+        new com.google.protobuf.AbstractParser<SC_room_info>() {
+      public SC_room_info parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC_room_info(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC_room_info> getParserForType() {
+      return PARSER;
+    }
+
+    public static final int PLAYERNICKNAMES_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList playerNickNames_;
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getPlayerNickNamesList() {
+      return playerNickNames_;
+    }
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    public int getPlayerNickNamesCount() {
+      return playerNickNames_.size();
+    }
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    public java.lang.String getPlayerNickNames(int index) {
+      return playerNickNames_.get(index);
+    }
+    /**
+     * <code>repeated string playerNickNames = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPlayerNickNamesBytes(int index) {
+      return playerNickNames_.getByteString(index);
+    }
+
+    private void initFields() {
+      playerNickNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < playerNickNames_.size(); i++) {
+        output.writeBytes(1, playerNickNames_.getByteString(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < playerNickNames_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(playerNickNames_.getByteString(i));
+        }
+        size += dataSize;
+        size += 1 * getPlayerNickNamesList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code protocol.SC_room_info}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:protocol.SC_room_info)
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_infoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.Builder.class);
+      }
+
+      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        playerNickNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_descriptor;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info getDefaultInstanceForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.getDefaultInstance();
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info build() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info buildPartial() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          playerNickNames_ = playerNickNames_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.playerNickNames_ = playerNickNames_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info) {
+          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info other) {
+        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info.getDefaultInstance()) return this;
+        if (!other.playerNickNames_.isEmpty()) {
+          if (playerNickNames_.isEmpty()) {
+            playerNickNames_ = other.playerNickNames_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensurePlayerNickNamesIsMutable();
+            playerNickNames_.addAll(other.playerNickNames_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList playerNickNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensurePlayerNickNamesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          playerNickNames_ = new com.google.protobuf.LazyStringArrayList(playerNickNames_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getPlayerNickNamesList() {
+        return playerNickNames_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public int getPlayerNickNamesCount() {
+        return playerNickNames_.size();
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public java.lang.String getPlayerNickNames(int index) {
+        return playerNickNames_.get(index);
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPlayerNickNamesBytes(int index) {
+        return playerNickNames_.getByteString(index);
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public Builder setPlayerNickNames(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePlayerNickNamesIsMutable();
+        playerNickNames_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public Builder addPlayerNickNames(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePlayerNickNamesIsMutable();
+        playerNickNames_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public Builder addAllPlayerNickNames(
+          java.lang.Iterable<java.lang.String> values) {
+        ensurePlayerNickNamesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, playerNickNames_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public Builder clearPlayerNickNames() {
+        playerNickNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string playerNickNames = 1;</code>
+       */
+      public Builder addPlayerNickNamesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePlayerNickNamesIsMutable();
+        playerNickNames_.add(value);
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:protocol.SC_room_info)
+    }
+
+    static {
+      defaultInstance = new SC_room_info(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:protocol.SC_room_info)
+  }
+
+  public interface SC_total_room_infoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:protocol.SC_total_room_info)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2333,25 +4192,25 @@ public final class RoomPacket {
         int index);
   }
   /**
-   * Protobuf type {@code protocol.SC_room_info_response}
+   * Protobuf type {@code protocol.SC_total_room_info}
    */
-  public static final class SC_room_info_response extends
+  public static final class SC_total_room_info extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:protocol.SC_room_info_response)
-      SC_room_info_responseOrBuilder {
-    // Use SC_room_info_response.newBuilder() to construct.
-    private SC_room_info_response(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:protocol.SC_total_room_info)
+      SC_total_room_infoOrBuilder {
+    // Use SC_total_room_info.newBuilder() to construct.
+    private SC_total_room_info(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private SC_room_info_response(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private SC_total_room_info(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final SC_room_info_response defaultInstance;
-    public static SC_room_info_response getDefaultInstance() {
+    private static final SC_total_room_info defaultInstance;
+    public static SC_total_room_info getDefaultInstance() {
       return defaultInstance;
     }
 
-    public SC_room_info_response getDefaultInstanceForType() {
+    public SC_total_room_info getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -2361,7 +4220,7 @@ public final class RoomPacket {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private SC_room_info_response(
+    private SC_total_room_info(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2414,28 +4273,28 @@ public final class RoomPacket {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_response_descriptor;
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_total_room_info_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_response_fieldAccessorTable
+      return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_total_room_info_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.Builder.class);
+              com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SC_room_info_response> PARSER =
-        new com.google.protobuf.AbstractParser<SC_room_info_response>() {
-      public SC_room_info_response parsePartialFrom(
+    public static com.google.protobuf.Parser<SC_total_room_info> PARSER =
+        new com.google.protobuf.AbstractParser<SC_total_room_info>() {
+      public SC_total_room_info parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SC_room_info_response(input, extensionRegistry);
+        return new SC_total_room_info(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SC_room_info_response> getParserForType() {
+    public com.google.protobuf.Parser<SC_total_room_info> getParserForType() {
       return PARSER;
     }
 
@@ -2542,53 +4401,53 @@ public final class RoomPacket {
       return super.writeReplace();
     }
 
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(byte[] data)
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(java.io.InputStream input)
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseDelimitedFrom(java.io.InputStream input)
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseDelimitedFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parseFrom(
+    public static com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2597,7 +4456,7 @@ public final class RoomPacket {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response prototype) {
+    public static Builder newBuilder(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -2609,25 +4468,25 @@ public final class RoomPacket {
       return builder;
     }
     /**
-     * Protobuf type {@code protocol.SC_room_info_response}
+     * Protobuf type {@code protocol.SC_total_room_info}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:protocol.SC_room_info_response)
-        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_responseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:protocol.SC_total_room_info)
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_infoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_response_descriptor;
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_total_room_info_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_response_fieldAccessorTable
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_total_room_info_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.Builder.class);
+                com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.class, com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.Builder.class);
       }
 
-      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.newBuilder()
+      // Construct using com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2665,23 +4524,23 @@ public final class RoomPacket {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_room_info_response_descriptor;
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.internal_static_protocol_SC_total_room_info_descriptor;
       }
 
-      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response getDefaultInstanceForType() {
-        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.getDefaultInstance();
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info getDefaultInstanceForType() {
+        return com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.getDefaultInstance();
       }
 
-      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response build() {
-        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response result = buildPartial();
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info build() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response buildPartial() {
-        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response(this);
+      public com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info buildPartial() {
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info result = new com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2703,16 +4562,16 @@ public final class RoomPacket {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response) {
-          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response)other);
+        if (other instanceof com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info) {
+          return mergeFrom((com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response other) {
-        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info other) {
+        if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info.getDefaultInstance()) return this;
         if (other.hasRoomCount()) {
           setRoomCount(other.getRoomCount());
         }
@@ -2754,11 +4613,11 @@ public final class RoomPacket {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response parsedMessage = null;
+        com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_info_response) e.getUnfinishedMessage();
+          parsedMessage = (com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_total_room_info) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -3041,15 +4900,15 @@ public final class RoomPacket {
         return roomListBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:protocol.SC_room_info_response)
+      // @@protoc_insertion_point(builder_scope:protocol.SC_total_room_info)
     }
 
     static {
-      defaultInstance = new SC_room_info_response(true);
+      defaultInstance = new SC_total_room_info(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:protocol.SC_room_info_response)
+    // @@protoc_insertion_point(class_scope:protocol.SC_total_room_info)
   }
 
   public interface SC_room_create_resultOrBuilder extends
@@ -3184,7 +5043,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3332,7 +5191,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -3412,7 +5271,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -3442,7 +5301,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         onChanged();
         return this;
       }
@@ -3590,7 +5449,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3738,7 +5597,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -3818,7 +5677,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -3848,7 +5707,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         onChanged();
         return this;
       }
@@ -3996,7 +5855,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4144,7 +6003,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -4224,7 +6083,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -4254,7 +6113,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         onChanged();
         return this;
       }
@@ -4402,7 +6261,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4550,7 +6409,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -4630,7 +6489,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -4660,7 +6519,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.NO_EXIST;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
         onChanged();
         return this;
       }
@@ -4682,10 +6541,20 @@ public final class RoomPacket {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protocol_RoomInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CS_contact_alram_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protocol_CS_contact_alram_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_CS_room_info_request_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protocol_CS_room_info_request_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_CS_total_room_info_request_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protocol_CS_total_room_info_request_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_CS_room_create_descriptor;
   private static
@@ -4707,10 +6576,20 @@ public final class RoomPacket {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protocol_CS_request_ingame_start_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_protocol_SC_room_info_response_descriptor;
+    internal_static_protocol_SC_contact_result_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_protocol_SC_room_info_response_fieldAccessorTable;
+      internal_static_protocol_SC_contact_result_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC_room_info_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protocol_SC_room_info_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protocol_SC_total_room_info_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protocol_SC_total_room_info_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_protocol_SC_room_create_result_descriptor;
   private static
@@ -4742,20 +6621,25 @@ public final class RoomPacket {
     java.lang.String[] descriptorData = {
       "\n\020RoomPacket.proto\022\010protocol\032\033GamePacket" +
       "Enumeration.proto\"\033\n\010RoomInfo\022\017\n\007roomNum" +
-      "\030\001 \001(\r\"\026\n\024CS_room_info_request\"-\n\016CS_roo" +
-      "m_create\022\017\n\007roomNum\030\001 \001(\r\022\n\n\002id\030\002 \001(\t\"\037\n" +
-      "\014CS_room_join\022\017\n\007roomNum\030\001 \001(\r\"\017\n\rCS_roo" +
-      "m_leave\"\031\n\027CS_request_ingame_start\"P\n\025SC" +
-      "_room_info_response\022\021\n\troomCount\030\001 \001(\r\022$" +
-      "\n\010roomList\030\002 \003(\0132\022.protocol.RoomInfo\"A\n\025" +
-      "SC_room_create_result\022(\n\nfailSignal\030\001 \001(" +
-      "\0162\024.protocol.FailSignal\"?\n\023SC_room_join_",
-      "result\022(\n\nfailSignal\030\001 \001(\0162\024.protocol.Fa" +
-      "ilSignal\"@\n\024SC_room_leave_result\022(\n\nfail" +
-      "Signal\030\001 \001(\0162\024.protocol.FailSignal\"B\n\026SC" +
-      "_ingame_start_result\022(\n\nfailSignal\030\001 \001(\016" +
-      "2\024.protocol.FailSignalB0\n.com.example.so" +
-      "njoy.baseballgameclient.protocolP\000"
+      "\030\001 \001(\r\":\n\020CS_contact_alram\022\020\n\010nickName\030\001" +
+      " \002(\t\022\024\n\014securityCode\030\002 \001(\t\"\026\n\024CS_room_in" +
+      "fo_request\"\034\n\032CS_total_room_info_request" +
+      "\"-\n\016CS_room_create\022\017\n\007roomNum\030\001 \001(\r\022\n\n\002i" +
+      "d\030\002 \001(\t\"\037\n\014CS_room_join\022\017\n\007roomNum\030\001 \001(\r" +
+      "\"\017\n\rCS_room_leave\"\031\n\027CS_request_ingame_s" +
+      "tart\"=\n\021SC_contact_result\022(\n\nfailSignal\030" +
+      "\001 \001(\0162\024.protocol.FailSignal\"\'\n\014SC_room_i",
+      "nfo\022\027\n\017playerNickNames\030\001 \003(\t\"M\n\022SC_total" +
+      "_room_info\022\021\n\troomCount\030\001 \001(\r\022$\n\010roomLis" +
+      "t\030\002 \003(\0132\022.protocol.RoomInfo\"A\n\025SC_room_c" +
+      "reate_result\022(\n\nfailSignal\030\001 \001(\0162\024.proto" +
+      "col.FailSignal\"?\n\023SC_room_join_result\022(\n" +
+      "\nfailSignal\030\001 \001(\0162\024.protocol.FailSignal\"" +
+      "@\n\024SC_room_leave_result\022(\n\nfailSignal\030\001 " +
+      "\001(\0162\024.protocol.FailSignal\"B\n\026SC_ingame_s" +
+      "tart_result\022(\n\nfailSignal\030\001 \001(\0162\024.protoc" +
+      "ol.FailSignalB0\n.com.example.sonjoy.base",
+      "ballgameclient.protocolP\000"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4776,62 +6660,86 @@ public final class RoomPacket {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_RoomInfo_descriptor,
         new java.lang.String[] { "RoomNum", });
-    internal_static_protocol_CS_room_info_request_descriptor =
+    internal_static_protocol_CS_contact_alram_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_protocol_CS_contact_alram_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_protocol_CS_contact_alram_descriptor,
+        new java.lang.String[] { "NickName", "SecurityCode", });
+    internal_static_protocol_CS_room_info_request_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_protocol_CS_room_info_request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_room_info_request_descriptor,
         new java.lang.String[] { });
+    internal_static_protocol_CS_total_room_info_request_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_protocol_CS_total_room_info_request_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_protocol_CS_total_room_info_request_descriptor,
+        new java.lang.String[] { });
     internal_static_protocol_CS_room_create_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_protocol_CS_room_create_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_room_create_descriptor,
         new java.lang.String[] { "RoomNum", "Id", });
     internal_static_protocol_CS_room_join_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_protocol_CS_room_join_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_room_join_descriptor,
         new java.lang.String[] { "RoomNum", });
     internal_static_protocol_CS_room_leave_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_protocol_CS_room_leave_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_room_leave_descriptor,
         new java.lang.String[] { });
     internal_static_protocol_CS_request_ingame_start_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_protocol_CS_request_ingame_start_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_request_ingame_start_descriptor,
         new java.lang.String[] { });
-    internal_static_protocol_SC_room_info_response_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_protocol_SC_room_info_response_fieldAccessorTable = new
+    internal_static_protocol_SC_contact_result_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_protocol_SC_contact_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_protocol_SC_room_info_response_descriptor,
+        internal_static_protocol_SC_contact_result_descriptor,
+        new java.lang.String[] { "FailSignal", });
+    internal_static_protocol_SC_room_info_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_protocol_SC_room_info_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_protocol_SC_room_info_descriptor,
+        new java.lang.String[] { "PlayerNickNames", });
+    internal_static_protocol_SC_total_room_info_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_protocol_SC_total_room_info_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_protocol_SC_total_room_info_descriptor,
         new java.lang.String[] { "RoomCount", "RoomList", });
     internal_static_protocol_SC_room_create_result_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_protocol_SC_room_create_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_room_create_result_descriptor,
         new java.lang.String[] { "FailSignal", });
     internal_static_protocol_SC_room_join_result_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_protocol_SC_room_join_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_room_join_result_descriptor,
         new java.lang.String[] { "FailSignal", });
     internal_static_protocol_SC_room_leave_result_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_protocol_SC_room_leave_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_room_leave_result_descriptor,
         new java.lang.String[] { "FailSignal", });
     internal_static_protocol_SC_ingame_start_result_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_protocol_SC_ingame_start_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_ingame_start_result_descriptor,

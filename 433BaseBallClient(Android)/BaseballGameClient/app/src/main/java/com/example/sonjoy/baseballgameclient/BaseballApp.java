@@ -3,10 +3,12 @@ package com.example.sonjoy.baseballgameclient;
 
 import android.app.Application;
 import android.content.Intent;
+import android.net.wifi.WifiConfiguration;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.sonjoy.baseballgameclient.Common.PlayerStatus;
 import com.example.sonjoy.baseballgameclient.Player.Player;
 import com.example.sonjoy.baseballgameclient.SubActivity.AccountCreateActivity;
 import com.example.sonjoy.baseballgameclient.SubActivity.LobbyActivity;
@@ -209,6 +211,8 @@ public class BaseballApp extends Application
             return outStream;
         }
 
+
+
         public boolean IsConnected() { return this.isConnected;}
 
         public void sendRoomInfoRequest()
@@ -238,6 +242,12 @@ public class BaseballApp extends Application
 
     }
 
+    public void initMyPlayer(String nickName, String password, String securityCode, PlayerStatus status)
+    {
+        myPlayer = new Player(nickName, password, securityCode, status);
+    }
+
+    public Player getMyPlayer() { return myPlayer; }
 
     public void sendUnionPacket(OutputStream outStream, byte[] header, byte[] payload)
     {
@@ -281,25 +291,6 @@ public class BaseballApp extends Application
     public void setRefLoginSocket(Socket socket) { mRefLoginSocket = socket; }
     public Socket getRefLoginSocket() { return mRefLoginSocket; }
 
-    public static String getLocalIp()
-    {
-        try
-        {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-            {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-                {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
-                    {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        }
-        catch (SocketException ex) {}
-        return null;
-    }
+
 }
 

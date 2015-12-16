@@ -1365,6 +1365,24 @@ public final class LoginMessage {
      * <code>optional int32 port = 4;</code>
      */
     int getPort();
+
+    /**
+     * <code>optional int32 winCnt = 5;</code>
+     */
+    boolean hasWinCnt();
+    /**
+     * <code>optional int32 winCnt = 5;</code>
+     */
+    int getWinCnt();
+
+    /**
+     * <code>optional int32 loseCnt = 6;</code>
+     */
+    boolean hasLoseCnt();
+    /**
+     * <code>optional int32 loseCnt = 6;</code>
+     */
+    int getLoseCnt();
   }
   /**
    * Protobuf type {@code protocol.LSC_login_result}
@@ -1444,6 +1462,16 @@ public final class LoginMessage {
             case 32: {
               bitField0_ |= 0x00000008;
               port_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              winCnt_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              loseCnt_ = input.readInt32();
               break;
             }
           }
@@ -1600,11 +1628,43 @@ public final class LoginMessage {
       return port_;
     }
 
+    public static final int WINCNT_FIELD_NUMBER = 5;
+    private int winCnt_;
+    /**
+     * <code>optional int32 winCnt = 5;</code>
+     */
+    public boolean hasWinCnt() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 winCnt = 5;</code>
+     */
+    public int getWinCnt() {
+      return winCnt_;
+    }
+
+    public static final int LOSECNT_FIELD_NUMBER = 6;
+    private int loseCnt_;
+    /**
+     * <code>optional int32 loseCnt = 6;</code>
+     */
+    public boolean hasLoseCnt() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional int32 loseCnt = 6;</code>
+     */
+    public int getLoseCnt() {
+      return loseCnt_;
+    }
+
     private void initFields() {
       failsignal_ = com.example.sonjoy.baseballgameclient.protocol.LoginMessage.FailSignal.UNKNOWN;
       securityCode_ = "";
       ip_ = "";
       port_ = 0;
+      winCnt_ = 0;
+      loseCnt_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1631,6 +1691,12 @@ public final class LoginMessage {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, port_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, winCnt_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, loseCnt_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1655,6 +1721,14 @@ public final class LoginMessage {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, port_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, winCnt_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, loseCnt_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1781,6 +1855,10 @@ public final class LoginMessage {
         bitField0_ = (bitField0_ & ~0x00000004);
         port_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        winCnt_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        loseCnt_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -1825,6 +1903,14 @@ public final class LoginMessage {
           to_bitField0_ |= 0x00000008;
         }
         result.port_ = port_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.winCnt_ = winCnt_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.loseCnt_ = loseCnt_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1856,6 +1942,12 @@ public final class LoginMessage {
         }
         if (other.hasPort()) {
           setPort(other.getPort());
+        }
+        if (other.hasWinCnt()) {
+          setWinCnt(other.getWinCnt());
+        }
+        if (other.hasLoseCnt()) {
+          setLoseCnt(other.getLoseCnt());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2099,6 +2191,70 @@ public final class LoginMessage {
       public Builder clearPort() {
         bitField0_ = (bitField0_ & ~0x00000008);
         port_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int winCnt_ ;
+      /**
+       * <code>optional int32 winCnt = 5;</code>
+       */
+      public boolean hasWinCnt() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int32 winCnt = 5;</code>
+       */
+      public int getWinCnt() {
+        return winCnt_;
+      }
+      /**
+       * <code>optional int32 winCnt = 5;</code>
+       */
+      public Builder setWinCnt(int value) {
+        bitField0_ |= 0x00000010;
+        winCnt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 winCnt = 5;</code>
+       */
+      public Builder clearWinCnt() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        winCnt_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int loseCnt_ ;
+      /**
+       * <code>optional int32 loseCnt = 6;</code>
+       */
+      public boolean hasLoseCnt() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional int32 loseCnt = 6;</code>
+       */
+      public int getLoseCnt() {
+        return loseCnt_;
+      }
+      /**
+       * <code>optional int32 loseCnt = 6;</code>
+       */
+      public Builder setLoseCnt(int value) {
+        bitField0_ |= 0x00000020;
+        loseCnt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 loseCnt = 6;</code>
+       */
+      public Builder clearLoseCnt() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        loseCnt_ = 0;
         onChanged();
         return this;
       }
@@ -3347,19 +3503,20 @@ public final class LoginMessage {
       "\n\022LoginMessage.proto\022\010protocol\"*\n\014Packet" +
       "Header\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 \001(\007\"1\n\021CL" +
       "S_login_request\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030" +
-      "\002 \001(\t\"l\n\020LSC_login_result\022(\n\nfailsignal\030" +
-      "\001 \001(\0162\024.protocol.FailSignal\022\024\n\014securityC" +
-      "ode\030\002 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\"2\n\022C" +
-      "LS_account_create\022\n\n\002id\030\001 \001(\t\022\020\n\010passwor" +
-      "d\030\002 \001(\t\"[\n\031LSC_account_create_result\022(\n\n" +
-      "failSignal\030\001 \001(\0162\024.protocol.FailSignal\022\024" +
-      "\n\014securityCode\030\002 \001(\t*p\n\nPacketType\022\025\n\021CL",
-      "S_LOGIN_REQUEST\020\000\022\024\n\020LSC_LOGIN_RESULT\020\001\022" +
-      "\026\n\022CLS_ACCOUNT_CREATE\020\002\022\035\n\031LSC_ACCOUNT_C" +
-      "REATE_RESULT\020\003*N\n\nFailSignal\022\013\n\007UNKNOWN\020" +
-      "\000\022\014\n\010NO_EXIST\020\001\022\021\n\rALREADY_EXIST\020\002\022\022\n\016WR" +
-      "ONG_PASSWORD\020\003B0\n.com.example.sonjoy.bas" +
-      "eballgameclient.protocol"
+      "\002 \001(\t\"\215\001\n\020LSC_login_result\022(\n\nfailsignal" +
+      "\030\001 \001(\0162\024.protocol.FailSignal\022\024\n\014security" +
+      "Code\030\002 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\016\n\006" +
+      "winCnt\030\005 \001(\005\022\017\n\007loseCnt\030\006 \001(\005\"2\n\022CLS_acc" +
+      "ount_create\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(" +
+      "\t\"[\n\031LSC_account_create_result\022(\n\nfailSi" +
+      "gnal\030\001 \001(\0162\024.protocol.FailSignal\022\024\n\014secu",
+      "rityCode\030\002 \001(\t*p\n\nPacketType\022\025\n\021CLS_LOGI" +
+      "N_REQUEST\020\000\022\024\n\020LSC_LOGIN_RESULT\020\001\022\026\n\022CLS" +
+      "_ACCOUNT_CREATE\020\002\022\035\n\031LSC_ACCOUNT_CREATE_" +
+      "RESULT\020\003*N\n\nFailSignal\022\013\n\007UNKNOWN\020\000\022\014\n\010N" +
+      "O_EXIST\020\001\022\021\n\rALREADY_EXIST\020\002\022\022\n\016WRONG_PA" +
+      "SSWORD\020\003B0\n.com.example.sonjoy.baseballg" +
+      "ameclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3390,7 +3547,7 @@ public final class LoginMessage {
     internal_static_protocol_LSC_login_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_LSC_login_result_descriptor,
-        new java.lang.String[] { "Failsignal", "SecurityCode", "Ip", "Port", });
+        new java.lang.String[] { "Failsignal", "SecurityCode", "Ip", "Port", "WinCnt", "LoseCnt", });
     internal_static_protocol_CLS_account_create_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_protocol_CLS_account_create_fieldAccessorTable = new

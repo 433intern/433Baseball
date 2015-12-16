@@ -18,77 +18,93 @@ public final class GamePacketEnumeration {
      */
     UNKNOWN(0, 0),
     /**
-     * <code>CS_ROOM_CREATE = 1;</code>
+     * <code>CS_CONTACT_ALRAM = 1;</code>
      *
      * <pre>
      * LOBBY
      * </pre>
      */
-    CS_ROOM_CREATE(1, 1),
+    CS_CONTACT_ALRAM(1, 1),
     /**
-     * <code>CS_ROOM_JOIN = 2;</code>
+     * <code>CS_ROOM_CREATE = 2;</code>
      */
-    CS_ROOM_JOIN(2, 2),
+    CS_ROOM_CREATE(2, 2),
     /**
-     * <code>SC_ROOM_CREATE_RESULT = 3;</code>
+     * <code>CS_ROOM_JOIN = 3;</code>
      */
-    SC_ROOM_CREATE_RESULT(3, 3),
+    CS_ROOM_JOIN(3, 3),
     /**
-     * <code>SC_ROOM_JOIN_RESULT = 4;</code>
+     * <code>SC_CONTACT_RESULT = 4;</code>
      */
-    SC_ROOM_JOIN_RESULT(4, 4),
+    SC_CONTACT_RESULT(4, 4),
     /**
-     * <code>CS_ROOM_LEAVE = 5;</code>
+     * <code>SC_ROOM_CREATE_RESULT = 5;</code>
+     */
+    SC_ROOM_CREATE_RESULT(5, 5),
+    /**
+     * <code>SC_ROOM_JOIN_RESULT = 6;</code>
+     */
+    SC_ROOM_JOIN_RESULT(6, 6),
+    /**
+     * <code>CS_ROOM_LEAVE = 7;</code>
      *
      * <pre>
      * ROOM
      * </pre>
      */
-    CS_ROOM_LEAVE(5, 5),
+    CS_ROOM_LEAVE(7, 7),
     /**
-     * <code>CS_REQUEST_INGAME_START = 6;</code>
+     * <code>CS_REQUEST_INGAME_START = 8;</code>
      */
-    CS_REQUEST_INGAME_START(6, 6),
+    CS_REQUEST_INGAME_START(8, 8),
     /**
-     * <code>CS_ROOM_INFO_REQUEST = 7;</code>
+     * <code>CS_ROOM_INFO_REQUEST = 9;</code>
      */
-    CS_ROOM_INFO_REQUEST(7, 7),
+    CS_ROOM_INFO_REQUEST(9, 9),
     /**
-     * <code>SC_ROOM_LEAVE_RESULT = 8;</code>
+     * <code>CS_TOTAL_ROOM_INFO_REQUEST = 10;</code>
      */
-    SC_ROOM_LEAVE_RESULT(8, 8),
+    CS_TOTAL_ROOM_INFO_REQUEST(10, 10),
     /**
-     * <code>SC_INGAME_START_RESULT = 9;</code>
+     * <code>SC_ROOM_LEAVE_RESULT = 11;</code>
      */
-    SC_INGAME_START_RESULT(9, 9),
+    SC_ROOM_LEAVE_RESULT(11, 11),
     /**
-     * <code>SC_ROOM_INFO_REQUEST_RESPONSE = 10;</code>
+     * <code>SC_INGAME_START_RESULT = 12;</code>
      */
-    SC_ROOM_INFO_REQUEST_RESPONSE(10, 10),
+    SC_INGAME_START_RESULT(12, 12),
     /**
-     * <code>CS_SEND_BASEBALL_NUMBER = 11;</code>
+     * <code>SC_ROOM_INFO = 13;</code>
+     */
+    SC_ROOM_INFO(13, 13),
+    /**
+     * <code>SC_TOTAL_ROOM_INFO = 14;</code>
+     */
+    SC_TOTAL_ROOM_INFO(14, 14),
+    /**
+     * <code>CS_SEND_BASEBALL_NUMBER = 15;</code>
      *
      * <pre>
      * INGAME
      * </pre>
      */
-    CS_SEND_BASEBALL_NUMBER(11, 11),
+    CS_SEND_BASEBALL_NUMBER(15, 15),
     /**
-     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 12;</code>
+     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 16;</code>
      */
-    SC_RECEIVE_BASEBALL_NUMBER_RESULT(12, 12),
+    SC_RECEIVE_BASEBALL_NUMBER_RESULT(16, 16),
     /**
-     * <code>SC_GIVE_TURN = 13;</code>
+     * <code>SC_GIVE_TURN = 17;</code>
      */
-    SC_GIVE_TURN(13, 13),
+    SC_GIVE_TURN(17, 17),
     /**
-     * <code>SC_WAIT_TURN = 14;</code>
+     * <code>SC_WAIT_TURN = 18;</code>
      */
-    SC_WAIT_TURN(14, 14),
+    SC_WAIT_TURN(18, 18),
     /**
-     * <code>SC_INGAME_END = 15;</code>
+     * <code>SC_INGAME_END = 19;</code>
      */
-    SC_INGAME_END(15, 15),
+    SC_INGAME_END(19, 19),
     ;
 
     /**
@@ -96,77 +112,93 @@ public final class GamePacketEnumeration {
      */
     public static final int UNKNOWN_VALUE = 0;
     /**
-     * <code>CS_ROOM_CREATE = 1;</code>
+     * <code>CS_CONTACT_ALRAM = 1;</code>
      *
      * <pre>
      * LOBBY
      * </pre>
      */
-    public static final int CS_ROOM_CREATE_VALUE = 1;
+    public static final int CS_CONTACT_ALRAM_VALUE = 1;
     /**
-     * <code>CS_ROOM_JOIN = 2;</code>
+     * <code>CS_ROOM_CREATE = 2;</code>
      */
-    public static final int CS_ROOM_JOIN_VALUE = 2;
+    public static final int CS_ROOM_CREATE_VALUE = 2;
     /**
-     * <code>SC_ROOM_CREATE_RESULT = 3;</code>
+     * <code>CS_ROOM_JOIN = 3;</code>
      */
-    public static final int SC_ROOM_CREATE_RESULT_VALUE = 3;
+    public static final int CS_ROOM_JOIN_VALUE = 3;
     /**
-     * <code>SC_ROOM_JOIN_RESULT = 4;</code>
+     * <code>SC_CONTACT_RESULT = 4;</code>
      */
-    public static final int SC_ROOM_JOIN_RESULT_VALUE = 4;
+    public static final int SC_CONTACT_RESULT_VALUE = 4;
     /**
-     * <code>CS_ROOM_LEAVE = 5;</code>
+     * <code>SC_ROOM_CREATE_RESULT = 5;</code>
+     */
+    public static final int SC_ROOM_CREATE_RESULT_VALUE = 5;
+    /**
+     * <code>SC_ROOM_JOIN_RESULT = 6;</code>
+     */
+    public static final int SC_ROOM_JOIN_RESULT_VALUE = 6;
+    /**
+     * <code>CS_ROOM_LEAVE = 7;</code>
      *
      * <pre>
      * ROOM
      * </pre>
      */
-    public static final int CS_ROOM_LEAVE_VALUE = 5;
+    public static final int CS_ROOM_LEAVE_VALUE = 7;
     /**
-     * <code>CS_REQUEST_INGAME_START = 6;</code>
+     * <code>CS_REQUEST_INGAME_START = 8;</code>
      */
-    public static final int CS_REQUEST_INGAME_START_VALUE = 6;
+    public static final int CS_REQUEST_INGAME_START_VALUE = 8;
     /**
-     * <code>CS_ROOM_INFO_REQUEST = 7;</code>
+     * <code>CS_ROOM_INFO_REQUEST = 9;</code>
      */
-    public static final int CS_ROOM_INFO_REQUEST_VALUE = 7;
+    public static final int CS_ROOM_INFO_REQUEST_VALUE = 9;
     /**
-     * <code>SC_ROOM_LEAVE_RESULT = 8;</code>
+     * <code>CS_TOTAL_ROOM_INFO_REQUEST = 10;</code>
      */
-    public static final int SC_ROOM_LEAVE_RESULT_VALUE = 8;
+    public static final int CS_TOTAL_ROOM_INFO_REQUEST_VALUE = 10;
     /**
-     * <code>SC_INGAME_START_RESULT = 9;</code>
+     * <code>SC_ROOM_LEAVE_RESULT = 11;</code>
      */
-    public static final int SC_INGAME_START_RESULT_VALUE = 9;
+    public static final int SC_ROOM_LEAVE_RESULT_VALUE = 11;
     /**
-     * <code>SC_ROOM_INFO_REQUEST_RESPONSE = 10;</code>
+     * <code>SC_INGAME_START_RESULT = 12;</code>
      */
-    public static final int SC_ROOM_INFO_REQUEST_RESPONSE_VALUE = 10;
+    public static final int SC_INGAME_START_RESULT_VALUE = 12;
     /**
-     * <code>CS_SEND_BASEBALL_NUMBER = 11;</code>
+     * <code>SC_ROOM_INFO = 13;</code>
+     */
+    public static final int SC_ROOM_INFO_VALUE = 13;
+    /**
+     * <code>SC_TOTAL_ROOM_INFO = 14;</code>
+     */
+    public static final int SC_TOTAL_ROOM_INFO_VALUE = 14;
+    /**
+     * <code>CS_SEND_BASEBALL_NUMBER = 15;</code>
      *
      * <pre>
      * INGAME
      * </pre>
      */
-    public static final int CS_SEND_BASEBALL_NUMBER_VALUE = 11;
+    public static final int CS_SEND_BASEBALL_NUMBER_VALUE = 15;
     /**
-     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 12;</code>
+     * <code>SC_RECEIVE_BASEBALL_NUMBER_RESULT = 16;</code>
      */
-    public static final int SC_RECEIVE_BASEBALL_NUMBER_RESULT_VALUE = 12;
+    public static final int SC_RECEIVE_BASEBALL_NUMBER_RESULT_VALUE = 16;
     /**
-     * <code>SC_GIVE_TURN = 13;</code>
+     * <code>SC_GIVE_TURN = 17;</code>
      */
-    public static final int SC_GIVE_TURN_VALUE = 13;
+    public static final int SC_GIVE_TURN_VALUE = 17;
     /**
-     * <code>SC_WAIT_TURN = 14;</code>
+     * <code>SC_WAIT_TURN = 18;</code>
      */
-    public static final int SC_WAIT_TURN_VALUE = 14;
+    public static final int SC_WAIT_TURN_VALUE = 18;
     /**
-     * <code>SC_INGAME_END = 15;</code>
+     * <code>SC_INGAME_END = 19;</code>
      */
-    public static final int SC_INGAME_END_VALUE = 15;
+    public static final int SC_INGAME_END_VALUE = 19;
 
 
     public final int getNumber() { return value; }
@@ -174,21 +206,25 @@ public final class GamePacketEnumeration {
     public static PacketType valueOf(int value) {
       switch (value) {
         case 0: return UNKNOWN;
-        case 1: return CS_ROOM_CREATE;
-        case 2: return CS_ROOM_JOIN;
-        case 3: return SC_ROOM_CREATE_RESULT;
-        case 4: return SC_ROOM_JOIN_RESULT;
-        case 5: return CS_ROOM_LEAVE;
-        case 6: return CS_REQUEST_INGAME_START;
-        case 7: return CS_ROOM_INFO_REQUEST;
-        case 8: return SC_ROOM_LEAVE_RESULT;
-        case 9: return SC_INGAME_START_RESULT;
-        case 10: return SC_ROOM_INFO_REQUEST_RESPONSE;
-        case 11: return CS_SEND_BASEBALL_NUMBER;
-        case 12: return SC_RECEIVE_BASEBALL_NUMBER_RESULT;
-        case 13: return SC_GIVE_TURN;
-        case 14: return SC_WAIT_TURN;
-        case 15: return SC_INGAME_END;
+        case 1: return CS_CONTACT_ALRAM;
+        case 2: return CS_ROOM_CREATE;
+        case 3: return CS_ROOM_JOIN;
+        case 4: return SC_CONTACT_RESULT;
+        case 5: return SC_ROOM_CREATE_RESULT;
+        case 6: return SC_ROOM_JOIN_RESULT;
+        case 7: return CS_ROOM_LEAVE;
+        case 8: return CS_REQUEST_INGAME_START;
+        case 9: return CS_ROOM_INFO_REQUEST;
+        case 10: return CS_TOTAL_ROOM_INFO_REQUEST;
+        case 11: return SC_ROOM_LEAVE_RESULT;
+        case 12: return SC_INGAME_START_RESULT;
+        case 13: return SC_ROOM_INFO;
+        case 14: return SC_TOTAL_ROOM_INFO;
+        case 15: return CS_SEND_BASEBALL_NUMBER;
+        case 16: return SC_RECEIVE_BASEBALL_NUMBER_RESULT;
+        case 17: return SC_GIVE_TURN;
+        case 18: return SC_WAIT_TURN;
+        case 19: return SC_INGAME_END;
         default: return null;
       }
     }
@@ -246,40 +282,49 @@ public final class GamePacketEnumeration {
   public enum FailSignal
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>NO_EXIST = 0;</code>
+     * <code>SUCCESS = 0;</code>
      */
-    NO_EXIST(0, 0),
+    SUCCESS(0, 0),
     /**
-     * <code>FULL_ROOM = 1;</code>
+     * <code>NO_EXIST = 1;</code>
      */
-    FULL_ROOM(1, 1),
+    NO_EXIST(1, 1),
     /**
-     * <code>EXIST_REPETITION_NUMBER = 2;</code>
+     * <code>FULL_ROOM = 2;</code>
      */
-    EXIST_REPETITION_NUMBER(2, 2),
+    FULL_ROOM(2, 2),
+    /**
+     * <code>EXIST_REPETITION_NUMBER = 3;</code>
+     */
+    EXIST_REPETITION_NUMBER(3, 3),
     ;
 
     /**
-     * <code>NO_EXIST = 0;</code>
+     * <code>SUCCESS = 0;</code>
      */
-    public static final int NO_EXIST_VALUE = 0;
+    public static final int SUCCESS_VALUE = 0;
     /**
-     * <code>FULL_ROOM = 1;</code>
+     * <code>NO_EXIST = 1;</code>
      */
-    public static final int FULL_ROOM_VALUE = 1;
+    public static final int NO_EXIST_VALUE = 1;
     /**
-     * <code>EXIST_REPETITION_NUMBER = 2;</code>
+     * <code>FULL_ROOM = 2;</code>
      */
-    public static final int EXIST_REPETITION_NUMBER_VALUE = 2;
+    public static final int FULL_ROOM_VALUE = 2;
+    /**
+     * <code>EXIST_REPETITION_NUMBER = 3;</code>
+     */
+    public static final int EXIST_REPETITION_NUMBER_VALUE = 3;
 
 
     public final int getNumber() { return value; }
 
     public static FailSignal valueOf(int value) {
       switch (value) {
-        case 0: return NO_EXIST;
-        case 1: return FULL_ROOM;
-        case 2: return EXIST_REPETITION_NUMBER;
+        case 0: return SUCCESS;
+        case 1: return NO_EXIST;
+        case 2: return FULL_ROOM;
+        case 3: return EXIST_REPETITION_NUMBER;
         default: return null;
       }
     }
@@ -822,20 +867,22 @@ public final class GamePacketEnumeration {
     java.lang.String[] descriptorData = {
       "\n\033GamePacketEnumeration.proto\022\010protocol\"" +
       "*\n\014PacketHeader\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 " +
-      "\001(\007*\221\003\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\022\n\016CS_RO" +
-      "OM_CREATE\020\001\022\020\n\014CS_ROOM_JOIN\020\002\022\031\n\025SC_ROOM" +
-      "_CREATE_RESULT\020\003\022\027\n\023SC_ROOM_JOIN_RESULT\020" +
-      "\004\022\021\n\rCS_ROOM_LEAVE\020\005\022\033\n\027CS_REQUEST_INGAM" +
-      "E_START\020\006\022\030\n\024CS_ROOM_INFO_REQUEST\020\007\022\030\n\024S" +
-      "C_ROOM_LEAVE_RESULT\020\010\022\032\n\026SC_INGAME_START" +
-      "_RESULT\020\t\022!\n\035SC_ROOM_INFO_REQUEST_RESPON" +
-      "SE\020\n\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\013\022%\n!SC_",
-      "RECEIVE_BASEBALL_NUMBER_RESULT\020\014\022\020\n\014SC_G" +
-      "IVE_TURN\020\r\022\020\n\014SC_WAIT_TURN\020\016\022\021\n\rSC_INGAM" +
-      "E_END\020\017*F\n\nFailSignal\022\014\n\010NO_EXIST\020\000\022\r\n\tF" +
-      "ULL_ROOM\020\001\022\033\n\027EXIST_REPETITION_NUMBER\020\002B" +
-      "0\n.com.example.sonjoy.baseballgameclient" +
-      ".protocol"
+      "\001(\007*\345\003\n\nPacketType\022\013\n\007UNKNOWN\020\000\022\024\n\020CS_CO" +
+      "NTACT_ALRAM\020\001\022\022\n\016CS_ROOM_CREATE\020\002\022\020\n\014CS_" +
+      "ROOM_JOIN\020\003\022\025\n\021SC_CONTACT_RESULT\020\004\022\031\n\025SC" +
+      "_ROOM_CREATE_RESULT\020\005\022\027\n\023SC_ROOM_JOIN_RE" +
+      "SULT\020\006\022\021\n\rCS_ROOM_LEAVE\020\007\022\033\n\027CS_REQUEST_" +
+      "INGAME_START\020\010\022\030\n\024CS_ROOM_INFO_REQUEST\020\t" +
+      "\022\036\n\032CS_TOTAL_ROOM_INFO_REQUEST\020\n\022\030\n\024SC_R" +
+      "OOM_LEAVE_RESULT\020\013\022\032\n\026SC_INGAME_START_RE",
+      "SULT\020\014\022\020\n\014SC_ROOM_INFO\020\r\022\026\n\022SC_TOTAL_ROO" +
+      "M_INFO\020\016\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\017\022%\n" +
+      "!SC_RECEIVE_BASEBALL_NUMBER_RESULT\020\020\022\020\n\014" +
+      "SC_GIVE_TURN\020\021\022\020\n\014SC_WAIT_TURN\020\022\022\021\n\rSC_I" +
+      "NGAME_END\020\023*S\n\nFailSignal\022\013\n\007SUCCESS\020\000\022\014" +
+      "\n\010NO_EXIST\020\001\022\r\n\tFULL_ROOM\020\002\022\033\n\027EXIST_REP" +
+      "ETITION_NUMBER\020\003B0\n.com.example.sonjoy.b" +
+      "aseballgameclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

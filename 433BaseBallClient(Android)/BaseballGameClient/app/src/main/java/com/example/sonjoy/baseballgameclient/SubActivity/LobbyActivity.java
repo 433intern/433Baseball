@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sonjoy.baseballgameclient.BaseballApp;
+import com.example.sonjoy.baseballgameclient.Common.PlayerStatus;
+import com.example.sonjoy.baseballgameclient.Player.Player;
 import com.example.sonjoy.baseballgameclient.R;
 import com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration;
 import com.example.sonjoy.baseballgameclient.protocol.LoginMessage;
@@ -25,27 +28,38 @@ import java.util.LinkedList;
 public class LobbyActivity extends Activity {
     LinkedList<Button> btnList;
     View.OnClickListener listner;
+    private String playerViewID = null;
+    private PlayerStatus playerViewStatus = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
         Toast.makeText(this, "onCreate() 호출", Toast.LENGTH_SHORT).show();
+
         btnList = new LinkedList<Button>();
 
+        playerViewID = BaseballApp.Instance().getMyPlayer().getID();
+        playerViewStatus = BaseballApp.Instance().getMyPlayer().getStatus();
+//
+        setMyInfoView();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 {
-                    RoomPacket.CS_room_info_request payload = RoomPacket.CS_room_info_request.newBuilder().build();
+                   RoomPacket.CS_contact_alram payload = RoomPacket.CS_contact_alram.newBuilder()
+                          .setNickName(playerViewID)
+                           .setSecurityCode(BaseballApp.Instance().getMyPlayer().getSecurityCode())
+                           .build();
 
-                    GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
-                            .setSize(payload.getSerializedSize())
-                            .setType(GamePacketEnumeration.PacketType.CS_ROOM_INFO_REQUEST_VALUE)
-                            .build();
+                   GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
+                           .setSize(payload.getSerializedSize())
+                           .setType(GamePacketEnumeration.PacketType.CS_CONTACT_ALRAM_VALUE)
+                           .build();
 
-                    BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
+                   BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
                 }
 
             }
@@ -108,6 +122,18 @@ public class LobbyActivity extends Activity {
         Intent intent = getIntent();
         String id = intent.getExtras().get("ID").toString();
         String password = intent.getExtras().get("PASSWORD").toString();
+
+    }
+
+    public void setMyInfoView()
+    {
+        TextView myInfoIDView = (TextView)findViewById(R.id.LOBBY_MY_INFO_ID);
+        TextView myInfoWinView = (TextView)findViewById(R.id.LOBBY_MY_INFO_WIN);
+        TextView myInfoLoseView = (TextView)findViewById(R.id.LOBBY_MY_INFO_LOSE);
+
+        myInfoIDView.setText(playerViewID);
+        myInfoWinView.setText(Integer.toString(playerViewStatus.winCount));
+        myInfoLoseView.setText(Integer.toString(playerViewStatus.loseCount));
 
     }
 

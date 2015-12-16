@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sonjoy.baseballgameclient.Common.PlayerStatus;
 import com.example.sonjoy.baseballgameclient.Player.Player;
 import com.example.sonjoy.baseballgameclient.SubActivity.AccountCreateActivity;
 import com.example.sonjoy.baseballgameclient.SubActivity.LobbyActivity;
@@ -192,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
         public void RecvProcess(byte[] buf, int type)
         {
-
             switch(type)
             {
                 case LoginMessage.PacketType.LSC_LOGIN_RESULT_VALUE:
@@ -208,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
                             if(realIP.equals("127.0.0.1"))
                                 realIP = new String(realLocalIP);
 
+                            PlayerStatus status = new PlayerStatus();
+                            status.winCount = pkt.getWinCnt();
+                            status.loseCount = pkt.getLoseCnt();
+
+                            BaseballApp.Instance().initMyPlayer(id, password, pkt.getSecurityCode(), status);
                             BaseballApp.Instance().GameServerConnection(realIP, pkt.getPort());
 
                         } else {
