@@ -60,12 +60,6 @@
     <Filter Include="소스 파일\Protocol">
       <UniqueIdentifier>{e9994d99-c99e-4b84-86ce-d479556a5555}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Protocol\Source">
-      <UniqueIdentifier>{31cc3127-b9ed-48f5-aabd-be49e0d2aea6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Protocol\Proto">
-      <UniqueIdentifier>{06cfe2b3-5ad8-450d-af84-6b80f95acd7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Manager\RoomManager">
       <UniqueIdentifier>{ca652198-abb9-4df4-a791-87315383553e}</UniqueIdentifier>
     </Filter>
@@ -167,15 +161,6 @@
     <ClInclude Include="targetver.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GamePacketEnumeration.pb.h">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="IngamePacket.pb.h">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomPacket.pb.h">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClInclude>
     <ClInclude Include="RoomManager.h">
       <Filter>소스 파일\Manager\RoomManager</Filter>
     </ClInclude>
@@ -184,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="SharedData.h">
       <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="IngamePacket.PROTO.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.Proto.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,31 +253,17 @@
     <ClCompile Include="Utils.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="GamePacketEnumeration.pb.cc">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="IngamePacket.pb.cc">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomPacket.pb.cc">
-      <Filter>소스 파일\Protocol\Source</Filter>
-    </ClCompile>
     <ClCompile Include="RoomManager.cpp">
       <Filter>소스 파일\Manager\RoomManager</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
       <Filter>소스 파일\Manager\RoomManager\Room</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GamePacketEnumeration.PROTO">
-      <Filter>소스 파일\Protocol\Proto</Filter>
-    </None>
-    <None Include="IngamePacket.PROTO">
-      <Filter>소스 파일\Protocol\Proto</Filter>
-    </None>
-    <None Include="RoomPacket.Proto">
-      <Filter>소스 파일\Protocol\Proto</Filter>
-    </None>
+    <ClCompile Include="IngamePacket.PROTO.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomPacket.Proto.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 
 class CClientManager
 {
-private:
 	HANDLE							iocp;
 	std::vector<HANDLE>				threads;
 
@@ -15,8 +14,6 @@ private:
 
 	int								socketPoolSize;
 	std::vector<CClientSocket*>		sockets;
-
-	CRoomManager*					roomManager;
 
 	std::list<CClientSocket*>		players;
 
@@ -31,8 +28,6 @@ public:
 	~CClientManager();
 
 	static CClientManager&			GetInstance();
-
-	CRoomManager*					GetRoomManager() { return roomManager; }
 
 public:
 

@@ -154,6 +154,7 @@ bool CClientSocket::InitBuf()
 
 	return true;
 }
+
 void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, google::protobuf::uint32 size)
 {
 	protocol::CS_contact_alram contactAlramPacket;
@@ -310,8 +311,6 @@ void CClientSocket::AcceptProcess(bool isError, CAct* act, DWORD bytes_transferr
 	{
 		MYPRINTF("Connect Client Success, %d\n", this->socket_);
 
-		
-
 		Recv(this->recvBuf, HEADER_SIZE);
 	}
 	else
@@ -333,11 +332,8 @@ void CClientSocket::DisconnProcess(bool isError, CAct* act, DWORD bytes_transfer
 	{
 
 	}
-
-
 }
 void CClientSocket::ConnProcess(bool isError, CAct* act, DWORD bytes_transferred)
 {
-
 
 }

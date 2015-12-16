@@ -21,7 +21,6 @@ private:
 	CRITICAL_SECTION playerLock;
 
 	short roomState;
-	
 
 public:
 	CRoom(int roomNum);

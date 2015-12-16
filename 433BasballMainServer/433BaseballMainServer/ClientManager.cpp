@@ -135,6 +135,7 @@ void CClientManager::AddUser(CClientSocket* pPlayer)
 
 	LeaveCriticalSection(&playersLock);
 }
+
 void CClientManager::DeleteUser(CClientSocket* pPlayer)
 {
 	EnterCriticalSection(&playersLock);
@@ -143,6 +144,7 @@ void CClientManager::DeleteUser(CClientSocket* pPlayer)
 
 	LeaveCriticalSection(&playersLock);
 }
+
 void CClientManager::TotalUserInfoPrint()
 {
 	if (!players.empty())
@@ -158,6 +160,4 @@ void CClientManager::TotalUserInfoPrint()
 			printf("\n");
 		}
 	}
-
-
 }

@@ -1,18 +1,21 @@
 #include "stdafx.h"
 #include "RoomManager.h"
 
+CRoomManager &CRoomManager::GetInstance()
+{
+	static CRoomManager roomManager;
+	return roomManager;
+}
 
 CRoomManager::CRoomManager()
 {
 	InitializeCriticalSectionAndSpinCount(&roomLock, 4000);
 }
 
-
 CRoomManager::~CRoomManager()
 {
 	DeleteCriticalSection(&roomLock);
 }
-
 
 int CRoomManager::CreateRoom(int roomNum)
 {
@@ -123,8 +126,6 @@ bool CRoomManager::LeaveRoom(CClientSocket* pPlayer, int roomNum)
 
 	return true;
 }
-
-
 
 void CRoomManager::SendTotalRoomInfo(CClientSocket* pPlayer)
 {

@@ -2,7 +2,6 @@
 
 struct CClientSocket : public CSockInfo
 {
-public:
 	enum ACT_TYPE
 	{
 		CONNECT
@@ -48,7 +47,6 @@ public:
 	google::protobuf::uint32		payloadType;
 	google::protobuf::uint32		payloadSize;
 
-public:
 	std::string						nickName;
 	std::string						securityCode;
 	int								currRoomNum;

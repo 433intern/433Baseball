@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Room.h"
 
-
 CRoom::CRoom(int roomNumber)
 :roomNum(roomNumber),
  currWhoTurn(-1),

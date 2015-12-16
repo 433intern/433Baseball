@@ -21,8 +21,41 @@ bool RealMain()
 	CDBManager		&dbManager = CDBManager::GetInstance();
 	CClientManager	&clientManager = CClientManager::GetInstance();
 	CGlobalManager	&global = CGlobalManager::GetInstance();
+	CRoomManager	&roomManager = CRoomManager::GetInstance();
 
 	WSADATA				wsa;
+
+	std::string		tmpIp, tmpSchema, tmpDBUserName, tmpDBPassword;
+	std::string		tmpStasticalTableName, tmpMatchRecordTableName, tmpOverloadRecordTableName;
+	unsigned short  tmpDBPort = 0, tmpMainServerPort = 0;
+
+	std::ifstream	file;
+
+	file.open("433Baseball_config.cfg");
+
+	if (!file)
+	{
+		MYPRINTF("File openning failed no RealMain");
+		return false;
+	}
+
+	try
+	{
+		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpStasticalTableName >> tmpMatchRecordTableName
+			>> tmpOverloadRecordTableName >> tmpDBUserName >> tmpDBPassword >> tmpMainServerPort;
+	}
+	catch (const std::ifstream::failure &e)
+	{
+		MYSERVICEERRORPRINTF("ifstream read failed on realmain function : %s", e.what());
+		return false;
+	}
+
+	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpStasticalTableName, tmpMatchRecordTableName,
+		tmpOverloadRecordTableName, tmpDBUserName, tmpDBPassword, tmpMainServerPort))
+	{
+		MYSERVICEERRORPRINTF("Initializer of CGlobalManager error");
+		return false;
+	}
 
 	if (NULL != WSAStartup(MAKEWORD(2, 2), &wsa))
 	{
@@ -180,6 +213,7 @@ bool TotalInitializer()
 
 	CDBManager		&dbManager = CDBManager::GetInstance();
 	CClientManager	&clientManager = CClientManager::GetInstance();
+	CGlobalManager	&globalManager = CGlobalManager::GetInstance();
 
 	GetSystemInfo(&systemInfo);
 
@@ -195,7 +229,8 @@ bool TotalInitializer()
 		return false;
 	}
 
-	if (!dbManager.FirstInitializer("10.100.58.5", "root", "1234", "433baseball"))
+	if (!dbManager.FirstInitializer(globalManager.dbServerIp, globalManager.dbUsername,
+		globalManager.dbPassword, globalManager.dbSchemaName))
 	{
 		MYPRINTF("error on FirstInitializer in _tmain : %d\n", GetLastError());
 		return false;

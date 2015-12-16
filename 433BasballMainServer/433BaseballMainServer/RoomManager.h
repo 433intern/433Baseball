@@ -2,12 +2,12 @@
 
 class CRoomManager
 {
-private:
 	std::list<CRoom*> rooms;
 	CRITICAL_SECTION roomLock;
-
-public:
 	CRoomManager();
+public:
+	
+	static CRoomManager &GetInstance();
 	~CRoomManager();
 	
 public:
