@@ -16,6 +16,8 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 
 	CDBManager &dbManager = CDBManager::GetInstance();
 
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
 	//--------------------------------------
 
 	// DB initializing
@@ -23,7 +25,7 @@ bool CDBConnector::EventProc(CAct *act, DWORD receivedBytes)
 	
 	// DB connecting
 	dbHandle.dbConnection = mysql_real_connect(&dbHandle.connTmp, dbHandle.dbHost.c_str(), dbHandle.dbUser.c_str()
-		, dbHandle.dbPasswd.c_str(), dbHandle.dbSchema.c_str(), DB_PORT, (char *)NULL, 0);
+		, dbHandle.dbPasswd.c_str(), dbHandle.dbSchema.c_str(), globalManager.dbPort, (char *)NULL, 0);
 
 	if (NULL == dbHandle.dbConnection)
 	{

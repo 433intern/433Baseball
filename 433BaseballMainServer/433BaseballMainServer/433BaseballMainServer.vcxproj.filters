@@ -69,6 +69,9 @@
     <Filter Include="소스 파일\Proactor\HandlesOfIO\SockInfo\Client\Data">
       <UniqueIdentifier>{02fb50b8-d7f5-4497-afb7-f3eafafafd3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Protocol\ProtoFiles">
+      <UniqueIdentifier>{c3b4417d-4640-4e01-9683-f61f740094e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -170,10 +173,13 @@
     <ClInclude Include="SharedData.h">
       <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client\Data</Filter>
     </ClInclude>
-    <ClInclude Include="IngamePacket.PROTO.pb.h">
+    <ClInclude Include="GamePacketEnumeration.pb.h">
       <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="RoomPacket.Proto.pb.h">
+    <ClInclude Include="IngamePacket.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.pb.h">
       <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
@@ -259,11 +265,25 @@
     <ClCompile Include="Room.cpp">
       <Filter>소스 파일\Manager\RoomManager\Room</Filter>
     </ClCompile>
-    <ClCompile Include="IngamePacket.PROTO.pb.cc">
+    <ClCompile Include="GamePacketEnumeration.pb.cc">
       <Filter>소스 파일\Protocol</Filter>
     </ClCompile>
-    <ClCompile Include="RoomPacket.Proto.pb.cc">
+    <ClCompile Include="IngamePacket.pb.cc">
       <Filter>소스 파일\Protocol</Filter>
     </ClCompile>
+    <ClCompile Include="RoomPacket.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GamePacketEnumeration.PROTO">
+      <Filter>소스 파일\Protocol\ProtoFiles</Filter>
+    </None>
+    <None Include="IngamePacket.PROTO">
+      <Filter>소스 파일\Protocol\ProtoFiles</Filter>
+    </None>
+    <None Include="RoomPacket.Proto">
+      <Filter>소스 파일\Protocol\ProtoFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

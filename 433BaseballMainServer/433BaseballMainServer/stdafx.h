@@ -128,8 +128,9 @@ class CRoomManager;
 #define MYPRINTF(A) CGlobalManager::GetInstance().logWriter.MyPrintf(A)
 
 #include "SharedData.h"
-#include "IngamePacket.PROTO.pb.h"
-#include "RoomPacket.PROTO.pb.h"
+#include "GamePacketEnumeration.pb.h"
+#include "IngamePacket.pb.h"
+#include "RoomPacket.pb.h"
 
 #include "Utils.h"
 

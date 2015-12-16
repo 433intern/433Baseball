@@ -223,7 +223,7 @@ bool TotalInitializer()
 		return false;
 	}
 
-	if (!clientManager.SecondInitializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, SERVERPORT))
+	if (!clientManager.SecondInitializer(systemInfo.dwNumberOfProcessors << 1, SOCKET_POOL_SIZE, globalManager.mainServerPort))
 	{
 		MYPRINTF("error in Initializer : %d\n", GetLastError());
 		return false;

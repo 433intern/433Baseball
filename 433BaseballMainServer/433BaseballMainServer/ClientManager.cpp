@@ -80,9 +80,6 @@ bool CClientManager::SecondInitializer(const int &threadNum, const int &socketPo
 		return false;
 	}
 
-	roomManager = new CRoomManager();
-
-
 	return true;
 }
 

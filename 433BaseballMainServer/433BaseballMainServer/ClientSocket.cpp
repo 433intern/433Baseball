@@ -220,7 +220,7 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 		MYPRINTF("[RECV] CS_TOTAL_ROOM_INFO_REQUEST PACKET !");
 		totalRoomInfoRequestPacket.ParseFromArray(buf, size);
 
-		CClientManager::GetInstance().GetRoomManager()->SendTotalRoomInfo(this);
+		CRoomManager::GetInstance().SendTotalRoomInfo(this);
 
 		textFormat = totalRoomInfoRequestPacket.DebugString();
 		MYPRINTF(textFormat.c_str());

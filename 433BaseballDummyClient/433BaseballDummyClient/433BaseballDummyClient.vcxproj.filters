@@ -13,24 +13,56 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\ProtocolBuffer">
+      <UniqueIdentifier>{640fed59-62c7-4572-b866-518185a95ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ProtocolBuffer\ProtoFiles">
+      <UniqueIdentifier>{3eb01d2f-9b53-4659-a21d-ecc995d9e78a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacketEnumeration.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IngamePacket.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="433BaseballDummyClient.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="GamePacketEnumeration.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="IngamePacket.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomPacket.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GamePacketEnumeration.PROTO">
+      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+    </None>
+    <None Include="IngamePacket.PROTO">
+      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+    </None>
+    <None Include="RoomPacket.Proto">
+      <Filter>소스 파일\ProtocolBuffer\ProtoFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

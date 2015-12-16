@@ -104,15 +104,16 @@
     <ClInclude Include="DBManager.h" />
     <ClInclude Include="DBQuerier.h" />
     <ClInclude Include="Disconnector.h" />
+    <ClInclude Include="GamePacketEnumeration.pb.h" />
     <ClInclude Include="GlobalManager.h" />
-    <ClInclude Include="IngamePacket.PROTO.pb.h" />
+    <ClInclude Include="IngamePacket.pb.h" />
     <ClInclude Include="ListenSocket.h" />
     <ClInclude Include="LogWriter.h" />
     <ClInclude Include="Proactor.h" />
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
-    <ClInclude Include="RoomPacket.Proto.pb.h" />
+    <ClInclude Include="RoomPacket.pb.h" />
     <ClInclude Include="Sender.h" />
     <ClInclude Include="SharedData.h" />
     <ClInclude Include="SockInfo.h" />
@@ -139,8 +140,9 @@
     <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="DBQuerier.cpp" />
     <ClCompile Include="Disconnector.cpp" />
+    <ClCompile Include="GamePacketEnumeration.pb.cc" />
     <ClCompile Include="GlobalManager.cpp" />
-    <ClCompile Include="IngamePacket.PROTO.pb.cc" />
+    <ClCompile Include="IngamePacket.pb.cc" />
     <ClCompile Include="ListenSocket.cpp" />
     <ClCompile Include="LogWriter.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,10 +150,15 @@
     <ClCompile Include="Receiver.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
-    <ClCompile Include="RoomPacket.Proto.pb.cc" />
+    <ClCompile Include="RoomPacket.pb.cc" />
     <ClCompile Include="Sender.cpp" />
     <ClCompile Include="SockInfo.cpp" />
     <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GamePacketEnumeration.PROTO" />
+    <None Include="IngamePacket.PROTO" />
+    <None Include="RoomPacket.Proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
