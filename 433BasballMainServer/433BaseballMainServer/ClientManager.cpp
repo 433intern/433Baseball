@@ -143,6 +143,27 @@ void CClientManager::DeleteUser(CClientSocket* pPlayer)
 
 	LeaveCriticalSection(&playersLock);
 }
+
+void CClientManager::BroadCastTotalRoomInfo(CClientSocket* pPlayer)
+{
+	EnterCriticalSection(&playersLock);
+	if (!players.empty())
+	{
+		for (auto& player : players)
+		{
+			/// 파라미터로 들어온 플레이어 제외 하고
+			/// 모든 플레이어에게 현재 방정보를 전달
+			if (player->nickName == pPlayer->nickName) 
+				continue;
+			
+			roomManager->SendTotalRoomInfo(player);
+
+		}
+	}
+	LeaveCriticalSection(&playersLock);
+}
+
+
 void CClientManager::TotalUserInfoPrint()
 {
 	if (!players.empty())

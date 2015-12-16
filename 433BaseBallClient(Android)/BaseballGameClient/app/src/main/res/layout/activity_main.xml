@@ -57,7 +57,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/LOGIN_PASSWORD_EDIT"
             android:singleLine="true"
-            android:layout_weight="0.18" />
+            android:layout_weight="0.18"
+            android:password="true" />
     </LinearLayout>
 
     <LinearLayout

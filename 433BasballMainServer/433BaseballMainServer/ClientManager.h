@@ -44,7 +44,7 @@ public:
 	
 	void AddUser(CClientSocket* pPlayer);
 	void DeleteUser(CClientSocket* pPlayer);
-	void TotalUserInfoPrint();
+	void BroadCastTotalRoomInfo(CClientSocket* pPlayer);
 
-	
+	void TotalUserInfoPrint();
 };

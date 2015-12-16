@@ -14,13 +14,13 @@ CRoomManager::~CRoomManager()
 }
 
 
-int CRoomManager::CreateRoom(int roomNum)
+protocol::FailSignal CRoomManager::CreateRoom(int roomNum)
 {
 	EnterCriticalSection(&roomLock);
 	if (MAX_ROOMS < rooms.size())
 	{
 		LeaveCriticalSection(&roomLock);
-		return 0;
+		return protocol::FailSignal::FS_OVERFLOW;
 	}
 	else
 	{
@@ -31,7 +31,7 @@ int CRoomManager::CreateRoom(int roomNum)
 			else if ((*insertIter)->GetRoomNumber() == roomNum)
 			{
 				LeaveCriticalSection(&roomLock);
-				return 1;
+				return protocol::FailSignal::FS_ALREADY_EXIST;
 			}
 			else
 			{
@@ -44,15 +44,15 @@ int CRoomManager::CreateRoom(int roomNum)
 		LeaveCriticalSection(&roomLock);
 	}
 	TotalRoomInfoPrint();
-	return -1;
+	return protocol::FailSignal::FS_SUCCESS;
 }
 
-int CRoomManager::DestroyRoom(int roomNum)
+protocol::FailSignal CRoomManager::DestroyRoom(int roomNum)
 {
 	CRoom* room = FindRoom(roomNum);
 	if (room == nullptr)
 	{
-		return 0;
+		return protocol::FailSignal::FS_NO_EXIST;
 	}
 
 	EnterCriticalSection(&roomLock);
@@ -63,7 +63,7 @@ int CRoomManager::DestroyRoom(int roomNum)
 		
 	TotalRoomInfoPrint();
 
-	return -1;
+	return protocol::FailSignal::FS_SUCCESS;
 
 }
 
@@ -87,13 +87,13 @@ CRoom* CRoomManager::FindRoom(int roomNum)
 	return room;
 }
 
-int CRoomManager::EnterRoom(CClientSocket* pPlayer, int roomNum)
+protocol::FailSignal CRoomManager::EnterRoom(CClientSocket* pPlayer, int roomNum)
 {
 	CRoom* room = FindRoom(roomNum);
 	if (room == nullptr)
-		return 0; 
+		return protocol::FailSignal::FS_NO_EXIST; 
 	if (MAX_ROOM_PLAYERS >= room->InRoomPlayerSize())
-		return 1;
+		return protocol::FailSignal::FS_FULL_ROOM;
 
 	EnterCriticalSection(&roomLock);
 	
@@ -148,6 +148,25 @@ void CRoomManager::SendTotalRoomInfo(CClientSocket* pPlayer)
 	pPlayer->Send(buf, header.ByteSize() + totalRoomInfoPkt.ByteSize());
 
 	LeaveCriticalSection(&roomLock);
+
+}
+void CRoomManager::SendCreateRoomAck(CClientSocket* pPlayer, int roomNum , protocol::FailSignal fs)
+{
+	char* buf = pPlayer->sendBuf;
+
+	protocol::PacketHeader header;
+
+	protocol::SC_room_create_result pkt;
+	pkt.set_failsignal(fs);
+	pkt.set_roomnum(roomNum);
+
+	header.set_size(pkt.ByteSize());
+	header.set_type(protocol::PacketType::SC_ROOM_CREATE_RESULT);
+
+	header.SerializeToArray(buf, header.ByteSize());
+	pkt.SerializeToArray(buf + header.ByteSize(), pkt.ByteSize());
+
+	pPlayer->Send(buf, header.ByteSize() + pkt.ByteSize());
 
 }
 

@@ -97,9 +97,10 @@ void protobuf_AddDesc_GamePacketEnumeration_2eproto() {
     "M_INFO\020\016\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\017\022%\n"
     "!SC_RECEIVE_BASEBALL_NUMBER_RESULT\020\020\022\020\n\014"
     "SC_GIVE_TURN\020\021\022\020\n\014SC_WAIT_TURN\020\022\022\021\n\rSC_I"
-    "NGAME_END\020\023*S\n\nFailSignal\022\013\n\007SUCCESS\020\000\022\014"
-    "\n\010NO_EXIST\020\001\022\r\n\tFULL_ROOM\020\002\022\033\n\027EXIST_REP"
-    "ETITION_NUMBER\020\003", 656);
+    "NGAME_END\020\023*\206\001\n\nFailSignal\022\016\n\nFS_SUCCESS"
+    "\020\000\022\017\n\013FS_NO_EXIST\020\001\022\020\n\014FS_FULL_ROOM\020\002\022\036\n"
+    "\032FS_EXIST_REPETITION_NUMBER\020\003\022\024\n\020FS_ALRE"
+    "ADY_EXIST\020\004\022\017\n\013FS_OVERFLOW\020\005", 708);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "GamePacketEnumeration.proto", &protobuf_RegisterTypes);
   PacketHeader::default_instance_ = new PacketHeader();
@@ -155,6 +156,8 @@ bool FailSignal_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;

@@ -45,8 +45,10 @@ public:
 	int								bytePosition;
 	int								remainBytes;
 
+	bool							isPayload;
 	google::protobuf::uint32		payloadType;
 	google::protobuf::uint32		payloadSize;
+	
 
 public:
 	std::string						nickName;

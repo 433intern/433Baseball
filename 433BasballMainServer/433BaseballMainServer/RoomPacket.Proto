@@ -1,6 +1,7 @@
 package protocol;
 import public "GamePacketEnumeration.proto";
 
+
 message RoomInfo
 {
 	optional uint32 roomNum = 1;
@@ -24,7 +25,6 @@ message CS_total_room_info_request
 message CS_room_create
 {
 	optional   uint32			roomNum = 1;
-	optional   string			id = 2;
 }
 
 message CS_room_join
@@ -60,11 +60,13 @@ message SC_total_room_info
 message SC_room_create_result
 {
 	optional   FailSignal		failSignal = 1;
+	optional   uint32  			roomNum = 2;
 }
 
 message SC_room_join_result
 {
 	optional   FailSignal		failSignal = 1;
+	optional   uint32  			roomNum = 2;
 }
 
 message SC_room_leave_result

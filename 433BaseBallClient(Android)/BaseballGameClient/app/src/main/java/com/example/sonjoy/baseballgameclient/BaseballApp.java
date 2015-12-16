@@ -9,12 +9,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sonjoy.baseballgameclient.Common.PlayerStatus;
+import com.example.sonjoy.baseballgameclient.Common.RoomInfo;
 import com.example.sonjoy.baseballgameclient.Player.Player;
 import com.example.sonjoy.baseballgameclient.SubActivity.AccountCreateActivity;
 import com.example.sonjoy.baseballgameclient.SubActivity.LobbyActivity;
 import com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration;
 import com.example.sonjoy.baseballgameclient.protocol.LoginMessage;
 import com.example.sonjoy.baseballgameclient.protocol.RoomPacket;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,7 +30,9 @@ import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * Created by Sonjoy on 2015-12-13.
@@ -46,6 +50,7 @@ public class BaseballApp extends Application
         securityCode = null;
 
         appInstance = this;
+        rooms = new ArrayList<RoomInfo>();
 
         Log.d("Global" , "onCreate()");
     }
@@ -56,6 +61,13 @@ public class BaseballApp extends Application
         super.onTerminate();
 
         Log.d("Global", "onTerminated()");
+    }
+
+    public enum CLIENT_STATE {
+        DISCONNECTED,
+        LOBBY,
+        ROOM,
+        INGAME
     }
 
     public static BaseballApp Instance()
@@ -70,14 +82,21 @@ public class BaseballApp extends Application
     private int GAME_SERVER_PORT;
     private String securityCode;
 
+    private CLIENT_STATE myState = CLIENT_STATE.DISCONNECTED;
+
+    // Lobby
+    private boolean isLobbyRefresh = false;
+    private ArrayList<RoomInfo> rooms = null;
 
     // Login Server
     private Socket mRefLoginSocket = null;
     private boolean isAccountCreateSuccess = false;
     private boolean isRepeatCreate = false;
 
-    public class ClientSocket extends AsyncTask{
 
+
+    public class ClientSocket extends AsyncTask
+    {
 
         private Socket mSocket;
 
@@ -113,6 +132,7 @@ public class BaseballApp extends Application
                 mSocket = new Socket(serverAddr, GAME_SERVER_PORT);
 
                 if(mSocket != null) isConnected = true;
+                myState = CLIENT_STATE.LOBBY;
 
                 outStream = mSocket.getOutputStream();
                 inputStream = mSocket.getInputStream();
@@ -135,6 +155,7 @@ public class BaseballApp extends Application
                     bytesRead = inputStream.read(rcvHeaderBuf);
 
                     if(bytesRead == 0) break;
+                    if(bytesRead == -1) break;
 
                     if(rcvHeaderBuf != null)
                     {
@@ -143,33 +164,71 @@ public class BaseballApp extends Application
                         rcvDataBuf = new byte[header.getSize()];
                         bytesRead = inputStream.read(rcvDataBuf);
 
-                        if(bytesRead == 0) break;
+                        if(bytesRead == 0) continue;
 
                         recvProcess(rcvDataBuf, header.getType());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                try {
-                    mSocket.close();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
             }
+            try {
+                mSocket.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return null;
         }
 
-
-
         public void recvProcess(byte[] rcvBuf, int type)
         {
-
             switch(type)
             {
+                case GamePacketEnumeration.PacketType.SC_TOTAL_ROOM_INFO_VALUE:
+
+                    try {
+                        RoomPacket.SC_total_room_info pkt = RoomPacket.SC_total_room_info.parseFrom(rcvBuf);
+
+                        rooms.clear();
+
+                        for(RoomPacket.RoomInfo room : pkt.getRoomListList())
+                        {
+                            RoomInfo roomInfo = new RoomInfo();
+                            roomInfo.roomNum = room.getRoomNum();
+                            rooms.add(roomInfo);
+                        }
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
+
+                    isLobbyRefresh = true;
+
+                    break;
                 case GamePacketEnumeration.PacketType.SC_ROOM_CREATE_RESULT_VALUE:
+                    try {
+                        RoomPacket.SC_room_create_result pkt = RoomPacket.SC_room_create_result.parseFrom(rcvBuf);
+
+                        if(pkt.getFailSignal() == GamePacketEnumeration.FailSignal.FS_SUCCESS)
+                        {
+                            RoomInfo roomInfo = new RoomInfo();
+                            roomInfo.roomNum = pkt.getRoomNum();
+                            rooms.add(roomInfo);
+
+                            isLobbyRefresh = true;
+                        }
+                        else
+                        {
+
+
+                        }
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
+
 
                     break;
                 case GamePacketEnumeration.PacketType.SC_ROOM_JOIN_RESULT_VALUE:
@@ -249,6 +308,24 @@ public class BaseballApp extends Application
 
     public Player getMyPlayer() { return myPlayer; }
 
+    public void sendHeaderPacket(OutputStream outStream, byte[] header)
+    {
+        try {
+            outStream.write(header);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void sendHeaderPacket(byte[] header)
+    {
+        if(mClientSocket == null) return;
+
+        sendHeaderPacket(mClientSocket.getOutputStream(), header);
+    }
+
+
+
     public void sendUnionPacket(OutputStream outStream, byte[] header, byte[] payload)
     {
         try {
@@ -272,13 +349,19 @@ public class BaseballApp extends Application
     public void setSecurityCode(String code) { securityCode = code;}
     public void setAccountCreateSuccess(boolean isSuccess) { isAccountCreateSuccess = isSuccess;}
     public void setIsAccountRepeatCreate(boolean isRepeat) { isRepeatCreate = isRepeat; }
+    public void setIsLobbyRefresh(boolean isRefresh) { this.isLobbyRefresh = isRefresh;}
+    public void setClientState(CLIENT_STATE state) { myState = state;}
 
     public String getGameServerIP() { return GAME_SERVER_IP;}
     public int getGameServerPort() { return GAME_SERVER_PORT; }
     public String getSercurityCode() { return securityCode; }
+    public CLIENT_STATE getMyState() { return myState;}
+    public ArrayList<RoomInfo> getRooms() { return rooms; }
+
 
     public boolean IsAccountCreateSuccess() { return isAccountCreateSuccess;}
     public boolean IsAccountRepeatCreate() { return isRepeatCreate; }
+    public boolean IsLobbyRefresh() { return isLobbyRefresh; }
 
     public boolean IsGameServerConnected()
     {

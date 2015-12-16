@@ -2,6 +2,7 @@ package com.example.sonjoy.baseballgameclient.SubActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.sonjoy.baseballgameclient.BaseballApp;
 import com.example.sonjoy.baseballgameclient.Common.PlayerStatus;
+import com.example.sonjoy.baseballgameclient.Common.RoomInfo;
+import com.example.sonjoy.baseballgameclient.MainActivity;
 import com.example.sonjoy.baseballgameclient.Player.Player;
 import com.example.sonjoy.baseballgameclient.R;
 import com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration;
@@ -26,10 +29,13 @@ import java.util.LinkedList;
  * Created by Sonjoy on 2015-12-09.
  */
 public class LobbyActivity extends Activity {
-    LinkedList<Button> btnList;
-    View.OnClickListener listner;
+    private LobbyRefreshTask lobbyUITask;
+
+    private LinkedList<Button> btnList;
+    private  View.OnClickListener listner;
     private String playerViewID = null;
     private PlayerStatus playerViewStatus = null;
+    private String editRoomNum = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,29 +48,39 @@ public class LobbyActivity extends Activity {
 
         playerViewID = BaseballApp.Instance().getMyPlayer().getID();
         playerViewStatus = BaseballApp.Instance().getMyPlayer().getStatus();
-//
         setMyInfoView();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 {
-                   RoomPacket.CS_contact_alram payload = RoomPacket.CS_contact_alram.newBuilder()
-                          .setNickName(playerViewID)
-                           .setSecurityCode(BaseballApp.Instance().getMyPlayer().getSecurityCode())
-                           .build();
+                    /// Contact Packet Send
+                    RoomPacket.CS_contact_alram contactPayload = RoomPacket.CS_contact_alram.newBuilder()
+                            .setNickName(playerViewID)
+                            .setSecurityCode(BaseballApp.Instance().getMyPlayer().getSecurityCode())
+                            .build();
 
-                   GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
-                           .setSize(payload.getSerializedSize())
-                           .setType(GamePacketEnumeration.PacketType.CS_CONTACT_ALRAM_VALUE)
-                           .build();
+                    GamePacketEnumeration.PacketHeader contactHeader = GamePacketEnumeration.PacketHeader.newBuilder()
+                            .setSize(contactPayload.getSerializedSize())
+                            .setType(GamePacketEnumeration.PacketType.CS_CONTACT_ALRAM_VALUE)
+                            .build();
 
-                   BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
+                    BaseballApp.Instance().sendUnionPacket(contactHeader.toByteArray(), contactPayload.toByteArray());
+
+                    /// Lobby Total Room Info Request Send
+                    RoomPacket.CS_total_room_info_request totalRoomPayload = RoomPacket.CS_total_room_info_request.newBuilder()
+                            .build();
+
+                    GamePacketEnumeration.PacketHeader totalRoomHeader = GamePacketEnumeration.PacketHeader.newBuilder()
+                            .setSize(totalRoomPayload.getSerializedSize())
+                            .setType(GamePacketEnumeration.PacketType.CS_TOTAL_ROOM_INFO_REQUEST_VALUE)
+                            .build();
+
+                    BaseballApp.Instance().sendHeaderPacket(totalRoomHeader.toByteArray());
                 }
 
             }
         }).start();
-
 
 
         listner = new View.OnClickListener()
@@ -82,49 +98,64 @@ public class LobbyActivity extends Activity {
             }
         };
 
-
-
-
+        lobbyUITask = new LobbyRefreshTask();
+        lobbyUITask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"");
 
     }
+
     @Override
     protected void onResume(){
         super.onResume();
         Toast.makeText(this, "onResume() 호출", Toast.LENGTH_SHORT).show();
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                {
+//                    /// Lobby Total Room Info Request Send
+//                    RoomPacket.CS_total_room_info_request totalRoomPayload = RoomPacket.CS_total_room_info_request.newBuilder()
+//                            .build();
+//
+//                    GamePacketEnumeration.PacketHeader totalRoomHeader = GamePacketEnumeration.PacketHeader.newBuilder()
+//                            .setSize(totalRoomPayload.getSerializedSize())
+//                            .setType(GamePacketEnumeration.PacketType.CS_TOTAL_ROOM_INFO_REQUEST_VALUE)
+//                            .build();
+//
+//                    BaseballApp.Instance().sendUnionPacket(totalRoomHeader.toByteArray(), totalRoomPayload.toByteArray());
+//                }
+//
+//            }
+//        }).start();
+
+
     }
 
     public void roomCreateBtnClicked(View v){
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.LOBBY_SCROLL_LAYOUT);
+        final EditText roomNumEdit = (EditText)findViewById(R.id.LOBBY_ROOMNUM_EDIT);
+        editRoomNum = roomNumEdit.getText().toString();
 
-        EditText roomNumEdit = (EditText)findViewById(R.id.LOBBY_ROOMNUM_EDIT);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                {
+                    /// Lobby Room Create
+                    RoomPacket.CS_room_create payload = RoomPacket.CS_room_create.newBuilder()
+                            .setRoomNum(Integer.parseInt(roomNumEdit.getText().toString()))
+                            .build();
 
-        //Intent intent = new Intent(this, RoomActivity.class);
-        //intent.putExtra("ROOM_NUMBER", roomNumEdit.getText());
+                    GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
+                            .setSize(payload.getSerializedSize())
+                            .setType(GamePacketEnumeration.PacketType.CS_ROOM_CREATE_VALUE)
+                            .build();
 
-        Button btn = new Button(this);
-        btn.setText(roomNumEdit.getText());
-        btn.setWidth(50);
-        btn.setTextSize(20);
-        btn.setId(Integer.parseInt(roomNumEdit.getText().toString()));
-        btn.setOnClickListener(listner);
-        btnList.add(btn);
+                    BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
+                }
+            }
+        }).start();
 
-
-        layout.addView(btn);
-
-
-
-       // startActivity(intent);
-    }
-
-    public void setData() {
-        Intent intent = getIntent();
-        String id = intent.getExtras().get("ID").toString();
-        String password = intent.getExtras().get("PASSWORD").toString();
 
     }
-
     public void setMyInfoView()
     {
         TextView myInfoIDView = (TextView)findViewById(R.id.LOBBY_MY_INFO_ID);
@@ -135,6 +166,53 @@ public class LobbyActivity extends Activity {
         myInfoWinView.setText(Integer.toString(playerViewStatus.winCount));
         myInfoLoseView.setText(Integer.toString(playerViewStatus.loseCount));
 
+    }
+
+    public class LobbyRefreshTask extends AsyncTask
+    {
+        @Override
+        protected Object doInBackground(Object... parmas)
+        {
+            while(BaseballApp.Instance().getMyState() == BaseballApp.CLIENT_STATE.LOBBY)
+            {
+                if(BaseballApp.Instance().IsLobbyRefresh())
+                {
+                    publishProgress(null);
+                    BaseballApp.Instance().setIsLobbyRefresh(false);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Object... progress)
+        {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.LOBBY_SCROLL_LAYOUT);
+
+            if(!BaseballApp.Instance().getRooms().isEmpty())
+            {
+                layout.removeAllViews();
+
+                for (RoomInfo room : BaseballApp.Instance().getRooms())
+                {
+                    Button btn = new Button(LobbyActivity.this);
+                    btn.setText(Integer.toString(room.roomNum));
+                    btn.setWidth(50);
+                    btn.setTextSize(20);
+                    btn.setId(room.roomNum);
+                    btn.setOnClickListener(listner);
+                    btnList.add(btn);
+
+                    layout.addView(btn);
+                }
+            }
+        }
+        @Override
+        protected void onPostExecute(Object result)
+        {
+            super.onPostExecute(result);
+
+        }
     }
 
 

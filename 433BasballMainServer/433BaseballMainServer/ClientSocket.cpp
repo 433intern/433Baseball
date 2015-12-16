@@ -9,7 +9,8 @@ CClientSocket::CClientSocket()
  nickName(""),
  securityCode(""),
  currRoomNum(-1),
- currState(PLAYER_STATE::LOBBY)
+ currState(PLAYER_STATE::LOBBY),
+ isPayload(false)
 {
 }
 
@@ -167,6 +168,8 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 	
 	std::string textFormat;
 
+	protocol::FailSignal result;
+
 	switch (type)
 	{
 	case protocol::PacketType::CS_CONTACT_ALRAM:
@@ -186,6 +189,15 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 		MYPRINTF("[RECV] CS_ROOM_CREATE PACKET !");
 		roomCreatePacket.ParseFromArray(buf, size);
 		
+		result = CClientManager::GetInstance().GetRoomManager()->CreateRoom(roomCreatePacket.roomnum());
+		
+		CClientManager::GetInstance().GetRoomManager()->SendCreateRoomAck(this, roomCreatePacket.roomnum(), result);
+
+		if (protocol::FailSignal::FS_SUCCESS == result)
+		{
+			CClientManager::GetInstance().BroadCastTotalRoomInfo(this);
+		}
+
 		textFormat = roomCreatePacket.DebugString();
 		MYPRINTF(textFormat.c_str());
 
@@ -285,13 +297,13 @@ void CClientSocket::RecvProcess(bool isError, CAct* act, DWORD bytes_transferred
 				remainBytes = payloadSize;
 
 			payloadType = header.type();
+			
 		}
 		
 		if (remainBytes <= 0)
 		{
 			bytePosition = 0;
 			remainBytes = HEADER_SIZE;
-			
 			PacketHandling(buf, this->payloadType, this->payloadSize);
 		}
 

@@ -282,49 +282,67 @@ public final class GamePacketEnumeration {
   public enum FailSignal
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>SUCCESS = 0;</code>
+     * <code>FS_SUCCESS = 0;</code>
      */
-    SUCCESS(0, 0),
+    FS_SUCCESS(0, 0),
     /**
-     * <code>NO_EXIST = 1;</code>
+     * <code>FS_NO_EXIST = 1;</code>
      */
-    NO_EXIST(1, 1),
+    FS_NO_EXIST(1, 1),
     /**
-     * <code>FULL_ROOM = 2;</code>
+     * <code>FS_FULL_ROOM = 2;</code>
      */
-    FULL_ROOM(2, 2),
+    FS_FULL_ROOM(2, 2),
     /**
-     * <code>EXIST_REPETITION_NUMBER = 3;</code>
+     * <code>FS_EXIST_REPETITION_NUMBER = 3;</code>
      */
-    EXIST_REPETITION_NUMBER(3, 3),
+    FS_EXIST_REPETITION_NUMBER(3, 3),
+    /**
+     * <code>FS_ALREADY_EXIST = 4;</code>
+     */
+    FS_ALREADY_EXIST(4, 4),
+    /**
+     * <code>FS_OVERFLOW = 5;</code>
+     */
+    FS_OVERFLOW(5, 5),
     ;
 
     /**
-     * <code>SUCCESS = 0;</code>
+     * <code>FS_SUCCESS = 0;</code>
      */
-    public static final int SUCCESS_VALUE = 0;
+    public static final int FS_SUCCESS_VALUE = 0;
     /**
-     * <code>NO_EXIST = 1;</code>
+     * <code>FS_NO_EXIST = 1;</code>
      */
-    public static final int NO_EXIST_VALUE = 1;
+    public static final int FS_NO_EXIST_VALUE = 1;
     /**
-     * <code>FULL_ROOM = 2;</code>
+     * <code>FS_FULL_ROOM = 2;</code>
      */
-    public static final int FULL_ROOM_VALUE = 2;
+    public static final int FS_FULL_ROOM_VALUE = 2;
     /**
-     * <code>EXIST_REPETITION_NUMBER = 3;</code>
+     * <code>FS_EXIST_REPETITION_NUMBER = 3;</code>
      */
-    public static final int EXIST_REPETITION_NUMBER_VALUE = 3;
+    public static final int FS_EXIST_REPETITION_NUMBER_VALUE = 3;
+    /**
+     * <code>FS_ALREADY_EXIST = 4;</code>
+     */
+    public static final int FS_ALREADY_EXIST_VALUE = 4;
+    /**
+     * <code>FS_OVERFLOW = 5;</code>
+     */
+    public static final int FS_OVERFLOW_VALUE = 5;
 
 
     public final int getNumber() { return value; }
 
     public static FailSignal valueOf(int value) {
       switch (value) {
-        case 0: return SUCCESS;
-        case 1: return NO_EXIST;
-        case 2: return FULL_ROOM;
-        case 3: return EXIST_REPETITION_NUMBER;
+        case 0: return FS_SUCCESS;
+        case 1: return FS_NO_EXIST;
+        case 2: return FS_FULL_ROOM;
+        case 3: return FS_EXIST_REPETITION_NUMBER;
+        case 4: return FS_ALREADY_EXIST;
+        case 5: return FS_OVERFLOW;
         default: return null;
       }
     }
@@ -879,10 +897,11 @@ public final class GamePacketEnumeration {
       "M_INFO\020\016\022\033\n\027CS_SEND_BASEBALL_NUMBER\020\017\022%\n" +
       "!SC_RECEIVE_BASEBALL_NUMBER_RESULT\020\020\022\020\n\014" +
       "SC_GIVE_TURN\020\021\022\020\n\014SC_WAIT_TURN\020\022\022\021\n\rSC_I" +
-      "NGAME_END\020\023*S\n\nFailSignal\022\013\n\007SUCCESS\020\000\022\014" +
-      "\n\010NO_EXIST\020\001\022\r\n\tFULL_ROOM\020\002\022\033\n\027EXIST_REP" +
-      "ETITION_NUMBER\020\003B0\n.com.example.sonjoy.b" +
-      "aseballgameclient.protocol"
+      "NGAME_END\020\023*\206\001\n\nFailSignal\022\016\n\nFS_SUCCESS" +
+      "\020\000\022\017\n\013FS_NO_EXIST\020\001\022\020\n\014FS_FULL_ROOM\020\002\022\036\n" +
+      "\032FS_EXIST_REPETITION_NUMBER\020\003\022\024\n\020FS_ALRE" +
+      "ADY_EXIST\020\004\022\017\n\013FS_OVERFLOW\020\005B0\n.com.exam" +
+      "ple.sonjoy.baseballgameclient.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

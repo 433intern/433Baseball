@@ -11,14 +11,18 @@ public:
 	~CRoomManager();
 	
 public:
-	int		CreateRoom(int roomNum);
-	int		DestroyRoom(int roomNuem);
-	CRoom*  FindRoom(int roomNum);
+	protocol::FailSignal	CreateRoom(int roomNum);
+	protocol::FailSignal	DestroyRoom(int roomNuem);
+	
+	CRoom*					FindRoom(int roomNum);
 
-	int		EnterRoom(CClientSocket* pPlayer, int roomNum);
-	bool	LeaveRoom(CClientSocket* pPlayer, int roomNum);
+	protocol::FailSignal	EnterRoom(CClientSocket* pPlayer, int roomNum);
+	bool					LeaveRoom(CClientSocket* pPlayer, int roomNum);
 
-	void	SendTotalRoomInfo(CClientSocket* pPlayer);
-	void	TotalRoomInfoPrint();
+	void					SendTotalRoomInfo(CClientSocket* pPlayer);
+	void					SendCreateRoomAck(CClientSocket* pPlayer, int roomNum , protocol::FailSignal fs);
+
+
+	void					TotalRoomInfoPrint();
 };
 

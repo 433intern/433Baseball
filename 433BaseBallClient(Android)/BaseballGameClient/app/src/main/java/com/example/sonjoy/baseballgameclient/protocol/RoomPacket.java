@@ -1684,20 +1684,6 @@ public final class RoomPacket {
      * <code>optional uint32 roomNum = 1;</code>
      */
     int getRoomNum();
-
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    boolean hasId();
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    java.lang.String getId();
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
   }
   /**
    * Protobuf type {@code protocol.CS_room_create}
@@ -1756,12 +1742,6 @@ public final class RoomPacket {
               roomNum_ = input.readUInt32();
               break;
             }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              id_ = bs;
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1817,51 +1797,8 @@ public final class RoomPacket {
       return roomNum_;
     }
 
-    public static final int ID_FIELD_NUMBER = 2;
-    private java.lang.Object id_;
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          id_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string id = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private void initFields() {
       roomNum_ = 0;
-      id_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1879,9 +1816,6 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeUInt32(1, roomNum_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getIdBytes());
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1894,10 +1828,6 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, roomNum_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2018,8 +1948,6 @@ public final class RoomPacket {
         super.clear();
         roomNum_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -2052,10 +1980,6 @@ public final class RoomPacket {
           to_bitField0_ |= 0x00000001;
         }
         result.roomNum_ = roomNum_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.id_ = id_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2074,11 +1998,6 @@ public final class RoomPacket {
         if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.CS_room_create.getDefaultInstance()) return this;
         if (other.hasRoomNum()) {
           setRoomNum(other.getRoomNum());
-        }
-        if (other.hasId()) {
-          bitField0_ |= 0x00000002;
-          id_ = other.id_;
-          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2135,82 +2054,6 @@ public final class RoomPacket {
       public Builder clearRoomNum() {
         bitField0_ = (bitField0_ & ~0x00000001);
         roomNum_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            id_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string id = 2;</code>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        id_ = value;
         onChanged();
         return this;
       }
@@ -3381,7 +3224,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3529,7 +3372,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -3609,7 +3452,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -3639,7 +3482,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         onChanged();
         return this;
       }
@@ -4923,6 +4766,15 @@ public final class RoomPacket {
      * <code>optional .protocol.FailSignal failSignal = 1;</code>
      */
     com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal getFailSignal();
+
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    boolean hasRoomNum();
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    int getRoomNum();
   }
   /**
    * Protobuf type {@code protocol.SC_room_create_result}
@@ -4987,6 +4839,11 @@ public final class RoomPacket {
               }
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              roomNum_ = input.readUInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -5042,8 +4899,24 @@ public final class RoomPacket {
       return failSignal_;
     }
 
+    public static final int ROOMNUM_FIELD_NUMBER = 2;
+    private int roomNum_;
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    public boolean hasRoomNum() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    public int getRoomNum() {
+      return roomNum_;
+    }
+
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
+      roomNum_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5061,6 +4934,9 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeEnum(1, failSignal_.getNumber());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, roomNum_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5073,6 +4949,10 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, failSignal_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, roomNum_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5191,8 +5071,10 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
+        roomNum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -5225,6 +5107,10 @@ public final class RoomPacket {
           to_bitField0_ |= 0x00000001;
         }
         result.failSignal_ = failSignal_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.roomNum_ = roomNum_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5243,6 +5129,9 @@ public final class RoomPacket {
         if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_create_result.getDefaultInstance()) return this;
         if (other.hasFailSignal()) {
           setFailSignal(other.getFailSignal());
+        }
+        if (other.hasRoomNum()) {
+          setRoomNum(other.getRoomNum());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5271,7 +5160,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -5301,7 +5190,39 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
+        onChanged();
+        return this;
+      }
+
+      private int roomNum_ ;
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public boolean hasRoomNum() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public int getRoomNum() {
+        return roomNum_;
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public Builder setRoomNum(int value) {
+        bitField0_ |= 0x00000002;
+        roomNum_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public Builder clearRoomNum() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        roomNum_ = 0;
         onChanged();
         return this;
       }
@@ -5329,6 +5250,15 @@ public final class RoomPacket {
      * <code>optional .protocol.FailSignal failSignal = 1;</code>
      */
     com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal getFailSignal();
+
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    boolean hasRoomNum();
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    int getRoomNum();
   }
   /**
    * Protobuf type {@code protocol.SC_room_join_result}
@@ -5393,6 +5323,11 @@ public final class RoomPacket {
               }
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              roomNum_ = input.readUInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -5448,8 +5383,24 @@ public final class RoomPacket {
       return failSignal_;
     }
 
+    public static final int ROOMNUM_FIELD_NUMBER = 2;
+    private int roomNum_;
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    public boolean hasRoomNum() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional uint32 roomNum = 2;</code>
+     */
+    public int getRoomNum() {
+      return roomNum_;
+    }
+
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
+      roomNum_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5467,6 +5418,9 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeEnum(1, failSignal_.getNumber());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, roomNum_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5479,6 +5433,10 @@ public final class RoomPacket {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, failSignal_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, roomNum_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5597,8 +5555,10 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
+        roomNum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -5631,6 +5591,10 @@ public final class RoomPacket {
           to_bitField0_ |= 0x00000001;
         }
         result.failSignal_ = failSignal_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.roomNum_ = roomNum_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5649,6 +5613,9 @@ public final class RoomPacket {
         if (other == com.example.sonjoy.baseballgameclient.protocol.RoomPacket.SC_room_join_result.getDefaultInstance()) return this;
         if (other.hasFailSignal()) {
           setFailSignal(other.getFailSignal());
+        }
+        if (other.hasRoomNum()) {
+          setRoomNum(other.getRoomNum());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5677,7 +5644,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -5707,7 +5674,39 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
+        onChanged();
+        return this;
+      }
+
+      private int roomNum_ ;
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public boolean hasRoomNum() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public int getRoomNum() {
+        return roomNum_;
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public Builder setRoomNum(int value) {
+        bitField0_ |= 0x00000002;
+        roomNum_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 roomNum = 2;</code>
+       */
+      public Builder clearRoomNum() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        roomNum_ = 0;
         onChanged();
         return this;
       }
@@ -5855,7 +5854,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6003,7 +6002,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -6083,7 +6082,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -6113,7 +6112,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         onChanged();
         return this;
       }
@@ -6261,7 +6260,7 @@ public final class RoomPacket {
     }
 
     private void initFields() {
-      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6409,7 +6408,7 @@ public final class RoomPacket {
 
       public Builder clear() {
         super.clear();
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -6489,7 +6488,7 @@ public final class RoomPacket {
       }
       private int bitField0_;
 
-      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+      private com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
       /**
        * <code>optional .protocol.FailSignal failSignal = 1;</code>
        */
@@ -6519,7 +6518,7 @@ public final class RoomPacket {
        */
       public Builder clearFailSignal() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.SUCCESS;
+        failSignal_ = com.example.sonjoy.baseballgameclient.protocol.GamePacketEnumeration.FailSignal.FS_SUCCESS;
         onChanged();
         return this;
       }
@@ -6624,22 +6623,23 @@ public final class RoomPacket {
       "\030\001 \001(\r\":\n\020CS_contact_alram\022\020\n\010nickName\030\001" +
       " \002(\t\022\024\n\014securityCode\030\002 \001(\t\"\026\n\024CS_room_in" +
       "fo_request\"\034\n\032CS_total_room_info_request" +
-      "\"-\n\016CS_room_create\022\017\n\007roomNum\030\001 \001(\r\022\n\n\002i" +
-      "d\030\002 \001(\t\"\037\n\014CS_room_join\022\017\n\007roomNum\030\001 \001(\r" +
-      "\"\017\n\rCS_room_leave\"\031\n\027CS_request_ingame_s" +
-      "tart\"=\n\021SC_contact_result\022(\n\nfailSignal\030" +
-      "\001 \001(\0162\024.protocol.FailSignal\"\'\n\014SC_room_i",
-      "nfo\022\027\n\017playerNickNames\030\001 \003(\t\"M\n\022SC_total" +
-      "_room_info\022\021\n\troomCount\030\001 \001(\r\022$\n\010roomLis" +
-      "t\030\002 \003(\0132\022.protocol.RoomInfo\"A\n\025SC_room_c" +
-      "reate_result\022(\n\nfailSignal\030\001 \001(\0162\024.proto" +
-      "col.FailSignal\"?\n\023SC_room_join_result\022(\n" +
-      "\nfailSignal\030\001 \001(\0162\024.protocol.FailSignal\"" +
-      "@\n\024SC_room_leave_result\022(\n\nfailSignal\030\001 " +
-      "\001(\0162\024.protocol.FailSignal\"B\n\026SC_ingame_s" +
-      "tart_result\022(\n\nfailSignal\030\001 \001(\0162\024.protoc" +
-      "ol.FailSignalB0\n.com.example.sonjoy.base",
-      "ballgameclient.protocolP\000"
+      "\"!\n\016CS_room_create\022\017\n\007roomNum\030\001 \001(\r\"\037\n\014C" +
+      "S_room_join\022\017\n\007roomNum\030\001 \001(\r\"\017\n\rCS_room_" +
+      "leave\"\031\n\027CS_request_ingame_start\"=\n\021SC_c" +
+      "ontact_result\022(\n\nfailSignal\030\001 \001(\0162\024.prot" +
+      "ocol.FailSignal\"\'\n\014SC_room_info\022\027\n\017playe",
+      "rNickNames\030\001 \003(\t\"M\n\022SC_total_room_info\022\021" +
+      "\n\troomCount\030\001 \001(\r\022$\n\010roomList\030\002 \003(\0132\022.pr" +
+      "otocol.RoomInfo\"R\n\025SC_room_create_result" +
+      "\022(\n\nfailSignal\030\001 \001(\0162\024.protocol.FailSign" +
+      "al\022\017\n\007roomNum\030\002 \001(\r\"P\n\023SC_room_join_resu" +
+      "lt\022(\n\nfailSignal\030\001 \001(\0162\024.protocol.FailSi" +
+      "gnal\022\017\n\007roomNum\030\002 \001(\r\"@\n\024SC_room_leave_r" +
+      "esult\022(\n\nfailSignal\030\001 \001(\0162\024.protocol.Fai" +
+      "lSignal\"B\n\026SC_ingame_start_result\022(\n\nfai" +
+      "lSignal\030\001 \001(\0162\024.protocol.FailSignalB0\n.c",
+      "om.example.sonjoy.baseballgameclient.pro" +
+      "tocolP\000"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6683,7 +6683,7 @@ public final class RoomPacket {
     internal_static_protocol_CS_room_create_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_CS_room_create_descriptor,
-        new java.lang.String[] { "RoomNum", "Id", });
+        new java.lang.String[] { "RoomNum", });
     internal_static_protocol_CS_room_join_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_protocol_CS_room_join_fieldAccessorTable = new
@@ -6725,13 +6725,13 @@ public final class RoomPacket {
     internal_static_protocol_SC_room_create_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_room_create_result_descriptor,
-        new java.lang.String[] { "FailSignal", });
+        new java.lang.String[] { "FailSignal", "RoomNum", });
     internal_static_protocol_SC_room_join_result_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_protocol_SC_room_join_result_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_protocol_SC_room_join_result_descriptor,
-        new java.lang.String[] { "FailSignal", });
+        new java.lang.String[] { "FailSignal", "RoomNum", });
     internal_static_protocol_SC_room_leave_result_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_protocol_SC_room_leave_result_fieldAccessorTable = new

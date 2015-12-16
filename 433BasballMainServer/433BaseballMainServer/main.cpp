@@ -195,7 +195,7 @@ bool TotalInitializer()
 		return false;
 	}
 
-	if (!dbManager.FirstInitializer("10.100.58.5", "root", "1234", "433baseball"))
+	if (!dbManager.FirstInitializer("127.0.0.1", "root", "1234", "433baseball"))
 	{
 		MYPRINTF("error on FirstInitializer in _tmain : %d\n", GetLastError());
 		return false;

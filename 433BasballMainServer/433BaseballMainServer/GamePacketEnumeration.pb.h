@@ -76,14 +76,16 @@ inline bool PacketType_Parse(
     PacketType_descriptor(), name, value);
 }
 enum FailSignal {
-  SUCCESS = 0,
-  NO_EXIST = 1,
-  FULL_ROOM = 2,
-  EXIST_REPETITION_NUMBER = 3
+  FS_SUCCESS = 0,
+  FS_NO_EXIST = 1,
+  FS_FULL_ROOM = 2,
+  FS_EXIST_REPETITION_NUMBER = 3,
+  FS_ALREADY_EXIST = 4,
+  FS_OVERFLOW = 5
 };
 bool FailSignal_IsValid(int value);
-const FailSignal FailSignal_MIN = SUCCESS;
-const FailSignal FailSignal_MAX = EXIST_REPETITION_NUMBER;
+const FailSignal FailSignal_MIN = FS_SUCCESS;
+const FailSignal FailSignal_MAX = FS_OVERFLOW;
 const int FailSignal_ARRAYSIZE = FailSignal_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* FailSignal_descriptor();
