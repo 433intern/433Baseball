@@ -18,11 +18,12 @@ struct CGlobalManager
 	~CGlobalManager();
 
 	bool Initializer(const std::string &dbServerIp, const unsigned short dbPort, const std::string &dbSchema,
-		const std::string &dbStasticalTableName, const std::string &dbMatchRecordTableName, 
+		const std::string &dbStasticalTableName, const std::string &dbMatchRecordTableName,
 		const std::string &dbOverloadRecordTableName,
 		const std::string &dbUserName, const std::string &dbPassword,
 		const unsigned short mainServerPort);
 private:
 	CGlobalManager();
+
 };
 

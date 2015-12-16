@@ -47,20 +47,20 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;C:\sonjoy\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;C:\Program Files\MySQL\MySQL Server 5.7\include;C:\Program Files (x86)\MySQL\MySQL Server 5.7\include;C:\sonjoy\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)vc$(ProjectName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;C:\sonjoy\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\Debug;C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libmysql.lib;libprotoc.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Sonjoy\Desktop\433Baseball\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\Debug;C:\Program Files (x86)\MySQL\MySQL Server 5.7\lib;C:\sonjoy\433Baseball\ProtocolBufferTestFolder\ProtocV2\vsprojects\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,6 +100,7 @@
     <ClInclude Include="DBDisconnector.h" />
     <ClInclude Include="DBHandle.h" />
     <ClInclude Include="DBHandleStates.h" />
+    <ClInclude Include="DBHarvester.h" />
     <ClInclude Include="DBManager.h" />
     <ClInclude Include="DBQuerier.h" />
     <ClInclude Include="Disconnector.h" />
@@ -109,8 +110,11 @@
     <ClInclude Include="LogWriter.h" />
     <ClInclude Include="Proactor.h" />
     <ClInclude Include="Receiver.h" />
-    <ClInclude Include="RoomPacket.PROTO.pb.h" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="RoomPacket.Proto.pb.h" />
     <ClInclude Include="Sender.h" />
+    <ClInclude Include="SharedData.h" />
     <ClInclude Include="SockInfo.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
@@ -131,6 +135,7 @@
     <ClCompile Include="DBDisconnector.cpp" />
     <ClCompile Include="DBHandle.cpp" />
     <ClCompile Include="DBHandleStates.cpp" />
+    <ClCompile Include="DBHarvester.cpp" />
     <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="DBQuerier.cpp" />
     <ClCompile Include="Disconnector.cpp" />
@@ -141,11 +146,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Proactor.cpp" />
     <ClCompile Include="Receiver.cpp" />
-    <ClCompile Include="RoomPacket.PROTO.pb.cc" />
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="RoomPacket.Proto.pb.cc" />
     <ClCompile Include="Sender.cpp" />
     <ClCompile Include="SockInfo.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

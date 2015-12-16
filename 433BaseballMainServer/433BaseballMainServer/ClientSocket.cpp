@@ -1,7 +1,15 @@
 #include "stdafx.h"
 
 CClientSocket::CClientSocket()
-:stateMachine(this)
+:stateMachine(this),
+ bytePosition(0),
+ remainBytes(HEADER_SIZE),
+ payloadType(0),
+ payloadSize(0),
+ nickName(""),
+ securityCode(""),
+ currRoomNum(-1),
+ currState(PLAYER_STATE::LOBBY)
 {
 }
 
@@ -145,4 +153,187 @@ bool CClientSocket::InitBuf()
 	memset(sendBuf, 0, BUFSIZE);
 
 	return true;
+}
+
+void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, google::protobuf::uint32 size)
+{
+	protocol::CS_contact_alram contactAlramPacket;
+	protocol::CS_room_create roomCreatePacket;
+	protocol::CS_room_join roomJoinPacket;
+	protocol::CS_room_leave roomLeavePacket;
+	protocol::CS_room_info_request roomInfoRequestPacket;
+	protocol::CS_total_room_info_request totalRoomInfoRequestPacket;
+	protocol::CS_request_ingame_start ingameStartPacket;
+	protocol::CS_send_baseball_number sendBaseballNumPacket;
+	
+	std::string textFormat;
+
+	switch (type)
+	{
+	case protocol::PacketType::CS_CONTACT_ALRAM:
+		MYPRINTF("[RECV] CS_CONTACT_ALRAM PACKET !");
+		contactAlramPacket.ParseFromArray(buf, size);
+
+		this->nickName = contactAlramPacket.nickname();
+		this->securityCode = contactAlramPacket.securitycode();
+		CClientManager::GetInstance().AddUser(this);
+
+		textFormat = contactAlramPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		CClientManager::GetInstance().TotalUserInfoPrint();
+
+		break;
+	case protocol::PacketType::CS_ROOM_CREATE:
+		MYPRINTF("[RECV] CS_ROOM_CREATE PACKET !");
+		roomCreatePacket.ParseFromArray(buf, size);
+		
+		textFormat = roomCreatePacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+
+		break;
+	case protocol::PacketType::CS_ROOM_JOIN:
+		MYPRINTF("[RECV] CS_ROOM_JOIN PACKET !");
+		roomJoinPacket.ParseFromArray(buf, size);
+
+		textFormat = roomJoinPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		
+		break;
+	case protocol::PacketType::CS_ROOM_LEAVE:
+		MYPRINTF("[RECV] CS_ROOM_LEAVE PACKET !");
+		roomLeavePacket.ParseFromArray(buf, size);
+
+		textFormat = roomLeavePacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		
+		break;
+	case protocol::PacketType::CS_ROOM_INFO_REQUEST:
+		MYPRINTF("[RECV] CS_ROOM_INFO_REQUEST PACKET !");
+		roomInfoRequestPacket.ParseFromArray(buf, size);
+
+		textFormat = roomInfoRequestPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		
+		break;
+
+	case protocol::PacketType::CS_TOTAL_ROOM_INFO_REQUEST:
+		MYPRINTF("[RECV] CS_TOTAL_ROOM_INFO_REQUEST PACKET !");
+		totalRoomInfoRequestPacket.ParseFromArray(buf, size);
+
+		CClientManager::GetInstance().GetRoomManager()->SendTotalRoomInfo(this);
+
+		textFormat = totalRoomInfoRequestPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+
+		break;
+
+		break;
+	case protocol::PacketType::CS_REQUEST_INGAME_START:
+		MYPRINTF("[RECV] CS_REQUEST_INGAME_START PACKET !");
+		ingameStartPacket.ParseFromArray(buf, size);
+
+		textFormat = ingameStartPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		
+		break;
+	case protocol::PacketType::CS_SEND_BASEBALL_NUMBER:
+		MYPRINTF("[RECV] CS_SEND_BASEBALL_NUMBER PACKET !");
+		sendBaseballNumPacket.ParseFromArray(buf, size);
+
+		textFormat = sendBaseballNumPacket.DebugString();
+		MYPRINTF(textFormat.c_str());
+		
+		break;
+	}
+}
+
+void CClientSocket::RecvProcess(bool isError, CAct* act, DWORD bytes_transferred)
+{
+	if (isError){
+		MYPRINTF("Disconnect in Receiver ProcEvent() \n");
+		Disconnect();
+		return;
+	}
+
+	if (0 == bytes_transferred)
+	{
+		MYPRINTF("Disconnect in Receiver ProcEvent() \n");
+		Disconnect();
+		return;
+	}
+
+	bytePosition += bytes_transferred;
+	remainBytes -= bytes_transferred;
+
+	printf("[RECV] %d bytes_transferred\n", bytes_transferred);
+
+	char* buf = this->recvBuf;
+
+	if (bytePosition < HEADER_SIZE)
+	{
+		this->Recv(buf + bytePosition, remainBytes);
+	}
+	else
+	{
+		if (bytePosition == HEADER_SIZE)
+		{
+			protocol::PacketHeader header;
+			header.ParseFromArray(buf, HEADER_SIZE);
+		
+			payloadSize = header.size();
+			
+			if (payloadSize != 0)
+				remainBytes = payloadSize;
+
+			payloadType = header.type();
+		}
+		
+		if (remainBytes <= 0)
+		{
+			bytePosition = 0;
+			remainBytes = HEADER_SIZE;
+			
+			PacketHandling(buf, this->payloadType, this->payloadSize);
+		}
+
+		this->Recv(buf, remainBytes);
+	}
+}
+
+void CClientSocket::SendProcess(bool isError, CAct* act, DWORD bytes_transferred)
+{
+
+}
+
+void CClientSocket::AcceptProcess(bool isError, CAct* act, DWORD bytes_transferred)
+{
+	if (!isError)
+	{
+		MYPRINTF("Connect Client Success, %d\n", this->socket_);
+
+		Recv(this->recvBuf, HEADER_SIZE);
+	}
+	else
+	{
+		MYPRINTF("Client Socket AcceptProcess : Error : %d\n", WSAGetLastError());
+	}
+
+}
+
+void CClientSocket::DisconnProcess(bool isError, CAct* act, DWORD bytes_transferred)
+{
+	if (!isError)
+	{
+		MYPRINTF("Disconnect Client Success, %d\n", this->socket_);
+
+		CClientManager::GetInstance().DeleteUser(this);
+	}
+	else
+	{
+
+	}
+}
+void CClientSocket::ConnProcess(bool isError, CAct* act, DWORD bytes_transferred)
+{
+
 }

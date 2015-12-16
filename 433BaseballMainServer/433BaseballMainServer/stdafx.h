@@ -28,6 +28,15 @@
 #include <fstream>
 #include <process.h>
 
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <array>
+#include <list>
+#include <queue>
+#include <fstream>
+#include <process.h>
+
 #include <mysql.h>
 
 #include <algorithm>
@@ -54,8 +63,6 @@
 
 //----------------------------------------------------
 
-#define SERVERPORT					8000
-#define DB_PORT						3306
 #define BUFSIZE						1024
 #define SOCKET_POOL_SIZE			3000
 #define HEADER_SIZE					10
@@ -63,6 +70,8 @@
 #define WAIT_AVAILABLE_SOCKET_TIME	100
 #define DB_THREAD_POOL_SIZE			4
 #define DB_HANDLE_POOL_SIZE			8
+#define MAX_ROOM_PLAYERS			2
+#define MAX_ROOMS					100
 
 //----------------------------------------------------
 
@@ -83,7 +92,6 @@ class CDBIdle;
 class CDBWaitResult;
 
 class CDBManager;
-
 class CClientManager;
 
 class CActor;
@@ -97,6 +105,7 @@ struct CAcceptor;
 struct CDBConnector;
 struct CDBDisconnector;
 struct CDBQuerier;
+struct CDBHarvester;
 
 struct CProactor;
 
@@ -110,13 +119,17 @@ struct CAct;
 struct CClientAct;
 struct CDBAct;
 
+class CRoom;
+class CRoomManager;
+
 #define MYERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyErrorPrintf(A, typeid(this).name(), __FUNCTION__)
 #define MYSERVICEERRORPRINTF(A) CGlobalManager::GetInstance().logWriter.MyServiceErrorPrintf(A, __FUNCTION__)
 #define MYDBERRORPRINTF(A,B) CGlobalManager::GetInstance().logWriter.MyDBErrorPrintf(A,B, __FUNCTION__)
 #define MYPRINTF(A) CGlobalManager::GetInstance().logWriter.MyPrintf(A)
 
-#include "RoomPacket.PROTO.pb.h"
+#include "SharedData.h"
 #include "IngamePacket.PROTO.pb.h"
+#include "RoomPacket.PROTO.pb.h"
 
 #include "Utils.h"
 
@@ -148,11 +161,16 @@ struct CDBAct;
 #include "DBConnector.h"
 #include "DBDisconnector.h"
 #include "DBQuerier.h"
+#include "DBHarvester.h"
 
 #include "Proactor.h"
 
 #include "DBManager.h"
+
+#include "Room.h"
+#include "RoomManager.h"
 #include "ClientManager.h"
 
 #include "ClientSocketStates.h"
 #include "DBHandleStates.h"
+

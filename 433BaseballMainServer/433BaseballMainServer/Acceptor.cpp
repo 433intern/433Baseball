@@ -12,17 +12,17 @@ CAcceptor::~CAcceptor()
 
 bool CAcceptor::EventProc(CAct *act, DWORD receivedBytes)
 {
+	MYPRINTF("ACCEPTED !!");
+
 	CClientAct &tmpAct = *(CClientAct*)act;
 
 	CClientSocket &tmpSocket = *tmpAct.clientSocket;
 
 	CClientManager &clientManager = CClientManager::GetInstance();
-
+	
 	clientManager.proactor.Register((HANDLE)tmpSocket.sock);
-
-	MYPRINTF("ACCEPTED !!");
-
-	tmpSocket.Recv(tmpSocket.recvBuf, HEADER_SIZE);
+	
+	tmpSocket.AcceptProcess(false, act, receivedBytes);
 
 	return true;
 }
@@ -67,7 +67,6 @@ bool CAcceptor::Register(CClientSocket &clientSocket, int size)
 		BUFSIZE - ((sizeof (sockaddr_in)+16) << 1),
 		sizeof (sockaddr_in)+16, sizeof (sockaddr_in)+16,
 		&byteTransferred, static_cast<OVERLAPPED*>(&clientSocket.acts[CClientSocket::ACT_TYPE::ACCEPT]));
-
 	int error = WSAGetLastError();
 
 	if (!result)

@@ -57,8 +57,17 @@
     <Filter Include="소스 파일\Manager\GlobalManager">
       <UniqueIdentifier>{7d255809-185c-4988-b327-9e874af125cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ProtocolBuffer">
-      <UniqueIdentifier>{608cfb03-7a38-4509-b7c7-657e750db98a}</UniqueIdentifier>
+    <Filter Include="소스 파일\Protocol">
+      <UniqueIdentifier>{e9994d99-c99e-4b84-86ce-d479556a5555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\RoomManager">
+      <UniqueIdentifier>{ca652198-abb9-4df4-a791-87315383553e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\RoomManager\Room">
+      <UniqueIdentifier>{9da3420e-1216-4072-b988-4f203a4eba61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Proactor\HandlesOfIO\SockInfo\Client\Data">
+      <UniqueIdentifier>{02fb50b8-d7f5-4497-afb7-f3eafafafd3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +78,9 @@
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBDisconnector.h">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHarvester.h">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBQuerier.h">
@@ -149,11 +161,20 @@
     <ClInclude Include="targetver.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="IngamePacket.PROTO.pb.h">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+    <ClInclude Include="RoomManager.h">
+      <Filter>소스 파일\Manager\RoomManager</Filter>
     </ClInclude>
-    <ClInclude Include="RoomPacket.PROTO.pb.h">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+    <ClInclude Include="Room.h">
+      <Filter>소스 파일\Manager\RoomManager\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedData.h">
+      <Filter>소스 파일\Proactor\HandlesOfIO\SockInfo\Client\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="IngamePacket.PROTO.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.Proto.pb.h">
+      <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +235,9 @@
     <ClCompile Include="DBDisconnector.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
+    <ClCompile Include="DBHarvester.cpp">
+      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
+    </ClCompile>
     <ClCompile Include="DBQuerier.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
@@ -229,11 +253,17 @@
     <ClCompile Include="Utils.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="IngamePacket.PROTO.pb.cc">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>소스 파일\Manager\RoomManager</Filter>
     </ClCompile>
-    <ClCompile Include="RoomPacket.PROTO.pb.cc">
-      <Filter>소스 파일\ProtocolBuffer</Filter>
+    <ClCompile Include="Room.cpp">
+      <Filter>소스 파일\Manager\RoomManager\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="IngamePacket.PROTO.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomPacket.Proto.pb.cc">
+      <Filter>소스 파일\Protocol</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

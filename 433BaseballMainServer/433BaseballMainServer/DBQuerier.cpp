@@ -30,30 +30,16 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 	if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
 	{
-		MYDBERRORPRINTF(dbHandle->connTmp,"mysql_query");
+		MYERRORPRINTF("mysql_query");
 		return false;
 	}
-	else
-	{
-		MYSQL_RES *tmpRes;
-		unsigned int numFields;
-		unsigned int numRows;
 
-		tmpRes = mysql_store_result(realDBHandle);
-		if (tmpRes)
-		{
+	//--------------------------------------
 
-		}
-		else
-		{
-			if (mysql_field_count(realDBHandle))
-			{
-				MYDBERRORPRINTF(dbHandle->connTmp, "mysql_query");
-				return false;
-			}
-		}
-	}
 	dbHandle->stateMachine.ChangeState(CDBIdle::Instance());
+
+	//dbManager.HarvestEx(dbHandle);
+
 	return true;
 }
 

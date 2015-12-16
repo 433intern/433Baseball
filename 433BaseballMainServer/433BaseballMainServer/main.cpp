@@ -17,11 +17,13 @@ bool				TotalInitializer();
 
 bool RealMain()
 {
+	MYPRINTF("[Game Server] Start\n");
 	CDBManager		&dbManager = CDBManager::GetInstance();
 	CClientManager	&clientManager = CClientManager::GetInstance();
 	CGlobalManager	&global = CGlobalManager::GetInstance();
+	CRoomManager	&roomManager = CRoomManager::GetInstance();
 
-	WSADATA			wsa;
+	WSADATA				wsa;
 
 	std::string		tmpIp, tmpSchema, tmpDBUserName, tmpDBPassword;
 	std::string		tmpStasticalTableName, tmpMatchRecordTableName, tmpOverloadRecordTableName;
@@ -39,7 +41,7 @@ bool RealMain()
 
 	try
 	{
-		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpStasticalTableName >> tmpMatchRecordTableName 
+		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpStasticalTableName >> tmpMatchRecordTableName
 			>> tmpOverloadRecordTableName >> tmpDBUserName >> tmpDBPassword >> tmpMainServerPort;
 	}
 	catch (const std::ifstream::failure &e)
@@ -48,7 +50,7 @@ bool RealMain()
 		return false;
 	}
 
-	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpStasticalTableName, tmpMatchRecordTableName, 
+	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpStasticalTableName, tmpMatchRecordTableName,
 		tmpOverloadRecordTableName, tmpDBUserName, tmpDBPassword, tmpMainServerPort))
 	{
 		MYSERVICEERRORPRINTF("Initializer of CGlobalManager error");
@@ -211,6 +213,7 @@ bool TotalInitializer()
 
 	CDBManager		&dbManager = CDBManager::GetInstance();
 	CClientManager	&clientManager = CClientManager::GetInstance();
+	CGlobalManager	&globalManager = CGlobalManager::GetInstance();
 
 	GetSystemInfo(&systemInfo);
 
@@ -226,7 +229,8 @@ bool TotalInitializer()
 		return false;
 	}
 
-	if (!dbManager.FirstInitializer("10.100.58.5", "root", "1234", "433baseball"))
+	if (!dbManager.FirstInitializer(globalManager.dbServerIp, globalManager.dbUsername,
+		globalManager.dbPassword, globalManager.dbSchemaName))
 	{
 		MYPRINTF("error on FirstInitializer in _tmain : %d\n", GetLastError());
 		return false;

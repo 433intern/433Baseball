@@ -8,6 +8,7 @@ CClientManager::~CClientManager()
 		closesocket(tmpSock->sock);
 		delete tmpSock;
 	}
+	DeleteCriticalSection(&playersLock);
 }
 
 CClientManager &CClientManager::GetInstance()
@@ -18,6 +19,8 @@ CClientManager &CClientManager::GetInstance()
 
 bool CClientManager::FirstInitializer()
 {
+	InitializeCriticalSectionAndSpinCount(&playersLock, 4000);
+	
 	iocp = NULL;
 
 	return true;
@@ -77,6 +80,9 @@ bool CClientManager::SecondInitializer(const int &threadNum, const int &socketPo
 		return false;
 	}
 
+	roomManager = new CRoomManager();
+
+
 	return true;
 }
 
@@ -119,4 +125,39 @@ bool CClientManager::MakeSocketPool(const int &sockPoolSizeParam)
 	}
 
 	return true;
+}
+
+void CClientManager::AddUser(CClientSocket* pPlayer)
+{
+	EnterCriticalSection(&playersLock);
+
+	players.push_back(pPlayer);
+
+	LeaveCriticalSection(&playersLock);
+}
+
+void CClientManager::DeleteUser(CClientSocket* pPlayer)
+{
+	EnterCriticalSection(&playersLock);
+
+	players.remove(pPlayer);
+
+	LeaveCriticalSection(&playersLock);
+}
+
+void CClientManager::TotalUserInfoPrint()
+{
+	if (!players.empty())
+	{
+		printf("[Client Manager] Players In Server : %d players\n", players.size());
+
+		for (auto player : players)
+		{
+			printf("[Player Info]\n");
+			printf("ID : %s\n", player->nickName.c_str());
+			printf("Curr Room Number : %d room\n", player->currRoomNum);
+			printf("Curr Player State : %d\n", player->currState);
+			printf("\n");
+		}
+	}
 }

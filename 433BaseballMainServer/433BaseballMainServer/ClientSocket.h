@@ -12,6 +12,13 @@ struct CClientSocket : public CSockInfo
 		,TYPE_CNT
 	};
 
+	enum PLAYER_STATE
+	{
+		LOBBY,
+		INROOM,
+		INGAME
+	};
+
 	struct mswsock_s {
 		LPFN_CONNECTEX ConnectEx;
 	} mswsock;
@@ -34,6 +41,19 @@ struct CClientSocket : public CSockInfo
 
 	StateMachine<CClientSocket>		stateMachine;
 
+	int								bytePosition;
+	int								remainBytes;
+
+	google::protobuf::uint32		payloadType;
+	google::protobuf::uint32		payloadSize;
+
+	std::string						nickName;
+	std::string						securityCode;
+	int								currRoomNum;
+	short							currState;
+	PlayerStatus					status;
+	
+public:
 	CClientSocket();
 	~CClientSocket();
 
@@ -45,5 +65,17 @@ struct CClientSocket : public CSockInfo
 	bool Connect();
 	bool Disconnect();
 	bool InitBuf();
+
+	void PacketHandling(char* buf, google::protobuf::uint32 type, google::protobuf::uint32 size);
+
+	void RecvProcess(bool isError, CAct* act, DWORD bytes_transferred);
+	void SendProcess(bool isError, CAct* act, DWORD bytes_transferred);
+	void AcceptProcess(bool isError, CAct* act, DWORD bytes_transferred);
+	void DisconnProcess(bool isError, CAct* act, DWORD bytes_transferred);
+	void ConnProcess(bool isError, CAct* act, DWORD bytes_transferred);
+
+public:
+	void InitStatus(int winCount, int loseCount);
+	
 };
 
