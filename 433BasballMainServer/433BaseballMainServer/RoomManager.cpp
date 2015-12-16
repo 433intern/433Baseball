@@ -92,7 +92,8 @@ protocol::FailSignal CRoomManager::EnterRoom(CClientSocket* pPlayer, int roomNum
 	CRoom* room = FindRoom(roomNum);
 	if (room == nullptr)
 		return protocol::FailSignal::FS_NO_EXIST; 
-	if (MAX_ROOM_PLAYERS >= room->InRoomPlayerSize())
+
+	if (MAX_ROOM_PLAYERS <= room->InRoomPlayerSize())
 		return protocol::FailSignal::FS_FULL_ROOM;
 
 	EnterCriticalSection(&roomLock);
@@ -102,16 +103,16 @@ protocol::FailSignal CRoomManager::EnterRoom(CClientSocket* pPlayer, int roomNum
 	LeaveCriticalSection(&roomLock);
 	
 	TotalRoomInfoPrint();
+
+	return protocol::FailSignal::FS_SUCCESS;
 }
 
-bool CRoomManager::LeaveRoom(CClientSocket* pPlayer, int roomNum)
+protocol::FailSignal CRoomManager::LeaveRoom(CClientSocket* pPlayer, int roomNum)
 {
 	CRoom* room = FindRoom(roomNum);
 
 	if (room == nullptr)
-	{
-		return false;
-	}
+		return protocol::FailSignal::FS_NO_EXIST;
 
 	EnterCriticalSection(&roomLock);
 
@@ -121,18 +122,35 @@ bool CRoomManager::LeaveRoom(CClientSocket* pPlayer, int roomNum)
 
 	TotalRoomInfoPrint();
 
-	return true;
+	return protocol::FailSignal::FS_SUCCESS;
 }
 
+bool CRoomManager::SendRoomInfo(int roomNum)
+{
+	CRoom* room = FindRoom(roomNum);
+	
+	if (room == nullptr)
+	{
+		return false;
+	}
 
+	EnterCriticalSection(&roomLock);
+	
+	room->SendRoomSync();
+
+	LeaveCriticalSection(&roomLock);
+	
+	return true;
+}
 
 void CRoomManager::SendTotalRoomInfo(CClientSocket* pPlayer)
 {
 	EnterCriticalSection(&roomLock);
+	char* buf = pPlayer->sendBuf;
+	
 	protocol::PacketHeader header; 
 	protocol::SC_total_room_info totalRoomInfoPkt;
 
-	char* buf = pPlayer->sendBuf;
 
 	for (auto& room : rooms)
 	{
@@ -170,6 +188,44 @@ void CRoomManager::SendCreateRoomAck(CClientSocket* pPlayer, int roomNum , proto
 
 }
 
+void CRoomManager::SendJoinRoomAck(CClientSocket* pPlayer, int roomNum, protocol::FailSignal fs)
+{
+	char* buf = pPlayer->sendBuf;
+
+	protocol::PacketHeader header;
+
+	protocol::SC_room_join_result pkt;
+	pkt.set_failsignal(fs);
+	pkt.set_roomnum(roomNum);
+
+	header.set_size(pkt.ByteSize());
+	header.set_type(protocol::PacketType::SC_ROOM_JOIN_RESULT);
+
+	header.SerializeToArray(buf, header.ByteSize());
+	pkt.SerializeToArray(buf + header.ByteSize(), pkt.ByteSize());
+
+	pPlayer->Send(buf, header.ByteSize() + pkt.ByteSize());
+
+}
+void CRoomManager::SendLeaveRoomAck(CClientSocket* pPlayer, int roomNum, protocol::FailSignal fs)
+{
+	char* buf = pPlayer->sendBuf;
+
+	protocol::PacketHeader header;
+
+	protocol::SC_room_leave_result pkt;
+
+	pkt.set_failsignal(fs);
+
+	header.set_size(pkt.ByteSize());
+	header.set_type(protocol::PacketType::SC_ROOM_LEAVE_RESULT);
+
+	header.SerializeToArray(buf, header.ByteSize());
+	pkt.SerializeToArray(buf + header.ByteSize(), pkt.ByteSize());
+
+	pPlayer->Send(buf, header.ByteSize() + pkt.ByteSize());
+
+}
 void CRoomManager::TotalRoomInfoPrint()
 {
 	printf("[Room Manager] Current Room Total Info\n");

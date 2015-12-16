@@ -285,13 +285,23 @@ class CS_room_info_request : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // optional uint32 roomNum = 1;
+  inline bool has_roomnum() const;
+  inline void clear_roomnum();
+  static const int kRoomNumFieldNumber = 1;
+  inline ::google::protobuf::uint32 roomnum() const;
+  inline void set_roomnum(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.CS_room_info_request)
  private:
+  inline void set_has_roomnum();
+  inline void clear_has_roomnum();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::google::protobuf::uint32 roomnum_;
   friend void  protobuf_AddDesc_RoomPacket_2eproto();
   friend void protobuf_AssignDesc_RoomPacket_2eproto();
   friend void protobuf_ShutdownFile_RoomPacket_2eproto();
@@ -581,13 +591,23 @@ class CS_room_leave : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // optional uint32 roomNum = 1;
+  inline bool has_roomnum() const;
+  inline void clear_roomnum();
+  static const int kRoomNumFieldNumber = 1;
+  inline ::google::protobuf::uint32 roomnum() const;
+  inline void set_roomnum(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.CS_room_leave)
  private:
+  inline void set_has_roomnum();
+  inline void clear_has_roomnum();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::google::protobuf::uint32 roomnum_;
   friend void  protobuf_AddDesc_RoomPacket_2eproto();
   friend void protobuf_AssignDesc_RoomPacket_2eproto();
   friend void protobuf_ShutdownFile_RoomPacket_2eproto();
@@ -650,13 +670,23 @@ class CS_request_ingame_start : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // optional uint32 roomNum = 1;
+  inline bool has_roomnum() const;
+  inline void clear_roomnum();
+  static const int kRoomNumFieldNumber = 1;
+  inline ::google::protobuf::uint32 roomnum() const;
+  inline void set_roomnum(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:protocol.CS_request_ingame_start)
  private:
+  inline void set_has_roomnum();
+  inline void clear_has_roomnum();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::google::protobuf::uint32 roomnum_;
   friend void  protobuf_AddDesc_RoomPacket_2eproto();
   friend void protobuf_AssignDesc_RoomPacket_2eproto();
   friend void protobuf_ShutdownFile_RoomPacket_2eproto();
@@ -1448,6 +1478,30 @@ inline void CS_contact_alram::set_allocated_securitycode(::std::string* security
 
 // CS_room_info_request
 
+// optional uint32 roomNum = 1;
+inline bool CS_room_info_request::has_roomnum() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CS_room_info_request::set_has_roomnum() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CS_room_info_request::clear_has_roomnum() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CS_room_info_request::clear_roomnum() {
+  roomnum_ = 0u;
+  clear_has_roomnum();
+}
+inline ::google::protobuf::uint32 CS_room_info_request::roomnum() const {
+  // @@protoc_insertion_point(field_get:protocol.CS_room_info_request.roomNum)
+  return roomnum_;
+}
+inline void CS_room_info_request::set_roomnum(::google::protobuf::uint32 value) {
+  set_has_roomnum();
+  roomnum_ = value;
+  // @@protoc_insertion_point(field_set:protocol.CS_room_info_request.roomNum)
+}
+
 // -------------------------------------------------------------------
 
 // CS_total_room_info_request
@@ -1512,9 +1566,57 @@ inline void CS_room_join::set_roomnum(::google::protobuf::uint32 value) {
 
 // CS_room_leave
 
+// optional uint32 roomNum = 1;
+inline bool CS_room_leave::has_roomnum() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CS_room_leave::set_has_roomnum() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CS_room_leave::clear_has_roomnum() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CS_room_leave::clear_roomnum() {
+  roomnum_ = 0u;
+  clear_has_roomnum();
+}
+inline ::google::protobuf::uint32 CS_room_leave::roomnum() const {
+  // @@protoc_insertion_point(field_get:protocol.CS_room_leave.roomNum)
+  return roomnum_;
+}
+inline void CS_room_leave::set_roomnum(::google::protobuf::uint32 value) {
+  set_has_roomnum();
+  roomnum_ = value;
+  // @@protoc_insertion_point(field_set:protocol.CS_room_leave.roomNum)
+}
+
 // -------------------------------------------------------------------
 
 // CS_request_ingame_start
+
+// optional uint32 roomNum = 1;
+inline bool CS_request_ingame_start::has_roomnum() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CS_request_ingame_start::set_has_roomnum() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CS_request_ingame_start::clear_has_roomnum() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CS_request_ingame_start::clear_roomnum() {
+  roomnum_ = 0u;
+  clear_has_roomnum();
+}
+inline ::google::protobuf::uint32 CS_request_ingame_start::roomnum() const {
+  // @@protoc_insertion_point(field_get:protocol.CS_request_ingame_start.roomNum)
+  return roomnum_;
+}
+inline void CS_request_ingame_start::set_roomnum(::google::protobuf::uint32 value) {
+  set_has_roomnum();
+  roomnum_ = value;
+  // @@protoc_insertion_point(field_set:protocol.CS_request_ingame_start.roomNum)
+}
 
 // -------------------------------------------------------------------
 

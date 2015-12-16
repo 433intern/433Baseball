@@ -169,6 +169,7 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 	std::string textFormat;
 
 	protocol::FailSignal result;
+	bool isFind;
 
 	switch (type)
 	{
@@ -205,6 +206,10 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 	case protocol::PacketType::CS_ROOM_JOIN:
 		MYPRINTF("[RECV] CS_ROOM_JOIN PACKET !");
 		roomJoinPacket.ParseFromArray(buf, size);
+		
+		result = CClientManager::GetInstance().GetRoomManager()->EnterRoom(this, roomJoinPacket.roomnum());
+
+		CClientManager::GetInstance().GetRoomManager()->SendJoinRoomAck(this, roomJoinPacket.roomnum(), result);
 
 		textFormat = roomJoinPacket.DebugString();
 		MYPRINTF(textFormat.c_str());
@@ -214,6 +219,15 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 		MYPRINTF("[RECV] CS_ROOM_LEAVE PACKET !");
 		roomLeavePacket.ParseFromArray(buf, size);
 
+		result = CClientManager::GetInstance().GetRoomManager()->LeaveRoom(this, roomLeavePacket.roomnum());
+
+		CClientManager::GetInstance().GetRoomManager()->SendLeaveRoomAck(this, roomLeavePacket.roomnum(), result);
+
+		if (protocol::FailSignal::FS_SUCCESS == result)
+		{
+			CClientManager::GetInstance().GetRoomManager()->SendRoomInfo(roomLeavePacket.roomnum());
+		}
+
 		textFormat = roomLeavePacket.DebugString();
 		MYPRINTF(textFormat.c_str());
 		
@@ -221,6 +235,8 @@ void CClientSocket::PacketHandling(char* buf, google::protobuf::uint32 type, goo
 	case protocol::PacketType::CS_ROOM_INFO_REQUEST:
 		MYPRINTF("[RECV] CS_ROOM_INFO_REQUEST PACKET !");
 		roomInfoRequestPacket.ParseFromArray(buf, size);
+		
+		isFind = CClientManager::GetInstance().GetRoomManager()->SendRoomInfo(roomInfoRequestPacket.roomnum());
 
 		textFormat = roomInfoRequestPacket.DebugString();
 		MYPRINTF(textFormat.c_str());

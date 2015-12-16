@@ -32,10 +32,12 @@ public class LobbyActivity extends Activity {
     private LobbyRefreshTask lobbyUITask;
 
     private LinkedList<Button> btnList;
-    private  View.OnClickListener listner;
+    private View.OnClickListener listner;
     private String playerViewID = null;
     private PlayerStatus playerViewStatus = null;
     private String editRoomNum = null;
+
+    private boolean isCreate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +90,27 @@ public class LobbyActivity extends Activity {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(LobbyActivity.this, Integer.toString(v.getId()) + "번방으로 입장합니다.", Toast.LENGTH_SHORT).show();
+                final int roomNum = v.getId();
 
-                Intent intent = new Intent(LobbyActivity.this, RoomActivity.class);
-                intent.putExtra("ROOM_NUMBER", v.getId());
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        {
+                            RoomPacket.CS_room_join payload = RoomPacket.CS_room_join.newBuilder()
+                                    .setRoomNum(roomNum)
+                                    .build();
 
-                startActivity(intent);
+                            GamePacketEnumeration.PacketHeader header = GamePacketEnumeration.PacketHeader.newBuilder()
+                                    .setSize(payload.getSerializedSize())
+                                    .setType(GamePacketEnumeration.PacketType.CS_ROOM_JOIN_VALUE)
+                                    .build();
+
+                            BaseballApp.Instance().sendUnionPacket(header.toByteArray(), payload.toByteArray());
+                        }
+                    }
+                }).start();
+
+
             }
         };
 
@@ -108,26 +124,33 @@ public class LobbyActivity extends Activity {
         super.onResume();
         Toast.makeText(this, "onResume() 호출", Toast.LENGTH_SHORT).show();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                {
-//                    /// Lobby Total Room Info Request Send
-//                    RoomPacket.CS_total_room_info_request totalRoomPayload = RoomPacket.CS_total_room_info_request.newBuilder()
-//                            .build();
-//
-//                    GamePacketEnumeration.PacketHeader totalRoomHeader = GamePacketEnumeration.PacketHeader.newBuilder()
-//                            .setSize(totalRoomPayload.getSerializedSize())
-//                            .setType(GamePacketEnumeration.PacketType.CS_TOTAL_ROOM_INFO_REQUEST_VALUE)
-//                            .build();
-//
-//                    BaseballApp.Instance().sendUnionPacket(totalRoomHeader.toByteArray(), totalRoomPayload.toByteArray());
-//                }
-//
-//            }
-//        }).start();
 
+        if (isCreate) {
+            BaseballApp.Instance().setClientState(BaseballApp.CLIENT_STATE.LOBBY);
+            lobbyUITask = new LobbyRefreshTask();
+            lobbyUITask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"");
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    {
+                        /// Lobby Total Room Info Request Send
+                        RoomPacket.CS_total_room_info_request totalRoomPayload = RoomPacket.CS_total_room_info_request.newBuilder()
+                                .build();
+
+                        GamePacketEnumeration.PacketHeader totalRoomHeader = GamePacketEnumeration.PacketHeader.newBuilder()
+                                .setSize(totalRoomPayload.getSerializedSize())
+                                .setType(GamePacketEnumeration.PacketType.CS_TOTAL_ROOM_INFO_REQUEST_VALUE)
+                                .build();
+
+                        BaseballApp.Instance().sendUnionPacket(totalRoomHeader.toByteArray(), totalRoomPayload.toByteArray());
+                    }
+
+                }
+            }).start();
+        }
+
+        isCreate = true;
     }
 
     public void roomCreateBtnClicked(View v){
@@ -207,11 +230,20 @@ public class LobbyActivity extends Activity {
                 }
             }
         }
+
         @Override
         protected void onPostExecute(Object result)
         {
             super.onPostExecute(result);
 
+            int joinRoomNumber = BaseballApp.Instance().getMyPlayer().getRoomNumber();
+            Toast.makeText(LobbyActivity.this, Integer.toString(joinRoomNumber) + "번방으로 입장합니다.", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(LobbyActivity.this, RoomActivity.class);
+            intent.putExtra("ROOM_NUMBER", joinRoomNumber);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            startActivity(intent);
         }
     }
 

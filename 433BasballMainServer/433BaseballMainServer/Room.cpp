@@ -61,7 +61,7 @@ void CRoom::LeavePlayer(CClientSocket* pPlayer)
 	}
 	LeaveCriticalSection(&playerLock);
 	
-	SendRoomSync();
+	//SendRoomSync();
 
 }
 

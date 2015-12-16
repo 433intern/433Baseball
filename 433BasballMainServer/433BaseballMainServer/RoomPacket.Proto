@@ -16,6 +16,7 @@ message CS_contact_alram
 
 message CS_room_info_request
 {
+	optional   uint32           roomNum = 1;
 }
 
 message CS_total_room_info_request
@@ -34,11 +35,12 @@ message CS_room_join
 
 message CS_room_leave
 {
+	optional   uint32			roomNum = 1;
 }
 
 message CS_request_ingame_start
 {
-
+	optional   uint32			roomNum = 1;
 }
 
 message SC_contact_result

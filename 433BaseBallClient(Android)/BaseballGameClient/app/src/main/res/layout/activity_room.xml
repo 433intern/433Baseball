@@ -67,7 +67,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Empty"
             android:layout_weight="0.96"
-            android:id="@+id/textView11"
+            android:id="@+id/ROOM_ID_VIEW_1"
             android:textSize="30dp"
             android:singleLine="false"
             android:textAlignment="center"
@@ -82,7 +82,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Empty"
             android:layout_weight="1"
-            android:id="@+id/textView12"
+            android:id="@+id/ROOM_ID_VIEW_2"
             android:textSize="30dp"
             android:textAlignment="center" />
     </LinearLayout>

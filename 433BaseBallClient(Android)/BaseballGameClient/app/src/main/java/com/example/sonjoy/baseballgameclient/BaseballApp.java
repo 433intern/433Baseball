@@ -51,6 +51,7 @@ public class BaseballApp extends Application
 
         appInstance = this;
         rooms = new ArrayList<RoomInfo>();
+        inRoomPlayerIDs = new ArrayList<String>();
 
         Log.d("Global" , "onCreate()");
     }
@@ -87,6 +88,11 @@ public class BaseballApp extends Application
     // Lobby
     private boolean isLobbyRefresh = false;
     private ArrayList<RoomInfo> rooms = null;
+
+    // InRoom
+    private boolean isRoomRefresh = false;
+    private ArrayList<String> inRoomPlayerIDs = null;
+
 
     // Login Server
     private Socket mRefLoginSocket = null;
@@ -207,6 +213,25 @@ public class BaseballApp extends Application
                     isLobbyRefresh = true;
 
                     break;
+                case GamePacketEnumeration.PacketType.SC_ROOM_INFO_VALUE:
+                    try {
+                        RoomPacket.SC_room_info pkt = RoomPacket.SC_room_info.parseFrom(rcvBuf);
+
+                        inRoomPlayerIDs.clear();
+
+                        for(String id : pkt.getPlayerNickNamesList())
+                        {
+                            inRoomPlayerIDs.add(id);
+                        }
+
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
+
+                    isRoomRefresh = true;
+
+                    break;
                 case GamePacketEnumeration.PacketType.SC_ROOM_CREATE_RESULT_VALUE:
                     try {
                         RoomPacket.SC_room_create_result pkt = RoomPacket.SC_room_create_result.parseFrom(rcvBuf);
@@ -219,23 +244,42 @@ public class BaseballApp extends Application
 
                             isLobbyRefresh = true;
                         }
-                        else
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case GamePacketEnumeration.PacketType.SC_ROOM_JOIN_RESULT_VALUE:
+                    try {
+                        RoomPacket.SC_room_join_result pkt = RoomPacket.SC_room_join_result.parseFrom(rcvBuf);
+
+                        if(pkt.getFailSignal() == GamePacketEnumeration.FailSignal.FS_SUCCESS)
                         {
-
-
+                            myPlayer.setRoomNumber(pkt.getRoomNum());
+                            myState = CLIENT_STATE.ROOM;
                         }
 
                     } catch (InvalidProtocolBufferException e) {
                         e.printStackTrace();
                     }
 
-
                     break;
-                case GamePacketEnumeration.PacketType.SC_ROOM_JOIN_RESULT_VALUE:
 
-                    break;
                 case GamePacketEnumeration.PacketType.SC_ROOM_LEAVE_RESULT_VALUE:
 
+                    try {
+                        RoomPacket.SC_room_leave_result pkt = RoomPacket.SC_room_leave_result.parseFrom(rcvBuf);
+
+                        if(pkt.getFailSignal() == GamePacketEnumeration.FailSignal.FS_SUCCESS)
+                        {
+                            myPlayer.setRoomNumber(-1);
+                            myState = CLIENT_STATE.LOBBY;
+                        }
+
+                    } catch (InvalidProtocolBufferException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case GamePacketEnumeration.PacketType.SC_INGAME_START_RESULT_VALUE:
 
@@ -350,6 +394,8 @@ public class BaseballApp extends Application
     public void setAccountCreateSuccess(boolean isSuccess) { isAccountCreateSuccess = isSuccess;}
     public void setIsAccountRepeatCreate(boolean isRepeat) { isRepeatCreate = isRepeat; }
     public void setIsLobbyRefresh(boolean isRefresh) { this.isLobbyRefresh = isRefresh;}
+    public void setIsRoomRefresh(boolean isRefresh) { this.isRoomRefresh = isRefresh;}
+
     public void setClientState(CLIENT_STATE state) { myState = state;}
 
     public String getGameServerIP() { return GAME_SERVER_IP;}
@@ -357,11 +403,12 @@ public class BaseballApp extends Application
     public String getSercurityCode() { return securityCode; }
     public CLIENT_STATE getMyState() { return myState;}
     public ArrayList<RoomInfo> getRooms() { return rooms; }
-
+    public ArrayList<String> getPlayerIDs() { return inRoomPlayerIDs; }
 
     public boolean IsAccountCreateSuccess() { return isAccountCreateSuccess;}
     public boolean IsAccountRepeatCreate() { return isRepeatCreate; }
     public boolean IsLobbyRefresh() { return isLobbyRefresh; }
+    public boolean IsRoomRefresh() { return isRoomRefresh; }
 
     public boolean IsGameServerConnected()
     {
