@@ -24,7 +24,7 @@ bool RealMain()
 	WSADATA			wsa;
 
 	std::string		tmpLine;
-	std::string		tmpIp, tmpSchema, tmpSecurityTableName, tmpDBUserName, tmpDBPassword;
+	std::string		tmpIp, tmpSchema, tmpSecurityTableName, tmpStatisticTableName, tmpDBUserName, tmpDBPassword;
 	unsigned short  tmpDBPort = 0, tmpClientPort = 0, tmpLoginServerPort = 0;
 
 	std::ifstream	file;
@@ -39,7 +39,7 @@ bool RealMain()
 
 	try
 	{
-		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpSecurityTableName >> tmpDBUserName >> tmpDBPassword >> tmpClientPort >> tmpLoginServerPort;
+		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpSecurityTableName >> tmpStatisticTableName >> tmpDBUserName >> tmpDBPassword >> tmpClientPort >> tmpLoginServerPort;
 	}
 	catch (const std::ifstream::failure &e)
 	{
@@ -47,7 +47,7 @@ bool RealMain()
 		return false;
 	}
 
-	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpSecurityTableName, tmpDBUserName, tmpDBPassword, tmpClientPort, tmpLoginServerPort))
+	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpSecurityTableName, tmpStatisticTableName, tmpDBUserName, tmpDBPassword, tmpClientPort, tmpLoginServerPort))
 	{
 		MYSERVICEERRORPRINTF("Initializer of CGlobalManager error");
 		return false;

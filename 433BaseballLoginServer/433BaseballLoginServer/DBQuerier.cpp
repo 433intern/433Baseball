@@ -58,7 +58,6 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 			MYSQL_ROW row = mysql_fetch_row(tmpRes);
 
-
 			protocol::PacketHeader header;
 			protocol::LSC_login_result loginResult;
 			std::string resultPassword, resultId;
@@ -82,10 +81,50 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 				{
 					if (resultPassword == loginSock.loginRequest.password())
 					{
+						MYSQL_ROW midRow;
+
+						MYSQL_RES *tmpRes;
+						unsigned int numFields;
+						unsigned int numRows;
+
+						if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
+						{
+							MYDBERRORPRINTF(dbHandle->connTmp, "mysql_query");
+							return false;
+						}
+						else
+						{
+							tmpRes = mysql_store_result(realDBHandle);
+							if (tmpRes)
+							{
+								// There is some result : select
+
+								if (tmpRes->row_count > 1)
+								{
+									MYPRINTF("There is some duplicated id");
+									return false;
+								}
+
+								if (tmpRes->field_count != 2)
+								{
+									MYPRINTF("Your Query is not a select query, but your query want to get a result");
+									return false;
+								}
+
+								midRow = mysql_fetch_row(tmpRes);
+							}
+							else
+							{
+								MYDBERRORPRINTF(dbHandle->connTmp, "mysql_fetch_row");
+								return false;
+							}
+						}
 						loginResult.set_failsignal(protocol::FailSignal::UNKNOWN);
 						loginResult.set_ip(globalManager.dbServerIp);
 						loginResult.set_port(globalManager.clientPort);
 						loginResult.set_securitycode("1");
+						loginResult.set_wincnt(atoi(midRow[1]));
+						loginResult.set_losecnt(atoi(midRow[2]));
 					}
 					else
 					{

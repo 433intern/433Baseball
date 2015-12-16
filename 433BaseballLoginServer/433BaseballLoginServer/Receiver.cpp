@@ -70,7 +70,14 @@ bool CReceiver::EventProc(CAct *act, DWORD receivedBytes)
 
 		if (!dbManager.QueryEx(tmpStr, tmpSocket))
 		{
-			MYERRORPRINTF("QueryEx");
+			MYERRORPRINTF("QueryEx - insert new account");
+		}
+
+		tmpStr = "insert into " + globalManager.dbStatisticTableName + " values('" + accountCreate.id() + "'," + std::to_string(0) + "," + std::to_string(0) + ")";
+
+		if (!dbManager.QueryEx(tmpStr, tmpSocket))
+		{
+			MYERRORPRINTF("QueryEx - Initializing the new account");
 		}
 		//---------------------------------------------
 

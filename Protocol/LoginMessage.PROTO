@@ -35,6 +35,8 @@ message LSC_login_result
 	optional   string	    securityCode = 2;
 	optional   string	    ip = 3;
           optional   int32	    port = 4;
+	optional   int32	    winCnt = 5;
+	optional   int32	    loseCnt = 6;
 }
 
 message CLS_account_create

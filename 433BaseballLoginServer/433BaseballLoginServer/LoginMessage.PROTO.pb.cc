@@ -80,11 +80,13 @@ void protobuf_AssignDesc_LoginMessage_2ePROTO() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CLS_login_request));
   LSC_login_result_descriptor_ = file->message_type(2);
-  static const int LSC_login_result_offsets_[4] = {
+  static const int LSC_login_result_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, failsignal_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, securitycode_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, port_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, wincnt_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LSC_login_result, losecnt_),
   };
   LSC_login_result_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -179,17 +181,18 @@ void protobuf_AddDesc_LoginMessage_2ePROTO() {
     "\n\022LoginMessage.PROTO\022\010protocol\"*\n\014Packet"
     "Header\022\014\n\004size\030\001 \001(\007\022\014\n\004type\030\002 \001(\007\"1\n\021CL"
     "S_login_request\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030"
-    "\002 \001(\t\"l\n\020LSC_login_result\022(\n\nfailsignal\030"
-    "\001 \001(\0162\024.protocol.FailSignal\022\024\n\014securityC"
-    "ode\030\002 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\"2\n\022C"
-    "LS_account_create\022\n\n\002id\030\001 \001(\t\022\020\n\010passwor"
-    "d\030\002 \001(\t\"E\n\031LSC_account_create_result\022(\n\n"
-    "failSignal\030\001 \001(\0162\024.protocol.FailSignal*p"
-    "\n\nPacketType\022\025\n\021CLS_LOGIN_REQUEST\020\000\022\024\n\020L"
-    "SC_LOGIN_RESULT\020\001\022\026\n\022CLS_ACCOUNT_CREATE\020"
-    "\002\022\035\n\031LSC_ACCOUNT_CREATE_RESULT\020\003*N\n\nFail"
-    "Signal\022\013\n\007UNKNOWN\020\000\022\014\n\010NO_EXIST\020\001\022\021\n\rALR"
-    "EADY_EXIST\020\002\022\022\n\016WRONG_PASSWORD\020\003", 552);
+    "\002 \001(\t\"\215\001\n\020LSC_login_result\022(\n\nfailsignal"
+    "\030\001 \001(\0162\024.protocol.FailSignal\022\024\n\014security"
+    "Code\030\002 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\016\n\006"
+    "winCnt\030\005 \001(\005\022\017\n\007loseCnt\030\006 \001(\005\"2\n\022CLS_acc"
+    "ount_create\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001("
+    "\t\"E\n\031LSC_account_create_result\022(\n\nfailSi"
+    "gnal\030\001 \001(\0162\024.protocol.FailSignal*p\n\nPack"
+    "etType\022\025\n\021CLS_LOGIN_REQUEST\020\000\022\024\n\020LSC_LOG"
+    "IN_RESULT\020\001\022\026\n\022CLS_ACCOUNT_CREATE\020\002\022\035\n\031L"
+    "SC_ACCOUNT_CREATE_RESULT\020\003*N\n\nFailSignal"
+    "\022\013\n\007UNKNOWN\020\000\022\014\n\010NO_EXIST\020\001\022\021\n\rALREADY_E"
+    "XIST\020\002\022\022\n\016WRONG_PASSWORD\020\003", 586);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "LoginMessage.PROTO", &protobuf_RegisterTypes);
   PacketHeader::default_instance_ = new PacketHeader();
@@ -825,6 +828,8 @@ const int LSC_login_result::kFailsignalFieldNumber;
 const int LSC_login_result::kSecurityCodeFieldNumber;
 const int LSC_login_result::kIpFieldNumber;
 const int LSC_login_result::kPortFieldNumber;
+const int LSC_login_result::kWinCntFieldNumber;
+const int LSC_login_result::kLoseCntFieldNumber;
 #endif  // !_MSC_VER
 
 LSC_login_result::LSC_login_result()
@@ -850,6 +855,8 @@ void LSC_login_result::SharedCtor() {
   securitycode_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   port_ = 0;
+  wincnt_ = 0;
+  losecnt_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -901,8 +908,9 @@ void LSC_login_result::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(failsignal_, port_);
+    ZR_(wincnt_, losecnt_);
     if (has_securitycode()) {
       if (securitycode_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         securitycode_->clear();
@@ -996,6 +1004,36 @@ bool LSC_login_result::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_winCnt;
+        break;
+      }
+
+      // optional int32 winCnt = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_winCnt:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &wincnt_)));
+          set_has_wincnt();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_loseCnt;
+        break;
+      }
+
+      // optional int32 loseCnt = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_loseCnt:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &losecnt_)));
+          set_has_losecnt();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1056,6 +1094,16 @@ void LSC_login_result::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->port(), output);
   }
 
+  // optional int32 winCnt = 5;
+  if (has_wincnt()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->wincnt(), output);
+  }
+
+  // optional int32 loseCnt = 6;
+  if (has_losecnt()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->losecnt(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1099,6 +1147,16 @@ void LSC_login_result::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->port(), target);
   }
 
+  // optional int32 winCnt = 5;
+  if (has_wincnt()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->wincnt(), target);
+  }
+
+  // optional int32 loseCnt = 6;
+  if (has_losecnt()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->losecnt(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1136,6 +1194,20 @@ int LSC_login_result::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->port());
+    }
+
+    // optional int32 winCnt = 5;
+    if (has_wincnt()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->wincnt());
+    }
+
+    // optional int32 loseCnt = 6;
+    if (has_losecnt()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->losecnt());
     }
 
   }
@@ -1177,6 +1249,12 @@ void LSC_login_result::MergeFrom(const LSC_login_result& from) {
     if (from.has_port()) {
       set_port(from.port());
     }
+    if (from.has_wincnt()) {
+      set_wincnt(from.wincnt());
+    }
+    if (from.has_losecnt()) {
+      set_losecnt(from.losecnt());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1204,6 +1282,8 @@ void LSC_login_result::Swap(LSC_login_result* other) {
     std::swap(securitycode_, other->securitycode_);
     std::swap(ip_, other->ip_);
     std::swap(port_, other->port_);
+    std::swap(wincnt_, other->wincnt_);
+    std::swap(losecnt_, other->losecnt_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

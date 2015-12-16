@@ -15,7 +15,8 @@ CGlobalManager &CGlobalManager::GetInstance()
 }
 
 bool CGlobalManager::Initializer(const std::string &dbServerIp, const unsigned short dbPort, const std::string &dbSchema, 
-	const std::string &dbSecurityTableName, const std::string &dbUserName, const std::string &dbPassword, const unsigned short clientPort, const unsigned short loginServerPort)
+	const std::string &dbSecurityTableName, const std::string &dbStasticsTableName, const std::string &dbUserName, 
+	const std::string &dbPassword, const unsigned short clientPort, const unsigned short loginServerPort)
 {
 	if (clientPort < 1024)
 	{
@@ -29,6 +30,7 @@ bool CGlobalManager::Initializer(const std::string &dbServerIp, const unsigned s
 	this->dbUsername = dbUserName;
 	this->dbPassword = dbPassword;
 	this->dbSecurityTableName = dbSecurityTableName;
+	this->dbStatisticTableName = dbStasticsTableName;
 	this->loginServerPort = loginServerPort;
 	this->dbPort = dbPort;
 
