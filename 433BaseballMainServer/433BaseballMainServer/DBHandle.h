@@ -13,7 +13,6 @@ struct CDBHandle
 	CDBConnector			*connector;
 	CDBDisconnector			*disconnector;
 	CDBQuerier				*querier;
-	CDBHarvester			*harvester;
 
 	std::string				dbHost, dbUser, dbPasswd, dbSchema;
 	std::string				queryStr;
@@ -43,6 +42,6 @@ private:
 							const std::string &userPassword, const std::string &schemaName);
 
 	bool			InitActs(CProactor *proactorParam, CDBConnector *connectorParam, CDBDisconnector *disconnectorParam,
-							CDBQuerier *querierParam, CDBHarvester *harvesterParam);
+							CDBQuerier *querierParam);
 };
 

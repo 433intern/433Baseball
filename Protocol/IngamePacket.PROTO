@@ -1,6 +1,26 @@
 package IngamePacket;
 
-import "GamePacketEnumeration.PROTO";
+enum PacketType
+{
+	UNKNOWN = 0;
+
+	// INGAME
+	CS_SEND_BASEBALL_NUMBER = 1;
+	SC_INGAME_START_SUCCESS = 2;
+	SC_INGAME_START_FAILED = 3;
+	SC_RECEIVE_BASEBALL_NUMBER_SUCCESS = 4;
+	SC_RECEIVE_BASEBALL_NUMBER_FAILED = 5;
+	SC_GIVE_TURN = 6;
+	SC_WAIT_TURN = 7;
+	SC_INGAME_END = 8;
+}
+
+enum FailSignal
+{
+	NO_EXIST = 0;
+	FULL_ROOM = 1;
+	EXIST_REPETITION_NUMBER = 2;
+}
 
 message CS_send_baseball_number
 {

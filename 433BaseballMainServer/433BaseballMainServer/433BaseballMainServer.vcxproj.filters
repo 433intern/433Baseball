@@ -57,6 +57,9 @@
     <Filter Include="소스 파일\Manager\GlobalManager">
       <UniqueIdentifier>{7d255809-185c-4988-b327-9e874af125cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ProtocolBuffer">
+      <UniqueIdentifier>{608cfb03-7a38-4509-b7c7-657e750db98a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,9 +69,6 @@
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBDisconnector.h">
-      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
-    </ClInclude>
-    <ClInclude Include="DBHarvester.h">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClInclude>
     <ClInclude Include="DBQuerier.h">
@@ -149,6 +149,12 @@
     <ClInclude Include="targetver.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IngamePacket.PROTO.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPacket.PROTO.pb.h">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBManager.cpp">
@@ -208,9 +214,6 @@
     <ClCompile Include="DBDisconnector.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
-    <ClCompile Include="DBHarvester.cpp">
-      <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
-    </ClCompile>
     <ClCompile Include="DBQuerier.cpp">
       <Filter>소스 파일\Proactor\ChildrenOfActor\DBActors</Filter>
     </ClCompile>
@@ -225,6 +228,12 @@
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="IngamePacket.PROTO.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomPacket.PROTO.pb.cc">
+      <Filter>소스 파일\ProtocolBuffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

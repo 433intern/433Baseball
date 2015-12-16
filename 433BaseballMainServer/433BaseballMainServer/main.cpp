@@ -21,7 +21,39 @@ bool RealMain()
 	CClientManager	&clientManager = CClientManager::GetInstance();
 	CGlobalManager	&global = CGlobalManager::GetInstance();
 
-	WSADATA				wsa;
+	WSADATA			wsa;
+
+	std::string		tmpIp, tmpSchema, tmpDBUserName, tmpDBPassword;
+	std::string		tmpStasticalTableName, tmpMatchRecordTableName, tmpOverloadRecordTableName;
+	unsigned short  tmpDBPort = 0, tmpMainServerPort = 0;
+
+	std::ifstream	file;
+
+	file.open("433Baseball_config.cfg");
+
+	if (!file)
+	{
+		MYPRINTF("File openning failed no RealMain");
+		return false;
+	}
+
+	try
+	{
+		file >> tmpIp >> tmpDBPort >> tmpSchema >> tmpStasticalTableName >> tmpMatchRecordTableName 
+			>> tmpOverloadRecordTableName >> tmpDBUserName >> tmpDBPassword >> tmpMainServerPort;
+	}
+	catch (const std::ifstream::failure &e)
+	{
+		MYSERVICEERRORPRINTF("ifstream read failed on realmain function : %s", e.what());
+		return false;
+	}
+
+	if (!global.Initializer(tmpIp, tmpDBPort, tmpSchema, tmpStasticalTableName, tmpMatchRecordTableName, 
+		tmpOverloadRecordTableName, tmpDBUserName, tmpDBPassword, tmpMainServerPort))
+	{
+		MYSERVICEERRORPRINTF("Initializer of CGlobalManager error");
+		return false;
+	}
 
 	if (NULL != WSAStartup(MAKEWORD(2, 2), &wsa))
 	{

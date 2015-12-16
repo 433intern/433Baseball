@@ -52,7 +52,6 @@ bool CDBManager::SecondInitializer(const int &threadNumParam, const int &handleN
 	connector.Initializer();
 	disconnector.Initializer();
 	querier.Initializer();
-	harvester.Initializer();
 
 	//----------------------------------------------------------
 
@@ -70,16 +69,8 @@ bool CDBManager::SecondInitializer(const int &threadNumParam, const int &handleN
 	// For using Korean
 	/*Query("set session character_set_connection=euckr;");
 	Query("set session character_set_results=euckr;");
-	Query("set session character_set_client=euckr;");*/
-
-	// Printing the result
-	/*sqlResult = mysql_store_result(connection);
-	while ((sqlRow = mysql_fetch_row(sqlResult)) != NULL)
-	{
-	printf("%2s %2s %s\n", sqlRow[0], sqlRow[1], sqlRow[2]);
-	}
-	mysql_free_result(sqlResult);*/
-
+	Query("set session character_set_login=euckr;");*/
+	
 	return true;
 }
 
@@ -98,7 +89,7 @@ bool CDBManager::CreateDBHandlePool(const int &handleNumParam)
 	{
 		tmpDbHandle = new CDBHandle();
 
-		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier, &harvester))
+		if (!tmpDbHandle->InitActs(&proactor, &connector, &disconnector, &querier))
 		{
 			MYERRORPRINTF("InitActs");
 			return false;
@@ -169,13 +160,6 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 		MYPRINTF("Error : The DB Handle is already available !\n");
 		return false;
 	}
-	else if (CDBClosed::Instance() == param->stateMachine.CurrentState())
-	{
-		MYPRINTF("Error : The DB Handle has been closed !\n");
-		return false;
-	}
-
-	param->stateMachine.ChangeState(CDBIdle::Instance());
 
 	if (!ReleaseSemaphore(dbHandleSema, 1, NULL))
 	{
@@ -188,9 +172,9 @@ bool CDBManager::ReleaseHandle(CDBHandle *param)
 	return true;
 }
 
-bool CDBManager::QueryEx(const char *str)
+bool CDBManager::QueryEx(std::string &str)
 {
-	if (NULL == str)
+	if ("" == str)
 	{
 		MYPRINTF("The string pointer of parameter in QueryEx of CDBManager is NULL!\n");
 		return false;
@@ -204,6 +188,12 @@ bool CDBManager::QueryEx(const char *str)
 		return false;
 	}
 
+	if (CDBIdle::Instance() != dbHandle->stateMachine.CurrentState())
+	{
+		MYPRINTF("The available DB handle is not in idle state !\n");
+		return false;
+	}
+
 	dbHandle->queryStr = str;
 	CDBAct *tmpAct = &dbHandle->acts[CDBHandle::DB_ACK_TYPE::QUERY];
 	tmpAct->dbHandle = dbHandle;
@@ -214,33 +204,7 @@ bool CDBManager::QueryEx(const char *str)
 		return false;
 	}
 
-	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
-
-	return true;
-}
-
-bool CDBManager::HarvestEx(CDBHandle *param)
-{
-	if (NULL == param)
-	{
-		MYPRINTF("The DBHandle of parameter in HarvestEx of CDBManager is NULL!\n");
-		return false;
-	}
-
-	if (CDBWaitResult::Instance() != param->stateMachine.CurrentState())
-	{
-		MYPRINTF("If you wish to use this HarvestEx function, this DB handle must be in the WaitResult state\n");
-		return false;
-	}
-
-	CDBAct *tmpAct = &param->acts[CDBHandle::DB_ACK_TYPE::HARVEST];
-	tmpAct->dbHandle = param;
-
-	if (NULL == tmpAct)
-	{
-		MYPRINTF("The act of parameter in HarvestEx of CDBManager is NULL!\n");
-		return false;
-	}
+	dbHandle->stateMachine.ChangeState(CDBWaitResult::Instance());
 
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 
@@ -301,4 +265,163 @@ bool CDBManager::DisconnectEx(CDBHandle *param)
 	PostQueuedCompletionStatus(proactor.iocp, NULL, NULL, static_cast<OVERLAPPED*>(tmpAct));
 
 	return true;
+}
+
+// Async fucntion
+bool CDBManager::InsertMatchResultEx(const std::string &looserID, const std::string &winnerID,
+	int looserScore, int winnerScore, const std::string &timeStamp)
+{
+	if (0 > winnerScore)
+	{
+		MYPRINTF("winnerScore is negative !");
+
+		return false;
+	}
+
+	if (0 > looserScore)
+	{
+		MYPRINTF("looserScore is negative !");
+
+		return false;
+	}
+
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
+	CDBManager &dbManager = CDBManager::GetInstance();
+
+	std::string queryStr = "insert into " + globalManager.dbMatchRecordTableName +
+		"values ('" + looserID + "','" + winnerID + "'," + std::to_string(looserScore) + "," +
+		std::to_string(winnerScore) + ")";
+
+	if (!dbManager.QueryEx(queryStr))
+	{
+		MYERRORPRINTF("QueryEx");
+		return false;
+	}
+
+	return true;
+}
+
+// Async fucntion
+bool CDBManager::InsertOverloadRecordEx(const std::string &timeStamp, int totalUserCnt)
+{
+	if (0 > totalUserCnt)
+	{
+		MYPRINTF("totalUserCnt is negative !");
+
+		return false;
+	}
+
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
+	CDBManager &dbManager = CDBManager::GetInstance();
+
+	std::string queryStr = "insert into " + globalManager.dbOverloadRecordTableName +
+		"values ('" + timeStamp + "','" + std::to_string(totalUserCnt) + ")";
+
+	if (!dbManager.QueryEx(queryStr))
+	{
+		MYERRORPRINTF("QueryEx");
+		return false;
+	}
+
+	return true;
+}
+
+// Sync function
+std::pair<int, int> CDBManager::GetOnesStastics(const std::string onesID)
+{
+	std::pair<int, int> resultPair = std::make_pair(-1, -1);
+
+	CDBManager &dbManager = CDBManager::GetInstance();
+
+	CGlobalManager &globalManager = CGlobalManager::GetInstance();
+
+	CDBHandle *dbHandle = dbManager.GetAvailableHandle();
+
+	MYSQL *realDBHandle = dbHandle->dbConnection;
+
+	// The Query Statment
+	std::string queryStr = "select * from " + globalManager.dbStasticalTableName
+		+ " where id = '" + onesID + "'";
+
+	if (NULL == realDBHandle)
+	{
+		MYERRORPRINTF("realDBHandle is NULL");
+
+		dbManager.ReleaseHandle(dbHandle);
+		return resultPair;
+	}
+
+	if (mysql_query(realDBHandle, queryStr.c_str()))
+	{
+		MYDBERRORPRINTF(dbHandle->connTmp, "mysql_query");
+
+		dbManager.ReleaseHandle(dbHandle);
+		return resultPair;
+	}
+	else
+	{
+		MYSQL_RES *tmpRes;
+		unsigned int numFields;
+		unsigned int numRows;
+
+		tmpRes = mysql_store_result(realDBHandle);
+		if (tmpRes)
+		{
+			// There is some result
+
+			if (tmpRes->row_count > 1)
+			{
+				MYPRINTF("There is some duplicated id");
+
+				dbManager.ReleaseHandle(dbHandle);
+				return resultPair;
+			}
+
+			if (tmpRes->field_count != 3)
+			{
+				MYPRINTF("Your Query is not a select query, but your query want to get a result");
+
+				dbManager.ReleaseHandle(dbHandle);
+				return resultPair;
+			}
+
+			MYSQL_ROW row = mysql_fetch_row(tmpRes);
+
+			int winCnt = atoi(row[1]);
+			if (0 > winCnt)
+			{
+				MYPRINTF("win Cnt is negative !");
+
+				dbManager.ReleaseHandle(dbHandle);
+				return resultPair;
+			}
+
+			int loseCnt = atoi(row[2]);
+			if (0 > loseCnt)
+			{
+				MYPRINTF("lose Cnt is negative !");
+
+				dbManager.ReleaseHandle(dbHandle);
+				return resultPair;
+			}
+
+			dbManager.ReleaseHandle(dbHandle);
+			return std::make_pair(winCnt, loseCnt);
+		}
+		else
+		{
+			if (mysql_field_count(realDBHandle))
+			{
+				MYDBERRORPRINTF(dbHandle->connTmp, "mysql_query");
+
+				dbManager.ReleaseHandle(dbHandle);
+				return resultPair;
+			}
+		}
+	}
+
+	dbManager.ReleaseHandle(dbHandle);
+	return resultPair;
 }
