@@ -58,6 +58,7 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 
 			MYSQL_ROW row = mysql_fetch_row(tmpRes);
 
+
 			protocol::PacketHeader header;
 			protocol::LSC_login_result loginResult;
 			std::string resultPassword, resultId;
@@ -72,52 +73,58 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 			{
 				loginResult.set_failsignal(protocol::FailSignal::NO_EXIST);
 				MYPRINTF("The id of your login request is a wrong id !");
+				mysql_free_result(tmpRes);
 			}
 			else
 			{
 				resultPassword = row[1];
 				resultId = row[0];
+				mysql_free_result(tmpRes);
 				if (resultId == loginSock.loginRequest.id())
 				{
 					if (resultPassword == loginSock.loginRequest.password())
 					{
 						MYSQL_ROW midRow;
 
-						MYSQL_RES *tmpRes;
+						MYSQL_RES *tmpRes2;
 						unsigned int numFields;
 						unsigned int numRows;
 
-						if (mysql_query(realDBHandle, dbHandle->queryStr.c_str()))
+						std::string tmpStr = "select * from " + globalManager.dbStatisticTableName + " where id = '" + resultId + "'";
+
+						if (mysql_query(realDBHandle, tmpStr.c_str()))
 						{
 							MYDBERRORPRINTF(dbHandle->connTmp, "mysql_query");
 							return false;
 						}
 						else
 						{
-							tmpRes = mysql_store_result(realDBHandle);
-							if (tmpRes)
+							tmpRes2 = mysql_store_result(realDBHandle);
+							if (tmpRes2)
 							{
 								// There is some result : select
 
-								if (tmpRes->row_count > 1)
+								if (tmpRes2->row_count > 1)
 								{
 									MYPRINTF("There is some duplicated id");
 									return false;
 								}
 
-								if (tmpRes->field_count != 2)
+								if (tmpRes2->field_count != 3)
 								{
 									MYPRINTF("Your Query is not a select query, but your query want to get a result");
 									return false;
 								}
 
-								midRow = mysql_fetch_row(tmpRes);
+								midRow = mysql_fetch_row(tmpRes2);
 							}
 							else
 							{
 								MYDBERRORPRINTF(dbHandle->connTmp, "mysql_fetch_row");
 								return false;
 							}
+
+							mysql_free_result(tmpRes2);
 						}
 						loginResult.set_failsignal(protocol::FailSignal::UNKNOWN);
 						loginResult.set_ip(globalManager.dbServerIp);
@@ -138,8 +145,6 @@ bool CDBQuerier::EventProc(CAct *act, DWORD receivedBytes)
 					return false;
 				}
 			}
-
-			mysql_free_result(tmpRes);
 
 			header.set_size(loginResult.ByteSize());
 			int bufSize = header.ByteSize();
