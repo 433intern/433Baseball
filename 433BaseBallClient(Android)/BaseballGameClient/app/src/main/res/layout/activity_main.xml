@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="로그인"
+            android:id="@+id/LoginTitle"
+            android:layout_gravity="center_horizontal"
+            android:textSize="40dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="ID"
+            android:id="@+id/LOGIN_ID"
+            android:phoneNumber="false" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LOGIN_ID_EDIT"
+            android:singleLine="true"
+            android:layout_weight="0.18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="PASSWORD"
+            android:id="@+id/LOGIN_PASSWORD" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LOGIN_PASSWORD_EDIT"
+            android:singleLine="true"
+            android:layout_weight="0.18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.06">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/LoginBtn"
+            android:layout_gravity="center_horizontal"
+            android:onClick="loginBtnClicked" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계정 생성 창"
+            android:id="@+id/AccountCreateBtn"
+            android:layout_gravity="center_horizontal"
+            android:onClick="accountCreateBtnClicked" />
+
+    </LinearLayout>
+
+</LinearLayout>

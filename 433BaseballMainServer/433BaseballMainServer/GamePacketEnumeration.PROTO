@@ -1,0 +1,41 @@
+package protocol;
+
+enum PacketType
+{
+	UNKNOWN = 0;
+
+	// LOBBY
+	CS_ROOM_CREATE = 1;
+	CS_ROOM_JOIN = 2;
+	SC_ROOM_CREATE_RESULT = 3;
+	SC_ROOM_JOIN_RESULT = 4;
+
+	// ROOM
+	CS_ROOM_LEAVE = 5;
+	CS_REQUEST_INGAME_START = 6;
+	CS_ROOM_INFO_REQUEST = 7;
+	SC_ROOM_LEAVE_RESULT = 8;
+	SC_INGAME_START_RESULT = 9;
+	SC_ROOM_INFO_REQUEST_RESPONSE = 10;
+
+	// INGAME
+	CS_SEND_BASEBALL_NUMBER = 11;
+	SC_RECEIVE_BASEBALL_NUMBER_RESULT = 12;
+	SC_GIVE_TURN = 13;
+	SC_WAIT_TURN = 14;
+	SC_INGAME_END = 15;
+}
+
+enum FailSignal
+{
+	NO_EXIST = 0;
+	FULL_ROOM = 1;
+	EXIST_REPETITION_NUMBER = 2;
+}
+
+
+message PacketHeader
+{
+	optional fixed32 size = 1;
+	optional fixed32 type = 2;
+}
