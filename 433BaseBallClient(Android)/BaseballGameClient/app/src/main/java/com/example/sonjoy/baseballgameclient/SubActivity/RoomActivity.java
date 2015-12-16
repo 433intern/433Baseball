@@ -138,6 +138,11 @@ public class RoomActivity extends Activity {
             idViews[0] = (TextView)findViewById(R.id.ROOM_ID_VIEW_1);
             idViews[1] = (TextView)findViewById(R.id.ROOM_ID_VIEW_2);
 
+            for(int i = 0 ; i < 2; ++i)
+            {
+                idViews[i].setText("Empty");
+            }
+
             int index = 0;
             for(String id : BaseballApp.Instance().getPlayerIDs())
             {
